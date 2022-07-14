@@ -24,8 +24,6 @@ export class BoardService {
     if (boardExists)
       throw new BadRequestException('Already board exists with same title');
 
-    console.log(userId);
-
     const owner = await this.userRepository.findOne({ id: userId });
 
     const newBoard = this.boardRepository.create(createBoardDto);

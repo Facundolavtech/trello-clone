@@ -1,7 +1,6 @@
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Card } from '../boards/cards/entities/card.entity';
 import { Board } from '../boards/entities/board.entity';
 import { createTestDatabase } from '../config/database';
 import { User } from '../users/entities/user.entity';
