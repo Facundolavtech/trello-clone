@@ -12,6 +12,7 @@
   },
   "name": "thullo",
   "scripts": {
+    "start:dev": "lerna run start:dev --stream",
     "prepare": "husky install",
     "setup": "npm install && lerna bootstrap"
   },
