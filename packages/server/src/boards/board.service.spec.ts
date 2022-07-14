@@ -2,12 +2,10 @@ import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { createTestConfiguration } from '../../test/db';
+import { createTestDatabase } from '../config/database';
 import { User } from '../users/entities/user.entity';
 import { BoardService } from './board.service';
-import { Card } from './cards/entities/card.entity';
 import { Board } from './entities/board.entity';
-import { List } from './lists/entities/list.entity';
 
 describe('BoardService', () => {
   let module: TestingModule;
@@ -17,10 +15,7 @@ describe('BoardService', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot(createTestConfiguration([Board, User, List])),
-        TypeOrmModule.forFeature([Board, User]),
-      ],
+      imports: [createTestDatabase, TypeOrmModule.forFeature([Board, User])],
       providers: [BoardService],
     }).compile();
 
@@ -55,7 +50,7 @@ describe('BoardService', () => {
 
   it('It should create a board, then search for it by its id and find it', async () => {
     const testUser = userRepository.create({
-      email: 'test@test.com',
+      email: 'test2@test.com',
       username: 'Test user',
       name: 'Test User',
     });
@@ -79,7 +74,7 @@ describe('BoardService', () => {
     };
 
     expect(response()).rejects.toEqual(
-      new BadRequestException('A board exists with this title'),
+      new BadRequestException('Already board exists with same title'),
     );
   });
 

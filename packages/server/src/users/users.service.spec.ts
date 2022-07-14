@@ -3,9 +3,7 @@ import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
-import { createTestConfiguration } from '../../test/db';
-import { Board } from '../boards/entities/board.entity';
-import { List } from '../boards/lists/entities/list.entity';
+import { createTestDatabase } from '../config/database';
 
 describe('UsersService', () => {
   let module: TestingModule;
@@ -14,11 +12,7 @@ describe('UsersService', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot(createTestConfiguration([User, Board, List])),
-        TypeOrmModule.forFeature([User]),
-      ],
-
+      imports: [createTestDatabase, TypeOrmModule.forFeature([User])],
       providers: [UsersService],
     }).compile();
 

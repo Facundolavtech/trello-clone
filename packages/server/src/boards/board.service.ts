@@ -16,22 +16,23 @@ export class BoardService {
     @InjectRepository(Board) private boardRepository: Repository<Board>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
-  async create(createBoardDto: CreateBoardDto, id: string) {
+  async create(createBoardDto: CreateBoardDto, userId: string) {
     const boardExists = await this.boardRepository.findOne({
       title: createBoardDto.title,
     });
 
     if (boardExists)
-      throw new BadRequestException('A board exists with this title');
+      throw new BadRequestException('Already board exists with same title');
 
-    const owner = await this.userRepository.findOne(id);
+    console.log(userId);
+
+    const owner = await this.userRepository.findOne({ id: userId });
 
     const newBoard = this.boardRepository.create(createBoardDto);
     newBoard.members = [owner];
     newBoard.admins = [owner];
 
     await this.boardRepository.save(newBoard);
-    await this.userRepository.save(owner);
 
     return newBoard;
   }

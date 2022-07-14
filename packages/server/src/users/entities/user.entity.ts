@@ -1,11 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, ManyToMany } from 'typeorm';
+import { Card } from '../../boards/cards/entities/card.entity';
 import { Board } from '../../boards/entities/board.entity';
+import { BaseEntity } from '../../core/base.entity';
 
 @Entity('user')
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export class User extends BaseEntity {
   @Column({ default: 'google' })
   provider: string;
 
@@ -24,9 +23,12 @@ export class User {
   @Column({ nullable: true })
   picture: string;
 
-  @ManyToMany(() => Board, (board) => board.members)
+  @ManyToMany(() => Board, (board) => board.members, { onDelete: 'CASCADE' })
   boards: Board[];
 
-  @ManyToMany(() => Board, (board) => board.admins)
+  @ManyToMany(() => Board, (board) => board.admins, { onDelete: 'CASCADE' })
   admins: Board[];
+
+  @ManyToMany(() => Card, (card) => card.members, { onDelete: 'CASCADE' })
+  cards: Card[];
 }

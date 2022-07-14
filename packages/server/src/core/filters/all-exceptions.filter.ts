@@ -9,18 +9,20 @@ import { Response } from 'express';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
-    const context = host.switchToHttp();
-    const response = context.getResponse<Response>();
+  catch(exception: any, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response: Response = ctx.getResponse();
+
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
+    const message = exception.sqlMessage || exception.response || exception;
 
-    response.status(status).json({
+    return response.status(status).json({
       statusCode: status,
-      message: status === 500 ? 'Internal server error' : exception.message,
-      timestamp: new Date().toISOString(),
+      message: status === 500 ? 'Internal server error' : message.message,
+      timestamp: new Date(Date.now()),
     });
   }
 }

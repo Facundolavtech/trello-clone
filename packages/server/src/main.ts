@@ -8,9 +8,9 @@ import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
-  app.setGlobalPrefix('api/v1');
-  app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new AllExceptionsFilter());
+  app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  // app.useGlobalFilters(new AllExceptionsFilter());
 
   const port: number = Number(process.env.PORT) || 8000;
 

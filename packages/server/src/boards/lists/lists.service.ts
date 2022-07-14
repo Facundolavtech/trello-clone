@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { find } from 'rxjs';
 import { Repository } from 'typeorm';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
@@ -38,7 +39,16 @@ export class ListsService {
   }
 
   async findAll(boardId: string) {
-    const lists = await this.listRepository.find({ where: { board: boardId } });
+    const lists = await this.listRepository.find({
+      where: { board: boardId },
+      relations: [
+        'cards',
+        'cards.members',
+        'cards.comments',
+        'cards.attachments',
+        'cards.labels',
+      ],
+    });
 
     return lists;
   }

@@ -1,27 +1,57 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+import { BaseEntity } from '../../../core/base.entity';
 import { User } from '../../../users/entities/user.entity';
+import { List } from '../../lists/entities/list.entity';
+import { CardAttachment } from './card-attachment.entity';
+import { CardComment } from './card-comment.entity';
+import { CardLabel } from './card-label.entity';
 
 @Entity('card')
-export class Card {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ nullable: false })
+export class Card extends BaseEntity {
+  @Column({ nullable: false, unique: true })
   title: string;
 
-  @Column()
+  @Column({ nullable: true, default: null })
   description: string;
 
-  @Column()
+  @Column({ nullable: true, default: null })
   cover: string;
 
-  list: string;
-
+  @ManyToMany(() => User, (user) => user.cards, { onDelete: 'CASCADE' })
+  @JoinTable({
+    name: 'card_members',
+    joinColumn: {
+      name: 'card_id',
+    },
+    inverseJoinColumn: {
+      name: 'user_id',
+    },
+  })
   members: User[];
 
-  //   comments: CardComment[];
+  @ManyToOne(() => List, (list) => list.cards, { onDelete: 'CASCADE' })
+  list: List;
 
-  //   attachments: CardAttachment[];
+  @OneToMany(() => CardComment, (cardComment) => cardComment.card, {
+    onDelete: 'CASCADE',
+  })
+  comments: CardComment[];
 
-  //   labels: CardLabel[];
+  @OneToMany(() => CardAttachment, (cardAttachment) => cardAttachment.card, {
+    onDelete: 'CASCADE',
+  })
+  attachments: CardAttachment[];
+
+  @OneToMany(() => CardLabel, (cardLabel) => cardLabel.card, {
+    onDelete: 'CASCADE',
+  })
+  labels: CardLabel[];
 }

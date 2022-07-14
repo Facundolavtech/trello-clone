@@ -1,32 +1,23 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import { BaseEntity } from '../../core/base.entity';
 import { User } from '../../users/entities/user.entity';
 import { List } from '../lists/entities/list.entity';
 
 @Entity('board')
-export class Board {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ unique: true })
+export class Board extends BaseEntity {
+  @Column({ nullable: false, unique: true })
   title: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   cover: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: null })
   description: string;
 
   @Column({ default: true })
   visible: boolean;
 
-  @ManyToMany(() => User, (user) => user.boards)
+  @ManyToMany(() => User, (user) => user.boards, { onDelete: 'CASCADE' })
   @JoinTable({
     name: 'board_members',
     joinColumn: {
@@ -38,7 +29,7 @@ export class Board {
   })
   members: User[];
 
-  @ManyToMany(() => User, (user) => user.boards)
+  @ManyToMany(() => User, (user) => user.boards, { onDelete: 'CASCADE' })
   @JoinTable({
     name: 'board_admins',
     joinColumn: {
@@ -50,6 +41,8 @@ export class Board {
   })
   admins: User[];
 
-  @OneToMany(() => List, (list) => list.board)
+  @OneToMany(() => List, (list) => list.board, {
+    onDelete: 'CASCADE',
+  })
   lists: List[];
 }
