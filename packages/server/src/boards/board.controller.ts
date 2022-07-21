@@ -16,7 +16,7 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 import { AdminGuard } from './guards/admin.guard';
 import { BoardMemberGuard } from './guards/board-member.guard';
 
-@Controller('board')
+@Controller('boards')
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
