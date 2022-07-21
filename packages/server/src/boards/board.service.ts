@@ -77,20 +77,17 @@ export class BoardService {
   }
 
   async update(id: string, updateBoardDto: UpdateBoardDto) {
-    const boardExistsWithSameTitle = await this.boardRepository.findOne({
-      title: updateBoardDto.title,
-    });
+    const board = await this.boardRepository.findOne({ id });
 
-    if (boardExistsWithSameTitle) {
+    if (board.title === updateBoardDto.title) {
       throw new BadRequestException('A board already exists with this title');
     }
 
-    await this.boardRepository.update({ id }, updateBoardDto);
+    const updatedBoard = await this.boardRepository.save(
+      Object.assign(board, updateBoardDto),
+    );
 
-    return {
-      statusCode: 200,
-      message: 'Board updated successfully',
-    };
+    return updatedBoard;
   }
 
   async remove(id: string) {

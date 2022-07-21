@@ -1,7 +1,6 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -10,9 +9,9 @@ import {
 import { BaseEntity } from '../../../core/base.entity';
 import { User } from '../../../users/entities/user.entity';
 import { List } from '../../lists/entities/list.entity';
-import { CardAttachment } from './card-attachment.entity';
-import { CardComment } from './card-comment.entity';
-import { CardLabel } from './card-label.entity';
+import { CardAttachment } from '../cards-attachments/entities/card-attachment.entity';
+import { CardComment } from '../cards-comments/entities/card-comment.entity';
+import { CardLabel } from '../cards-label/entities/card-label.entity';
 
 @Entity('card')
 export class Card extends BaseEntity {

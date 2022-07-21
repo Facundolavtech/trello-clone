@@ -1,8 +1,8 @@
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CardAttachment } from '../boards/cards/entities/card-attachment.entity';
-import { CardComment } from '../boards/cards/entities/card-comment.entity';
-import { CardLabel } from '../boards/cards/entities/card-label.entity';
+import { CardAttachment } from '../boards/cards/cards-attachments/entities/card-attachment.entity';
+import { CardComment } from '../boards/cards/cards-comments/entities/card-comment.entity';
+import { CardLabel } from '../boards/cards/cards-label/entities/card-label.entity';
 import { Card } from '../boards/cards/entities/card.entity';
 import { Board } from '../boards/entities/board.entity';
 import { List } from '../boards/lists/entities/list.entity';

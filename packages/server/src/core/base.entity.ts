@@ -1,6 +1,6 @@
 import {
+  AfterUpdate,
   BeforeInsert,
-  BeforeUpdate,
   Column,
   Entity,
   PrimaryGeneratedColumn,
@@ -11,19 +11,29 @@ export class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'int', width: 11, nullable: false, readonly: true })
+  @Column({
+    type: 'int',
+    nullable: false,
+    update: false,
+    default: Math.floor(Date.now() / 1000),
+  })
   created_at: number;
 
-  @Column({ type: 'int', width: 11, nullable: true })
+  @Column({
+    type: 'int',
+    nullable: true,
+    update: false,
+    default: Math.floor(Date.now() / 1000),
+  })
   updated_at: number;
 
-  @BeforeUpdate()
-  public setUpdatedAt() {
+  @AfterUpdate()
+  setUpdatedAt() {
     this.updated_at = Math.floor(Date.now() / 1000);
   }
 
   @BeforeInsert()
-  public setCreatedAt() {
+  setTimestamps() {
     this.created_at = Math.floor(Date.now() / 1000);
   }
 }

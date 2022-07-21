@@ -67,7 +67,15 @@ export class CardsService {
   async findOne(id: string) {
     const card = await this.cardRepository.findOne(
       { id },
-      { relations: ['members', 'comments', 'attachments', 'labels'] },
+      {
+        relations: [
+          'members',
+          'comments',
+          'comments.author',
+          'attachments',
+          'labels',
+        ],
+      },
     );
 
     if (!card) {
@@ -77,11 +85,30 @@ export class CardsService {
     return card;
   }
 
-  update(id: string, updateCardDto: UpdateCardDto) {
-    return `This action updates a #${id} card`;
+  async update(id: string, updateCardDto: UpdateCardDto) {
+    const card = await this.cardRepository.findOne({ id });
+
+    if (!card) throw new NotFoundException('The card does not exists');
+    if (card.title === updateCardDto.title)
+      throw new BadRequestException('A card already exists with this title');
+
+    const updatedCard = await this.cardRepository.save(
+      Object.assign(card, updateCardDto),
+    );
+
+    return updatedCard;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} card`;
+  async remove(id: string) {
+    const card = await this.cardRepository.findOne({ id });
+
+    if (!card) throw new NotFoundException('The card does not exists');
+
+    await this.cardRepository.remove(card);
+
+    return {
+      statusCode: 200,
+      message: 'Card deleted successfully',
+    };
   }
 }

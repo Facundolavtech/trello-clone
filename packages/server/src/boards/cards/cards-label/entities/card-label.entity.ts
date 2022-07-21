@@ -1,10 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../../core/base.entity';
-import { Card } from './card.entity';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseEntity } from '../../../../core/base.entity';
+import { Card } from '../../entities/card.entity';
 
 @Entity('card-label')
 export class CardLabel extends BaseEntity {
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   name: string;
 
   @Column({ nullable: false })

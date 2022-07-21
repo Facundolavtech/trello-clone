@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../../core/base.entity';
-import { Card } from './card.entity';
+import { BaseEntity } from '../../../../core/base.entity';
+import { Card } from '../../entities/card.entity';
 
 @Entity('card-attachment')
 export class CardAttachment extends BaseEntity {

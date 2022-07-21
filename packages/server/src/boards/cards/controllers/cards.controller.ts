@@ -43,13 +43,15 @@ export class CardsController {
     return this.cardsService.findOne(cardId);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateCardDto: UpdateCardDto) {
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Put('update/:cardId/:boardId')
+  update(@Param('cardId') id: string, @Body() updateCardDto: UpdateCardDto) {
     return this.cardsService.update(id, updateCardDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Delete('delete/:cardId/:boardId')
+  remove(@Param('cardId') id: string) {
     return this.cardsService.remove(id);
   }
 }
