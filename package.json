@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "private": true,
   "version": "1.0.0",
   "devDependencies": {
@@ -8,11 +11,15 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.0",
     "lerna": "^5.1.8",
+    "lerna-cli": "^5.1.1",
     "lint-staged": "^13.0.3"
   },
   "name": "thullo",
   "scripts": {
+    "test": "lerna run test --stream",
+    "build": "lerna run build",
     "start:dev": "lerna run start:dev --stream",
+    "start:prod": "lerna run start:prod --stream",
     "prepare": "husky install",
     "setup": "npm install && lerna bootstrap"
   },
