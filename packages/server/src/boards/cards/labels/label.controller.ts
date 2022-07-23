@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BoardMemberGuard } from '../../guards/board-member.guard';
-import { CardsLabelService } from './cards-label.service';
-import { CreateCardsLabelDto } from './dto/create-cards-label.dto';
-import { UpdateCardsLabelDto } from './dto/update-cards-label.dto';
+import { CardsLabelService } from './label.service';
+import { CreateCardsLabelDto } from './dto/create-label.dto';
+import { UpdateCardsLabelDto } from './dto/update-label.dto';
 
 @Controller('cards/labels/:cardId/:boardId')
 export class CardsLabelController {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCardsAttachmentDto } from './dto/create-cards-attachment.dto';
-import { UpdateCardsAttachmentDto } from './dto/update-cards-attachment.dto';
+import { CreateCardsAttachmentDto } from './dto/create-attachment.dto';
+import { UpdateCardsAttachmentDto } from './dto/update-attachment.dto';
 
 @Injectable()
 export class CardsAttachmentsService {

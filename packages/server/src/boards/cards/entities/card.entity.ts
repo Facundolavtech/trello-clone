@@ -2,9 +2,9 @@ import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../core/base.entity';
 import { Board } from '../../entities/board.entity';
 import { List } from '../../lists/entities/list.entity';
-import { CardAttachment } from '../cards-attachments/entities/card-attachment.entity';
-import { CardComment } from '../cards-comments/entities/card-comment.entity';
-import { CardLabel } from '../cards-label/entities/card-label.entity';
+import { CardAttachment } from '../attachments/entities/attachment.entity';
+import { CardComment } from '../comments/entities/comment.entity';
+import { CardLabel } from '../labels/entities/label.entity';
 
 @Entity('card')
 export class Card extends BaseEntity {

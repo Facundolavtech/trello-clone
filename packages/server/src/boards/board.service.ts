@@ -30,7 +30,7 @@ export class BoardService {
 
     const newBoard = this.boardRepository.create(createBoardDto);
     newBoard.members = [owner];
-    newBoard.admins = [owner];
+    newBoard.admin = owner;
 
     await this.boardRepository.save(newBoard);
 
@@ -40,7 +40,7 @@ export class BoardService {
   async findAllPublicBoards() {
     const getAllPublicBoards = await this.boardRepository.find({
       where: { visible: true },
-      relations: ['members', 'admins'],
+      relations: ['members', 'admin'],
     });
 
     return getAllPublicBoards;
@@ -50,7 +50,7 @@ export class BoardService {
     try {
       const findPublicBoardById = await this.boardRepository.findOne({
         where: { visible: true, id },
-        relations: ['admins', 'members'],
+        relations: ['admin', 'members'],
       });
 
       if (!findPublicBoardById)
@@ -66,7 +66,7 @@ export class BoardService {
     try {
       const findPrivateById = await this.boardRepository.findOne({
         where: { id },
-        relations: ['admins', 'members'],
+        relations: ['admin', 'members'],
       });
 
       if (!findPrivateById)
@@ -130,7 +130,7 @@ export class BoardService {
   async deleteMember(boardId: string, userId: string) {
     const board = await this.boardRepository.findOne(
       { id: boardId },
-      { relations: ['members', 'admins'] },
+      { relations: ['members', 'admin'] },
     );
 
     const user = await this.userRepository.findOne({ id: userId });
@@ -139,7 +139,7 @@ export class BoardService {
       throw new NotFoundException('The user does not exists');
     }
 
-    if (board.admins.find((admin) => admin.id === user.id)) {
+    if (board.admin.id === user.id) {
       throw new UnauthorizedException(
         'You cant remove yourself from the board',
       );

@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../../users/entities/user.entity';
 import { Card } from '../entities/card.entity';
-import { CreateCardsCommentDto } from './dto/create-cards-comment.dto';
-import { UpdateCardsCommentDto } from './dto/update-cards-comment.dto';
-import { CardComment } from './entities/card-comment.entity';
+import { CreateCardsCommentDto } from './dto/create-comment.dto';
+import { UpdateCardsCommentDto } from './dto/update-comment.dto';
+import { CardComment } from './entities/comment.entity';
 
 @Injectable()
 export class CardsCommentsService {

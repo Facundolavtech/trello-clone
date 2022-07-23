@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CardComment } from '../entities/card-comment.entity';
+import { CardComment } from '../entities/comment.entity';
 
 @Injectable()
 export class CardCommentAuthorGuard implements CanActivate {

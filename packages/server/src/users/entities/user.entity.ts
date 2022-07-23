@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToMany, OneToMany } from 'typeorm';
-import { CardComment } from '../../boards/cards/cards-comments/entities/card-comment.entity';
+import { CardComment } from '../../boards/cards/comments/entities/comment.entity';
 import { Board } from '../../boards/entities/board.entity';
 import { BaseEntity } from '../../core/base.entity';
 
@@ -29,7 +29,7 @@ export class User extends BaseEntity {
   })
   user_board_members: Board[];
 
-  @ManyToMany(() => Board, (board) => board.admins, {
+  @OneToMany(() => Board, (board) => board.admin, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })

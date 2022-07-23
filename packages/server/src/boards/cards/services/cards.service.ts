@@ -50,7 +50,7 @@ export class CardsService {
 
     const cards = await this.cardRepository.find({
       where: { list: listId },
-      relations: ['members', 'attachments', 'labels', 'comments'],
+      relations: ['attachments', 'labels', 'comments'],
     });
 
     return cards;
@@ -60,13 +60,7 @@ export class CardsService {
     const card = await this.cardRepository.findOne(
       { id },
       {
-        relations: [
-          'members',
-          'comments',
-          'comments.author',
-          'attachments',
-          'labels',
-        ],
+        relations: ['comments', 'comments.author', 'attachments', 'labels'],
       },
     );
 

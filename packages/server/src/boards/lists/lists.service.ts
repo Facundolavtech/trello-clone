@@ -39,7 +39,6 @@ export class ListsService {
       where: { board: boardId },
       relations: [
         'cards',
-        'cards.members',
         'cards.comments',
         'cards.attachments',
         'cards.labels',

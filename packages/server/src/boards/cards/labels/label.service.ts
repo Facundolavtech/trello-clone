@@ -6,9 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Card } from '../entities/card.entity';
-import { CreateCardsLabelDto } from './dto/create-cards-label.dto';
-import { UpdateCardsLabelDto } from './dto/update-cards-label.dto';
-import { CardLabel } from './entities/card-label.entity';
+import { CreateCardsLabelDto } from './dto/create-label.dto';
+import { UpdateCardsLabelDto } from './dto/update-label.dto';
+import { CardLabel } from './entities/label.entity';
 
 @Injectable()
 export class CardsLabelService {

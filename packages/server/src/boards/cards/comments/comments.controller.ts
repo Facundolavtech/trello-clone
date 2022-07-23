@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BoardMemberGuard } from '../../guards/board-member.guard';
-import { CardsCommentsService } from './cards-comments.service';
-import { CreateCardsCommentDto } from './dto/create-cards-comment.dto';
-import { UpdateCardsCommentDto } from './dto/update-cards-comment.dto';
-import { CardCommentAuthorGuard } from './guards/author.guard';
+import { CardsCommentsService } from './comments.service';
+import { CreateCardsCommentDto } from './dto/create-comment.dto';
+import { UpdateCardsCommentDto } from './dto/update-comment.dto';
+import { CardCommentAuthorGuard } from './guards/comment-author.guard';
 
 @Controller('cards/comments/:cardId/:boardId')
 export class CardsCommentsController {

@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { CardsService } from './services/cards.service';
 import { CardsController } from './controllers/cards.controller';
-import { CardAttachment } from './cards-attachments/entities/card-attachment.entity';
-import { CardComment } from './cards-comments/entities/card-comment.entity';
-import { CardLabel } from './cards-label/entities/card-label.entity';
+import { CardAttachment } from './attachments/entities/attachment.entity';
+import { CardComment } from './comments/entities/comment.entity';
+import { CardLabel } from './labels/entities/label.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { List } from '../lists/entities/list.entity';
 import { Card } from './entities/card.entity';
 import { Board } from '../entities/board.entity';
 import { User } from '../../users/entities/user.entity';
-import { CardsAttachmentsModule } from './cards-attachments/cards-attachments.module';
-import { CardsCommentsModule } from './cards-comments/cards-comments.module';
-import { CardsLabelModule } from './cards-label/cards-label.module';
+import { CardsAttachmentsModule } from './attachments/attachments.module';
+import { CardsCommentsModule } from './comments/comments.module';
+import { CardsLabelModule } from './labels/label.module';
 
 @Module({
   imports: [

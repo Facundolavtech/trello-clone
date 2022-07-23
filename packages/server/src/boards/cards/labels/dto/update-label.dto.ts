@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { CreateCardsLabelDto } from './create-cards-label.dto';
+import { CreateCardsLabelDto } from './create-label.dto';
 
 export class UpdateCardsLabelDto extends PartialType(CreateCardsLabelDto) {
   @IsOptional()

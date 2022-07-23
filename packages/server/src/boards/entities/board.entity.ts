@@ -1,4 +1,11 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { BaseEntity } from '../../core/base.entity';
 import { User } from '../../users/entities/user.entity';
 import { Card } from '../cards/entities/card.entity';
@@ -33,20 +40,11 @@ export class Board extends BaseEntity {
   })
   members: User[];
 
-  @ManyToMany(() => User, (user) => user.user_boards_admins, {
+  @ManyToOne(() => User, (user) => user.user_boards_admins, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinTable({
-    name: 'board_admins',
-    joinColumn: {
-      name: 'board_id',
-    },
-    inverseJoinColumn: {
-      name: 'user_id',
-    },
-  })
-  admins: User[];
+  admin: User;
 
   @OneToMany(() => List, (list) => list.board, {
     onDelete: 'CASCADE',

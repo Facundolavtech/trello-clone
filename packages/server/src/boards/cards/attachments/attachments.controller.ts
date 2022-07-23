@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CardsAttachmentsService } from './cards-attachments.service';
-import { CreateCardsAttachmentDto } from './dto/create-cards-attachment.dto';
-import { UpdateCardsAttachmentDto } from './dto/update-cards-attachment.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { CardsAttachmentsService } from './attachments.service';
+import { CreateCardsAttachmentDto } from './dto/create-attachment.dto';
+import { UpdateCardsAttachmentDto } from './dto/update-attachment.dto';
 
 @Controller('cards-attachments')
 export class CardsAttachmentsController {
-  constructor(private readonly cardsAttachmentsService: CardsAttachmentsService) {}
+  constructor(
+    private readonly cardsAttachmentsService: CardsAttachmentsService,
+  ) {}
 
   @Post()
   create(@Body() createCardsAttachmentDto: CreateCardsAttachmentDto) {
@@ -23,7 +33,10 @@ export class CardsAttachmentsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCardsAttachmentDto: UpdateCardsAttachmentDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCardsAttachmentDto: UpdateCardsAttachmentDto,
+  ) {
     return this.cardsAttachmentsService.update(+id, updateCardsAttachmentDto);
   }
 
