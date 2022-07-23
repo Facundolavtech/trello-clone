@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../../../users/entities/user.entity';
 import { List } from '../../lists/entities/list.entity';
 import { CreateCardDto } from '../dto/create-card.dto';
 import { UpdateCardDto } from '../dto/update-card.dto';
@@ -16,10 +15,9 @@ export class CardsService {
   constructor(
     @InjectRepository(Card) private cardRepository: Repository<Card>,
     @InjectRepository(List) private listRepository: Repository<List>,
-    @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async create(listId: string, createCardDto: CreateCardDto, userId) {
+  async create(boardId: string, listId: string, createCardDto: CreateCardDto) {
     const list = await this.listRepository.findOne({ id: listId });
 
     if (!list) throw new NotFoundException('List does not exists');
@@ -32,11 +30,11 @@ export class CardsService {
       throw new BadRequestException('Already card exists with same title');
     }
 
-    const owner = await this.userRepository.findOne(userId);
-
-    const newCard = this.cardRepository.create(createCardDto);
-    newCard.members = [owner];
-    newCard.list = list;
+    const newCard = this.cardRepository.create({
+      ...createCardDto,
+      board: boardId,
+      list: listId,
+    });
 
     await this.cardRepository.save(newCard);
 
@@ -44,24 +42,18 @@ export class CardsService {
   }
 
   async findAll(listId: string) {
-    const list = await this.listRepository.findOne(
-      { id: listId },
-      {
-        relations: [
-          'cards',
-          'cards.members',
-          'cards.comments',
-          'cards.attachments',
-          'cards.labels',
-        ],
-      },
-    );
+    const list = await this.listRepository.findOne({ id: listId });
 
     if (!list) {
-      throw new NotFoundException('The list does not exist');
+      throw new NotFoundException('The list does not exists');
     }
 
-    return list.cards;
+    const cards = await this.cardRepository.find({
+      where: { list: listId },
+      relations: ['members', 'attachments', 'labels', 'comments'],
+    });
+
+    return cards;
   }
 
   async findOne(id: string) {

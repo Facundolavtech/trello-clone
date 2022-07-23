@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,8 +22,9 @@ export class BoardService {
       title: createBoardDto.title,
     });
 
-    if (boardExists)
+    if (boardExists) {
       throw new BadRequestException('Already board exists with same title');
+    }
 
     const owner = await this.userRepository.findOne({ id: userId });
 
@@ -96,6 +98,64 @@ export class BoardService {
     return {
       statusCode: 200,
       message: 'Board deleted successfully',
+    };
+  }
+
+  async addMember(boardId: string, userId: string) {
+    const board = await this.boardRepository.findOne(
+      { id: boardId },
+      { relations: ['members'] },
+    );
+
+    const user = await this.userRepository.findOne({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException('The user does not exists');
+    }
+
+    if (board.members.find((member) => member.id === user.id)) {
+      throw new BadRequestException('User already be in the board');
+    }
+
+    board.members.push(user);
+
+    await this.boardRepository.save(board);
+
+    return {
+      statusCode: 200,
+      message: `User ${user.email} successfully added to board ${board.title}`,
+    };
+  }
+
+  async deleteMember(boardId: string, userId: string) {
+    const board = await this.boardRepository.findOne(
+      { id: boardId },
+      { relations: ['members', 'admins'] },
+    );
+
+    const user = await this.userRepository.findOne({ id: userId });
+
+    if (!user) {
+      throw new NotFoundException('The user does not exists');
+    }
+
+    if (board.admins.find((admin) => admin.id === user.id)) {
+      throw new UnauthorizedException(
+        'You cant remove yourself from the board',
+      );
+    }
+
+    if (!board.members.find((member) => member.id === user.id)) {
+      throw new BadRequestException('User does not be in the board');
+    }
+
+    board.members = board.members.filter((member) => member.id !== userId);
+
+    await this.boardRepository.save(board);
+
+    return {
+      statusCode: 200,
+      message: `User ${user.email} successfully removed to board ${board.title}`,
     };
   }
 }

@@ -1,6 +1,5 @@
 import { Entity, Column, ManyToMany, OneToMany } from 'typeorm';
 import { CardComment } from '../../boards/cards/cards-comments/entities/card-comment.entity';
-import { Card } from '../../boards/cards/entities/card.entity';
 import { Board } from '../../boards/entities/board.entity';
 import { BaseEntity } from '../../core/base.entity';
 
@@ -24,17 +23,21 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   picture: string;
 
-  @ManyToMany(() => Board, (board) => board.members, { onDelete: 'CASCADE' })
-  boards: Board[];
+  @ManyToMany(() => Board, (board) => board.members, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  user_board_members: Board[];
 
-  @ManyToMany(() => Board, (board) => board.admins, { onDelete: 'CASCADE' })
-  admins: Board[];
-
-  @ManyToMany(() => Card, (card) => card.members, { onDelete: 'CASCADE' })
-  cards: Card[];
+  @ManyToMany(() => Board, (board) => board.admins, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  user_boards_admins: Board[];
 
   @OneToMany(() => CardComment, (cardComment) => cardComment.author, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
-  cardComments: CardComment[];
+  user_card_comments_author: CardComment[];
 }

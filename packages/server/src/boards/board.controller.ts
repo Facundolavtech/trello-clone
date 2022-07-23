@@ -23,7 +23,7 @@ export class BoardController {
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
   create(@Request() req, @Body() createBoardDto: CreateBoardDto) {
-    const { userId } = req.user;
+    const userId = req.user.id;
     return this.boardService.create(createBoardDto, userId);
   }
 
@@ -34,9 +34,9 @@ export class BoardController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('findOne/public/:id')
-  findOnePublic(@Param('id') id: string) {
-    return this.boardService.findOnePublicBoard(id);
+  @Get('findOne/public/:boardId')
+  findOnePublic(@Param('boardId') boardId: string) {
+    return this.boardService.findOnePublicBoard(boardId);
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
@@ -46,14 +46,35 @@ export class BoardController {
   }
 
   @UseGuards(AuthGuard('jwt'), AdminGuard)
-  @Put('update/:id')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.update(id, updateBoardDto);
+  @Put('update/:boardId')
+  update(
+    @Param('boardId') boardId: string,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ) {
+    return this.boardService.update(boardId, updateBoardDto);
   }
 
   @UseGuards(AuthGuard('jwt'), AdminGuard)
-  @Delete('delete/:id')
-  remove(@Param('id') id: string) {
-    return this.boardService.remove(id);
+  @Delete('delete/:boardId')
+  remove(@Param('boardId') boardId: string) {
+    return this.boardService.remove(boardId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  @Post(':boardId/members/add/:userId')
+  addMember(
+    @Param('boardId') boardId: string,
+    @Param('userId') userId: string,
+  ) {
+    return this.boardService.addMember(boardId, userId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
+  @Delete(':boardId/members/delete/:userId')
+  deleteMember(
+    @Param('boardId') boardId: string,
+    @Param('userId') userId: string,
+  ) {
+    return this.boardService.deleteMember(boardId, userId);
   }
 }

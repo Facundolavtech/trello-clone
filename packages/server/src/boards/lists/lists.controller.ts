@@ -13,13 +13,12 @@ import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { BoardMemberGuard } from '../guards/board-member.guard';
-import { NotEmptyBody } from '../../core/guards/not-empty-body.guard';
 
 @Controller('lists')
 export class ListsController {
   constructor(private readonly listsService: ListsService) {}
 
-  @UseGuards(AuthGuard('jwt'), NotEmptyBody, BoardMemberGuard)
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
   @Post('create/:boardId')
   create(
     @Param('boardId')
@@ -38,7 +37,7 @@ export class ListsController {
     return this.listsService.findAll(boardId);
   }
 
-  @UseGuards(AuthGuard('jwt'), NotEmptyBody, BoardMemberGuard)
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
   @Put('update/:id/:boardId')
   update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {
     return this.listsService.update(id, updateListDto);

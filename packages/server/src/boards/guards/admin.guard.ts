@@ -17,7 +17,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(ctx: ExecutionContext): any {
     const request = ctx.switchToHttp().getRequest();
-    const boardId = request.params.id;
+    const boardId = request.params.boardId;
     const userId = request.user.id;
 
     return this.boardRepository

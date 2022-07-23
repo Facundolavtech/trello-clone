@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../../core/base.entity';
 import { Card } from '../../entities/card.entity';
 
-@Entity('card-attachment')
+@Entity('card_attachment')
 export class CardAttachment extends BaseEntity {
   @Column({ nullable: false })
   title: string;
