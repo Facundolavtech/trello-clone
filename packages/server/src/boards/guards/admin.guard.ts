@@ -25,7 +25,7 @@ export class AdminGuard implements CanActivate {
       .then((board: Board | undefined) => {
         if (!board) throw new NotFoundException('Board does not exists');
 
-        if (board.admin.id !== userId) {
+        if (board.admin['id'] !== userId) {
           throw new UnauthorizedException('You are not an admin of the board');
         }
 

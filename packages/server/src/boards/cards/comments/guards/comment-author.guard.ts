@@ -28,7 +28,7 @@ export class CardCommentAuthorGuard implements CanActivate {
           throw new NotFoundException('Card comment does not exists');
         }
 
-        if (comment.author.id !== userId) {
+        if (comment.author !== userId) {
           throw new UnauthorizedException('You are not the comment author');
         }
 

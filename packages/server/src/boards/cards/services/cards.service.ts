@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { BoardMember } from '../../entities/board-member.entity';
 import { List } from '../../lists/entities/list.entity';
 import { CreateCardDto } from '../dto/create-card.dto';
 import { UpdateCardDto } from '../dto/update-card.dto';
@@ -15,9 +16,16 @@ export class CardsService {
   constructor(
     @InjectRepository(Card) private cardRepository: Repository<Card>,
     @InjectRepository(List) private listRepository: Repository<List>,
+    @InjectRepository(BoardMember)
+    private boardMemberRepository: Repository<BoardMember>,
   ) {}
 
-  async create(boardId: string, listId: string, createCardDto: CreateCardDto) {
+  async create(
+    boardId: string,
+    listId: string,
+    userId: string,
+    createCardDto: CreateCardDto,
+  ) {
     const list = await this.listRepository.findOne({ id: listId });
 
     if (!list) throw new NotFoundException('List does not exists');
@@ -30,10 +38,16 @@ export class CardsService {
       throw new BadRequestException('Already card exists with same title');
     }
 
+    const member = await this.boardMemberRepository.findOne({
+      user: userId,
+      board: boardId,
+    });
+
     const newCard = this.cardRepository.create({
       ...createCardDto,
       board: boardId,
       list: listId,
+      members: [member],
     });
 
     await this.cardRepository.save(newCard);
@@ -50,7 +64,7 @@ export class CardsService {
 
     const cards = await this.cardRepository.find({
       where: { list: listId },
-      relations: ['attachments', 'labels', 'comments'],
+      relations: ['members', 'attachments', 'labels', 'comments'],
     });
 
     return cards;
@@ -60,7 +74,13 @@ export class CardsService {
     const card = await this.cardRepository.findOne(
       { id },
       {
-        relations: ['comments', 'comments.author', 'attachments', 'labels'],
+        relations: [
+          'members',
+          'comments',
+          'comments.author',
+          'attachments',
+          'labels',
+        ],
       },
     );
 

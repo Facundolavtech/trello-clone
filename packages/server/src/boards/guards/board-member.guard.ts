@@ -34,13 +34,13 @@ export class BoardMemberGuard implements CanActivate {
     }
 
     return this.boardRepository
-      .findOne({ id: boardId }, { relations: ['members'] })
+      .findOne({ id: boardId }, { relations: ['members', 'members.user'] })
       .then((board: Board) => {
         if (!board) {
           throw new NotFoundException('Board does not exists');
         }
 
-        if (!board.members.find((member) => member.id === userId)) {
+        if (!board.members.find((member) => member.user['id'] === userId)) {
           throw new UnauthorizedException('You are not a member of this board');
         }
 

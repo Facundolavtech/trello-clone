@@ -8,10 +8,11 @@ import { ListsModule } from './lists/lists.module';
 import { List } from './lists/entities/list.entity';
 import { CardsModule } from './cards/cards.module';
 import { Card } from './cards/entities/card.entity';
+import { BoardMember } from './entities/board-member.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Board, User, List, Card]),
+    TypeOrmModule.forFeature([Board, User, List, Card, BoardMember]),
     ListsModule,
     CardsModule,
   ],

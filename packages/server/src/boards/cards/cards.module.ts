@@ -12,11 +12,13 @@ import { User } from '../../users/entities/user.entity';
 import { CardsAttachmentsModule } from './attachments/attachments.module';
 import { CardsCommentsModule } from './comments/comments.module';
 import { CardsLabelModule } from './labels/label.module';
+import { BoardMember } from '../entities/board-member.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       Board,
+      BoardMember,
       User,
       List,
       Card,

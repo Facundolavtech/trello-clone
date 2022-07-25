@@ -7,6 +7,7 @@ import {
   Delete,
   Put,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { CardsService } from '../services/cards.service';
 import { CreateCardDto } from '../dto/create-card.dto';
@@ -21,11 +22,14 @@ export class CardsController {
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
   @Post('create/:boardId/:listId')
   create(
+    @Request() req,
     @Param('listId') listId: string,
     @Param('boardId') boardId: string,
     @Body() createCardDto: CreateCardDto,
   ) {
-    return this.cardsService.create(boardId, listId, createCardDto);
+    const userId = req.user.id;
+
+    return this.cardsService.create(boardId, listId, userId, createCardDto);
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)

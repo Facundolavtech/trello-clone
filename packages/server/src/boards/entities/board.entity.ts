@@ -1,15 +1,9 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../core/base.entity';
 import { User } from '../../users/entities/user.entity';
 import { Card } from '../cards/entities/card.entity';
 import { List } from '../lists/entities/list.entity';
+import { BoardMember } from './board-member.entity';
 
 @Entity('board')
 export class Board extends BaseEntity {
@@ -25,36 +19,23 @@ export class Board extends BaseEntity {
   @Column({ default: true })
   visible: boolean;
 
-  @ManyToMany(() => User, (user) => user.user_board_members, {
+  @ManyToOne(() => User, (user) => user.user_board_admin, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   })
-  @JoinTable({
-    name: 'board_members',
-    joinColumn: {
-      name: 'board_id',
-    },
-    inverseJoinColumn: {
-      name: 'user_id',
-    },
-  })
-  members: User[];
+  admin: string;
 
-  @ManyToOne(() => User, (user) => user.user_boards_admins, {
+  @OneToMany(() => BoardMember, (boardMember) => boardMember.board, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   })
-  admin: User;
+  members: BoardMember[];
 
   @OneToMany(() => List, (list) => list.board, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   })
   lists: List[];
 
   @OneToMany(() => Card, (card) => card.board, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   })
   cards: Card[];
 }

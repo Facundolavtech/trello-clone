@@ -8,6 +8,7 @@ import { Board } from '../boards/entities/board.entity';
 import { List } from '../boards/lists/entities/list.entity';
 import { User } from '../users/entities/user.entity';
 import config from './config';
+import { BoardMember } from '../boards/entities/board-member.entity';
 
 export const createDatabase = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
@@ -32,7 +33,16 @@ export const createDatabase = TypeOrmModule.forRootAsync({
 export const createTestDatabase = TypeOrmModule.forRoot({
   type: 'sqlite',
   database: ':memory:',
-  entities: [CardAttachment, CardComment, CardLabel, Card, Board, List, User],
+  entities: [
+    User,
+    Board,
+    BoardMember,
+    List,
+    Card,
+    CardComment,
+    CardAttachment,
+    CardLabel,
+  ],
   autoLoadEntities: true,
   synchronize: true,
 });

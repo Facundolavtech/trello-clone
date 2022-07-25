@@ -16,7 +16,7 @@ export class UsersService {
       {
         id: userId,
       },
-      { relations: ['user_board_members'] },
+      { relations: ['user_boards_members', 'user_boards_members.board'] },
     );
 
     if (!user) {

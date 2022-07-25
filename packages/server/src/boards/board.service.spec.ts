@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { createTestDatabase } from '../config/database';
 import { User } from '../users/entities/user.entity';
 import { BoardService } from './board.service';
+import { BoardMember } from './entities/board-member.entity';
 import { Board } from './entities/board.entity';
 
 describe('BoardService', () => {
@@ -15,7 +16,10 @@ describe('BoardService', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [createTestDatabase, TypeOrmModule.forFeature([Board, User])],
+      imports: [
+        createTestDatabase,
+        TypeOrmModule.forFeature([Board, User, BoardMember]),
+      ],
       providers: [BoardService],
     }).compile();
 

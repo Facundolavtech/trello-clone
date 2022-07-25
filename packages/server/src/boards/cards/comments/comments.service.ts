@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../../../users/entities/user.entity';
+import { BoardMember } from '../../entities/board-member.entity';
 import { Card } from '../entities/card.entity';
 import { CreateCardsCommentDto } from './dto/create-comment.dto';
 import { UpdateCardsCommentDto } from './dto/update-comment.dto';
@@ -10,7 +10,8 @@ import { CardComment } from './entities/comment.entity';
 @Injectable()
 export class CardsCommentsService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(BoardMember)
+    private boardMemberRepository: Repository<BoardMember>,
     @InjectRepository(CardComment)
     private cardCommentRepository: Repository<CardComment>,
     @InjectRepository(Card)
@@ -28,11 +29,13 @@ export class CardsCommentsService {
       throw new NotFoundException('The card does not exists');
     }
 
-    const author = await this.userRepository.findOne({ id: userId });
+    const member = await this.boardMemberRepository.findOne({
+      where: { user: userId },
+    });
 
     const newComment = this.cardCommentRepository.create({
       ...createCardsCommentDto,
-      author,
+      author: member.id,
       card: cardId,
     });
 
