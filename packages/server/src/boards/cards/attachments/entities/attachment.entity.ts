@@ -5,10 +5,13 @@ import { Card } from '../../entities/card.entity';
 @Entity('card_attachment')
 export class CardAttachment extends BaseEntity {
   @Column({ nullable: false })
-  title: string;
+  name: string;
 
   @Column({ nullable: false })
   url: string;
+
+  @Column({ nullable: false })
+  type: string;
 
   @ManyToOne(() => Card, (card) => card.attachments, {
     onDelete: 'CASCADE',

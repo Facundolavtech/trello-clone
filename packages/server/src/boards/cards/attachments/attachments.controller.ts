@@ -6,42 +6,64 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
+  UseGuards,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { BoardMemberGuard } from '../../guards/board-member.guard';
 import { CardsAttachmentsService } from './attachments.service';
-import { CreateCardsAttachmentDto } from './dto/create-attachment.dto';
-import { UpdateCardsAttachmentDto } from './dto/update-attachment.dto';
 
-@Controller('cards-attachments')
+@Controller('cards/attachments/:boardId/:cardId')
 export class CardsAttachmentsController {
   constructor(
     private readonly cardsAttachmentsService: CardsAttachmentsService,
   ) {}
 
-  @Post()
-  create(@Body() createCardsAttachmentDto: CreateCardsAttachmentDto) {
-    return this.cardsAttachmentsService.create(createCardsAttachmentDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.cardsAttachmentsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cardsAttachmentsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCardsAttachmentDto: UpdateCardsAttachmentDto,
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(
+    @Param('cardId') cardId: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 1000000 }),
+          new FileTypeValidator({
+            fileType: /(\.|\/)(gif|jpg|jpeg|txt|png|pdf|json)$/g,
+          }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
   ) {
-    return this.cardsAttachmentsService.update(+id, updateCardsAttachmentDto);
+    return this.cardsAttachmentsService.upload(cardId, file);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cardsAttachmentsService.remove(+id);
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Get('findAll')
+  findAll(@Param('cardId') cardId: string) {
+    return this.cardsAttachmentsService.findAll(cardId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Get('findOne/:attachmentId')
+  findOne(@Param('attachmentId') attachmentId: string) {
+    return this.cardsAttachmentsService.findOne(attachmentId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Delete('delete/:attachmentId')
+  remove(
+    @Param('cardId') cardId: string,
+    @Param('attachmentId') attachmentId: string,
+  ) {
+    const attachmentPath = `cards_attachments/${cardId}`;
+
+    return this.cardsAttachmentsService.remove(attachmentId, attachmentPath);
   }
 }
