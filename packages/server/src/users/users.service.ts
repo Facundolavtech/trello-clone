@@ -26,6 +26,16 @@ export class UsersService {
     return user;
   }
 
+  public async findUserByEmail(email: string) {
+    const user = await this.userRepository.findOne({ email });
+
+    if (!user) {
+      throw new NotFoundException('User does not exists');
+    }
+
+    return user;
+  }
+
   //GET userBoards
   /*async getUserBoards(userId: string) {
     const userBoards = await this.boardRepository

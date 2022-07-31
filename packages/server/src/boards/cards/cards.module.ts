@@ -13,6 +13,7 @@ import { CardsAttachmentsModule } from './attachments/attachments.module';
 import { CardsCommentsModule } from './comments/comments.module';
 import { CardsLabelModule } from './labels/label.module';
 import { BoardMember } from '../entities/board-member.entity';
+import { UsersService } from '../../users/users.service';
 
 @Module({
   imports: [
@@ -31,6 +32,6 @@ import { BoardMember } from '../entities/board-member.entity';
     CardsCommentsModule,
   ],
   controllers: [CardsController],
-  providers: [CardsService],
+  providers: [CardsService, UsersService],
 })
 export class CardsModule {}

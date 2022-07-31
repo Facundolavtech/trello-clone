@@ -1,13 +1,17 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UsersService } from '../../../users/users.service';
 import { BoardMember } from '../../entities/board-member.entity';
 import { List } from '../../lists/entities/list.entity';
+import { AddCardMemberDto } from '../dto/add-member.dto';
 import { CreateCardDto } from '../dto/create-card.dto';
+import { RemoveCardMemberDto } from '../dto/remove-member.dto';
 import { UpdateCardDto } from '../dto/update-card.dto';
 import { Card } from '../entities/card.entity';
 
@@ -18,6 +22,7 @@ export class CardsService {
     @InjectRepository(List) private listRepository: Repository<List>,
     @InjectRepository(BoardMember)
     private boardMemberRepository: Repository<BoardMember>,
+    @Inject(UsersService) private userService: UsersService,
   ) {}
 
   async create(
@@ -70,9 +75,9 @@ export class CardsService {
     return cards;
   }
 
-  async findOne(id: string) {
+  async findOne(cardId: string) {
     const card = await this.cardRepository.findOne(
-      { id },
+      { id: cardId },
       {
         relations: [
           'members',
@@ -91,12 +96,14 @@ export class CardsService {
     return card;
   }
 
-  async update(id: string, updateCardDto: UpdateCardDto) {
-    const card = await this.cardRepository.findOne({ id });
+  async update(cardId: string, updateCardDto: UpdateCardDto) {
+    const card = await this.cardRepository.findOne({ id: cardId });
 
     if (!card) throw new NotFoundException('The card does not exists');
-    if (card.title === updateCardDto.title)
+
+    if (card.title === updateCardDto.title) {
       throw new BadRequestException('A card already exists with this title');
+    }
 
     const updatedCard = await this.cardRepository.save(
       Object.assign(card, updateCardDto),
@@ -105,16 +112,89 @@ export class CardsService {
     return updatedCard;
   }
 
-  async remove(id: string) {
-    const card = await this.cardRepository.findOne({ id });
+  async remove(cardId: string) {
+    const card = await this.cardRepository.findOne({ id: cardId });
 
-    if (!card) throw new NotFoundException('The card does not exists');
+    if (!card) {
+      throw new NotFoundException('The card does not exists');
+    }
 
-    await this.cardRepository.remove(card);
+    await this.cardRepository.delete(card);
 
     return {
       statusCode: 200,
       message: 'Card deleted successfully',
+    };
+  }
+
+  async addMember(cardId: string, addCardMemberDto: AddCardMemberDto) {
+    const card = await this.cardRepository.findOne(
+      { id: cardId },
+      { relations: ['members', 'members.user'] },
+    );
+
+    if (!card) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    const user = await this.userService.findUserByEmail(addCardMemberDto.email);
+
+    const boardMember = await this.boardMemberRepository.findOne({
+      user: user.id,
+    });
+
+    if (!boardMember) {
+      throw new NotFoundException('User does not be in the board');
+    }
+
+    if (card.members.find((member) => member.user['id'] === user.id)) {
+      throw new BadRequestException('User already be in the card');
+    }
+
+    card.members.push(boardMember);
+    await this.cardRepository.save(card);
+
+    return {
+      statusCode: 200,
+      message: `User ${addCardMemberDto.email} joined to card`,
+    };
+  }
+
+  async deleteMember(cardId: string, removeCardMemberDto: RemoveCardMemberDto) {
+    const card = await this.cardRepository.findOne(
+      { id: cardId },
+      { relations: ['members', 'members.user'] },
+    );
+
+    if (!card) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    const user = await this.userService.findUserByEmail(
+      removeCardMemberDto.email,
+    );
+
+    const boardMember = await this.boardMemberRepository.findOne({
+      user: user.id,
+    });
+
+    if (!boardMember) {
+      throw new NotFoundException('User does not be in the board');
+    }
+
+    if (!card.members.find((member) => member.user['id'] === user.id)) {
+      throw new BadRequestException('User does not be in the card');
+    }
+
+    card.members = card.members = card.members.filter(
+      (member) => member.user['id'] !== user.id,
+    );
+
+    await this.cardRepository.save(card);
+
+    return {
+      statusCode: 200,
+      message: `User ${removeCardMemberDto.email} deleted from card`,
     };
   }
 }

@@ -14,13 +14,15 @@ import { CreateCardDto } from '../dto/create-card.dto';
 import { UpdateCardDto } from '../dto/update-card.dto';
 import { BoardMemberGuard } from '../../guards/board-member.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { AddCardMemberDto } from '../dto/add-member.dto';
+import { RemoveCardMemberDto } from '../dto/remove-member.dto';
 
-@Controller('cards')
+@Controller('cards/:boardId')
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Post('create/:boardId/:listId')
+  @Post('create/:listId')
   create(
     @Request() req,
     @Param('listId') listId: string,
@@ -33,26 +35,47 @@ export class CardsController {
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findAll/:boardId/:listId')
+  @Get('findAll/:listId')
   findAll(@Param('listId') listId: string) {
     return this.cardsService.findAll(listId);
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findOne/:cardId/:boardId')
+  @Get('findOne/:cardId')
   findOne(@Param('cardId') cardId: string) {
     return this.cardsService.findOne(cardId);
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Put('update/:cardId/:boardId')
-  update(@Param('cardId') id: string, @Body() updateCardDto: UpdateCardDto) {
-    return this.cardsService.update(id, updateCardDto);
+  @Put('update/:cardId')
+  update(
+    @Param('cardId') cardId: string,
+    @Body() updateCardDto: UpdateCardDto,
+  ) {
+    return this.cardsService.update(cardId, updateCardDto);
   }
 
   @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Delete('delete/:cardId/:boardId')
-  remove(@Param('cardId') id: string) {
-    return this.cardsService.remove(id);
+  @Delete('delete/:cardId')
+  remove(@Param('cardId') cardId: string) {
+    return this.cardsService.remove(cardId);
+  }
+
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Post('members/add/:cardId')
+  addMember(
+    @Param('cardId') cardId: string,
+    @Body() addCardMemberDto: AddCardMemberDto,
+  ) {
+    return this.cardsService.addMember(cardId, addCardMemberDto);
+  }
+
+  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @Delete('members/delete/:cardId')
+  deleteMember(
+    @Param('cardId') cardId: string,
+    @Body() removeCardMemberDto: RemoveCardMemberDto,
+  ) {
+    return this.cardsService.deleteMember(cardId, removeCardMemberDto);
   }
 }
