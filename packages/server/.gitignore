@@ -1,10 +1,14 @@
 # compiled output
-/dist
-/node_modules
-/db
-/data
+dist
+node_modules
+db
+data
+redis.conf
 
-/.env
+# ENVs
+.env
+.env.production
+.env.development
 
 # Logs
 logs
@@ -20,10 +24,10 @@ lerna-debug.log*
 
 # Tests
 /coverage
-/.nyc_output
+.nyc_output
 
 # IDEs and editors
-/.idea
+.idea
 .project
 .classpath
 .c9/
