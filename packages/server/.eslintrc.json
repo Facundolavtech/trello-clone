@@ -1,0 +1,17 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@nestjs/cqrs": "off",
+    "@nestjs/swagger": "off",
+    "@nestjs/common": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  }
+}
