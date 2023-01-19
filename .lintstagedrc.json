@@ -1,4 +1,4 @@
 {
-  "./packages/**/*.+(js|ts|tsx)": ["eslint"],
-  "./packages/**/*.{js,jsx,ts,json,tsx,css,scss}": ["prettier --write"]
+  "./packages/*/src/**/*.+(js|ts|tsx)": ["eslint"],
+  "./packages/*/src/**/*.{js,jsx,ts,json,tsx,css,scss}": ["prettier --write"]
 }
