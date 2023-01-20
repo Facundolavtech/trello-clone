@@ -4,9 +4,20 @@
     "node": true,
     "jest": true
   },
-  "extends": ["plugin:prettier/recommended"],
+  "ignorePatterns": ["**/*"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
+    }
+  ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }
