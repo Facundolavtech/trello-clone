@@ -4,33 +4,33 @@ import { UserProviders } from '../../User/constants';
 
 export class LoginUserDTO {
   @IsEmail({}, { message: 'Error: Enter a valid email' })
-  @IsString({ message: 'Error: Email must be text' })
+  @IsString({ message: 'Error: The field value is not valid' })
   email: string;
 
-  @Length(6, 50, { message: 'Error: Password must be between 6 and 50 characters' })
-  @IsString({ message: 'Error: Password must be text' })
+  @Length(6, 32, { message: 'Error: Password must be between 6 and 32 characters' })
+  @IsString({ message: 'Error: The field value is not valid' })
   password: string;
 }
 
 export class RegisterUserDTO extends PartialType(LoginUserDTO) {
   @IsEnum(UserProviders)
-  @IsString({ message: 'Error: Providers must be text' })
+  @IsString({ message: 'Error: The field value is not valid' })
   provider?: UserProviders;
 
   @IsOptional()
-  @IsString({ message: 'Error: Provider id must be text' })
+  @IsString({ message: 'Error: Provider ID is not valid' })
   providerId?: string;
 
-  @IsNotEmpty({ message: 'Error: Username is required' })
-  @IsString({ message: 'Error: Username must be text' })
+  @IsNotEmpty({ message: 'Error: The field is required' })
+  @IsString({ message: 'Error: The field value is not valid' })
   username: string;
 
-  @IsNotEmpty({ message: 'Error: Name is required' })
-  @IsString({ message: 'Error: Name must be text' })
+  @IsNotEmpty({ message: 'Error: The field is required' })
+  @IsString({ message: 'Error: The field value is not valid' })
   name: string;
 
   @IsOptional()
-  @IsUrl({}, { message: 'Error: Picture must be URL' })
-  @IsString({ message: 'Error: Picture URL must be text' })
+  @IsUrl({}, { message: 'Error: Picture must be valid URL' })
+  @IsString({ message: 'Error: The field value is not valid' })
   picture?: string;
 }
