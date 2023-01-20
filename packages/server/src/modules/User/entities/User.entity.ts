@@ -1,18 +1,22 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { BoardMember } from '../../boards/entities/board-member.entity';
-import { Board } from '../../boards/entities/board.entity';
-import { BaseEntity } from '../../core/base.entity';
+import { BaseEntity } from '../../../common/entities/Base.entity';
+import { Board } from '../../Board/entities/Board.entity';
+import { BoardMember } from '../../Board/entities/BoardMember.entity';
+import { UserProviders } from '../constants';
 
-@Entity('user')
+@Entity('User')
 export class User extends BaseEntity {
-  @Column({ default: 'google' })
-  provider: string;
+  @Column({ nullable: false, enum: UserProviders })
+  provider: UserProviders;
 
   @Column({ nullable: true })
   providerId: string;
 
   @Column({ nullable: false, unique: true })
   email: string;
+
+  @Column({ nullable: true, select: false })
+  password: string;
 
   @Column({ nullable: false })
   name: string;
