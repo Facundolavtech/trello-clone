@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class CreateCardsCommentDto {
+export class CreateBoardCardCommentDTO {
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
