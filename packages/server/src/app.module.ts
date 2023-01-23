@@ -10,7 +10,7 @@ import { EmptyBodyInterceptor } from './common/interceptors/empty-body.intercept
 import config from './config';
 import { databaseConfigAsync } from './config/database.config';
 import { AuthModule } from './modules/Auth/auth.module';
-import { UserModule } from './modules/user/user.module';
+import { UserModule } from './modules/User/user.module';
 import { BoardModule } from './modules/Board/board.module';
 import { RedisCacheModule } from './modules/Redis/redis.module';
 
