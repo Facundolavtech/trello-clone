@@ -11,7 +11,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     return response.status(status).json({
       statusCode: status,
-      message: status === 500 ? 'An unexpected error occurred on our servers' : message.message,
+      message: status === 500 ? 'An error occurred on our servers, we will work to fix it as soon as possible' : message.message,
       timestamp: new Date(Date.now()),
     });
   }
