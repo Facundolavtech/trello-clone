@@ -1,71 +1,42 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateListDTO } from '../dto/create.dto';
-import { UpdateListDTO } from '../dto/update.dto';
+import { FindOptionsWhere, Repository } from 'typeorm';
+import { CreateListDTO, UpdateListDTO } from '../dto/list.dto';
 import { BoardList } from '../entities/BoardList.entity';
 
 @Injectable()
 export class BoardListService {
   constructor(@InjectRepository(BoardList) private boardListRepository: Repository<BoardList>) {}
 
-  async create(boardId: string, createDTO: CreateListDTO) {
-    const listAlreadyExists = await this.boardListRepository.findOne({
-      name: createDTO.name,
-    });
-
-    if (listAlreadyExists) {
-      throw new BadRequestException('A list already exists with this name');
-    }
-
-    const newList = this.boardListRepository.create(createDTO);
-
-    newList.board = boardId;
-
-    await this.boardListRepository.save(newList);
-
-    return newList;
+  async create(boardId: string, createDTO: CreateListDTO): Promise<BoardList> {
+    return await this.boardListRepository.save(this.boardListRepository.create({ ...createDTO, boardId }));
   }
 
-  async findAll(boardId: string) {
-    const lists = await this.boardListRepository.find({
-      where: { board: boardId },
-      relations: ['cards', 'cards.members', 'cards.members.user', 'cards.comments', 'cards.attachments', 'cards.labels'],
-    });
+  async update(id: string, updateDTO: UpdateListDTO): Promise<BoardList> {
+    const updatedList = await this.boardListRepository.createQueryBuilder().update(updateDTO).where('id = :id', { id }).returning('*').updateEntity(true).execute();
 
-    return lists;
+    return updatedList.raw[0];
   }
 
-  async update(id: string, updateDTO: UpdateListDTO) {
-    const list = await this.boardListRepository.findOne({
-      id,
-    });
+  async delete(id: string): Promise<BoardList> {
+    const deletedList = await this.boardListRepository.createQueryBuilder().delete().where('id = :id', { id }).returning('*').execute();
 
-    if (!list) {
-      throw new BadRequestException('List does not exists');
-    }
-
-    if (updateDTO.name && list.name === updateDTO.name) {
-      throw new BadRequestException('A list already exists with same name');
-    }
-
-    const updatedList = await this.boardListRepository.save(Object.assign(list, updateDTO));
-
-    return updatedList;
+    return deletedList.raw[0];
   }
 
-  async remove(id: string) {
-    const findListById = await this.boardListRepository.findOne({ id });
+  async findById(id: string): Promise<BoardList> {
+    return await this.boardListRepository.findOne({ where: { id } });
+  }
 
-    if (!findListById) {
-      throw new NotFoundException('List does not exists');
-    }
+  async findByQuery(query: FindOptionsWhere<BoardList>): Promise<BoardList> {
+    return await this.boardListRepository.findOne({ where: query });
+  }
 
-    await this.boardListRepository.delete(findListById);
+  async findAll(boardId: string): Promise<BoardList[]> {
+    return await this.boardListRepository.find({ where: { boardId }, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
+  }
 
-    return {
-      statusCode: 200,
-      message: 'List deleted successfully',
-    };
+  async findAllWithRelations(boardId: string, relations: string[]): Promise<BoardList[]> {
+    return await this.boardListRepository.find({ where: { boardId }, relations, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
   }
 }

@@ -1,8 +1,7 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCardsLabelDto } from '../dto/create-label.dto';
-import { UpdateCardsLabelDto } from '../dto/update-label.dto';
+import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
 import { BoardCardLabel } from '../entities/Label.entity';
 
 @Injectable()
@@ -12,76 +11,36 @@ export class CardLabelService {
     private cardLabelRepository: Repository<BoardCardLabel>
   ) {}
 
-  async create(cardId: string, createCardsLabelDto: CreateCardsLabelDto) {
-    const card = this.cardLabelRepository.findOne({ id: cardId });
-
-    if (!card) {
-      throw new NotFoundException('The card does not exists');
-    }
-
-    const labelExists = await this.cardLabelRepository.findOne({
-      card: cardId,
-      name: createCardsLabelDto.name,
-    });
-
-    if (labelExists) {
-      throw new BadRequestException('Already label exists with same name');
-    }
-
-    const newCardLabel = this.cardLabelRepository.create({
-      ...createCardsLabelDto,
-      card: cardId,
-    });
-
-    await this.cardLabelRepository.save(newCardLabel);
-
-    return newCardLabel;
+  async create(cardId: string, createDTO: CreateCardLabelDTO): Promise<BoardCardLabel> {
+    return await this.cardLabelRepository.save(
+      this.cardLabelRepository.create({
+        ...createDTO,
+        cardId,
+      })
+    );
   }
 
-  async findAll(cardId: string) {
-    const card = await this.cardLabelRepository.findOne({ id: cardId }, { relations: ['labels'] });
+  async update(id: string, updateDTO: UpdateCardLabelDTO): Promise<BoardCardLabel> {
+    const updatedLabel = await this.cardLabelRepository.createQueryBuilder().update(updateDTO).where('id = :id', { id }).returning('*').updateEntity(true).execute();
 
-    if (!card) {
-      throw new NotFoundException('The card does not exists');
-    }
-
-    return card.labels;
+    return updatedLabel.raw[0];
   }
 
-  async findOne(labelId: string) {
-    const label = await this.cardLabelRepository.findOne({ id: labelId });
+  async delete(id: string): Promise<BoardCardLabel> {
+    const deletedLabel = await this.cardLabelRepository.createQueryBuilder().delete().where('id = :id', { id }).returning('*').execute();
 
-    if (!label) {
-      throw new NotFoundException('The label does not exists');
-    }
-
-    return label;
+    return deletedLabel.raw[0];
   }
 
-  async update(labelId: string, updateCardsLabelDto: UpdateCardsLabelDto) {
-    const label = await this.cardLabelRepository.findOne({ id: labelId });
-
-    if (!label) {
-      throw new NotFoundException('The label does not exists');
-    }
-
-    const updatedLabel = await this.cardLabelRepository.save(Object.assign(label, updateCardsLabelDto));
-
-    return updatedLabel;
+  async findAll(cardId: string): Promise<BoardCardLabel[]> {
+    return await this.cardLabelRepository.find({ where: { cardId } });
   }
 
-  async remove(labelId: string) {
-    const label = await this.cardLabelRepository.findOne({ id: labelId });
+  async findById(id: string): Promise<BoardCardLabel> {
+    return await this.cardLabelRepository.findOne({ where: { id } });
+  }
 
-    if (!label) {
-      throw new NotFoundException('The label does not exists');
-    }
-
-    await this.cardLabelRepository.delete(label);
-
-    return {
-      statusCode: 200,
-      message: 'Card label deleted successfully',
-    };
+  async findByName(name: string): Promise<BoardCardLabel> {
+    return await this.cardLabelRepository.findOne({ where: { name } });
   }
 }
