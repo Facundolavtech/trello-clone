@@ -2,13 +2,22 @@ import { Module } from '@nestjs/common';
 import { BoardService } from './services/board.service';
 import { BoardController } from './controllers/board.controller';
 import { EntitiesModule } from '../../common/entities/entities.module';
-import { BoardListModule } from './modules/List/list.module';
-import { BoardCardModule } from './modules/Card/card.module';
+import { BoardListController } from './modules/List/controllers/list.controller';
+import { BoardCardController } from './modules/Card/controllers/card.controller';
+import { CardAttachmentController } from './modules/Card/modules/Attachment/controllers/attachment.controller';
+import { CardCommentController } from './modules/Card/modules/Comment/controllers/comment.controller';
+import { CardLabelController } from './modules/Card/modules/Label/controllers/label.controller';
+import { BoardCardService } from './modules/Card/services/card.service';
+import { BoardListService } from './modules/List/services/list.service';
+import { CardAttachmentService } from './modules/Card/modules/Attachment/services/attachments.service';
+import { CardCommentService } from './modules/Card/modules/Comment/services/comment.service';
+import { CardLabelService } from './modules/Card/modules/Label/services/label.service';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [EntitiesModule, BoardListModule, BoardCardModule],
-  controllers: [BoardController],
-  providers: [BoardService],
-  exports: [BoardService],
+  imports: [EntitiesModule, UserModule],
+  controllers: [BoardController, BoardListController, BoardCardController, CardAttachmentController, CardCommentController, CardLabelController],
+  providers: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService],
+  exports: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService],
 })
 export class BoardModule {}
