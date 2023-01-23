@@ -1,6 +1,10 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl, Length, MinLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, Length, MinLength } from 'class-validator';
 
 export class CreateCardDTO {
+  @IsNotEmpty({ message: 'Error: The field is required' })
+  @IsUUID(4, { message: 'Error: The field value is not valid' })
+  listId: string;
+
   @IsNotEmpty({ message: 'Error: The field is required' })
   @IsString({ message: 'Error: The field value is not valid' })
   @Length(6, 32, { message: 'Error: The title must contain between 6 and 32 characters' })
@@ -37,8 +41,7 @@ export class UpdateCardDTO {
 }
 
 export class HandleCardMemberDTO {
-  @IsNotEmpty({ message: 'Error: The field is required' })
-  @IsString({ message: 'Error: The field value is not valid' })
-  @IsEmail({}, { message: 'Error: The field value is not valid' })
-  email: string;
+  @IsNotEmpty({ message: 'Error: The user id is requiered' })
+  @IsUUID(4, { message: 'Error: The user id is not valid' })
+  userId: string;
 }
