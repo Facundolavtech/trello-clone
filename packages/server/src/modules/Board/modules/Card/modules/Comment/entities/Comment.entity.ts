@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../../../../../common/entities/Base.entity';
 import { BoardMember } from '../../../../../entities/BoardMember.entity';
 import { BoardCard } from '../../../entities/Card.entity';
@@ -8,13 +8,17 @@ export class BoardCardComment extends BaseEntity {
   @Column({ nullable: false })
   content: string;
 
-  @ManyToOne(() => BoardCard, (card) => card.comments, {
-    onDelete: 'CASCADE',
-  })
-  card: string;
+  @ManyToOne(() => BoardMember, (boardMember) => boardMember.board_member_card_comments, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+  @JoinColumn({ name: 'authorId' })
+  author: BoardMember;
 
-  @ManyToOne(() => BoardMember, (boardMember) => boardMember.card_comments_authors, {
-    onDelete: 'CASCADE',
-  })
-  author: string;
+  @Column()
+  authorId: string;
+
+  @ManyToOne(() => BoardCard, (card) => card.comments, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @JoinColumn({ name: 'cardId' })
+  card: BoardCard;
+
+  @Column()
+  cardId: string;
 }
