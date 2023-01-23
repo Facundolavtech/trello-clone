@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../../../../../common/entities/Base.entity';
 import { BoardCard } from '../../../entities/Card.entity';
 
@@ -16,5 +16,8 @@ export class BoardCardAttachment extends BaseEntity {
   @ManyToOne(() => BoardCard, (card) => card.attachments, {
     onDelete: 'CASCADE',
   })
-  card: string;
+  @JoinColumn({ name: 'cardId' })
+  card: BoardCard;
+
+  cardId: string;
 }
