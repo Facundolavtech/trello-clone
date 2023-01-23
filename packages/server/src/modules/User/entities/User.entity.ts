@@ -10,13 +10,13 @@ export class User extends BaseEntity {
   provider: UserProviders;
 
   @Column({ nullable: true })
-  providerId: string;
+  providerId?: string;
 
   @Column({ nullable: false, unique: true })
   email: string;
 
   @Column({ nullable: true, select: false })
-  password: string;
+  password?: string;
 
   @Column({ nullable: false })
   name: string;
@@ -25,15 +25,11 @@ export class User extends BaseEntity {
   username: string;
 
   @Column({ nullable: true })
-  picture: string;
+  picture?: string;
 
-  @OneToMany(() => Board, (board) => board.admin, {
-    onDelete: 'CASCADE',
-  })
-  user_board_admin: Board[];
+  @OneToMany(() => Board, (board) => board.admin)
+  user_board_admins: Board[];
 
-  @OneToMany(() => BoardMember, (boardMember) => boardMember.user, {
-    onDelete: 'CASCADE',
-  })
-  user_boards_members: BoardMember[];
+  @OneToMany(() => BoardMember, (boardMember) => boardMember.user)
+  user_board_members: BoardMember[];
 }

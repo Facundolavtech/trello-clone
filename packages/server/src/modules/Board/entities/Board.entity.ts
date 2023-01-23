@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/Base.entity';
 import { User } from '../../User/entities/User.entity';
 import { BoardCard } from '../modules/Card/entities/Card.entity';
@@ -19,23 +19,19 @@ export class Board extends BaseEntity {
   @Column({ default: false })
   isPrivate: boolean;
 
-  @ManyToOne(() => User, (user) => user.user_board_admin, {
-    onDelete: 'CASCADE',
-  })
-  admin: string;
+  @ManyToOne(() => User, (user) => user.user_board_admins, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
+  @JoinColumn({ name: 'adminId' })
+  admin: User;
 
-  @OneToMany(() => BoardMember, (boardMember) => boardMember.board, {
-    onDelete: 'CASCADE',
-  })
-  members: BoardMember[];
+  @Column({ select: false })
+  adminId: string;
 
-  @OneToMany(() => BoardList, (list) => list.board, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => BoardList, (list) => list.board)
   lists: BoardList[];
 
-  @OneToMany(() => BoardCard, (card) => card.board, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => BoardCard, (boardCard) => boardCard.board)
   cards: BoardCard[];
+
+  @OneToMany(() => BoardMember, (boardMember) => boardMember.board)
+  members: BoardMember[];
 }
