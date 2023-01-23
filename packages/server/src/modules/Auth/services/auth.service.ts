@@ -7,7 +7,7 @@ import { IAuthProviderUserDTO } from '../types';
 import { UserService } from '../../User/services/user.service';
 import { UserProviders } from '../../User/constants';
 import formatUserProvider from '../utils/formatProvider';
-import { RegisterUserDTO } from '../dto/auth.dto';
+import { RegisterLocalDTO } from '../dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,7 @@ export class AuthService {
     return userByEmail;
   }
 
-  async registerLocal(registerDTO: RegisterUserDTO): Promise<User> {
+  async registerLocal(registerDTO: RegisterLocalDTO): Promise<User> {
     const user = await this.userService.findByEmail(registerDTO.email);
 
     if (user) {
