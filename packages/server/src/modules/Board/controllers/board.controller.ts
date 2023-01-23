@@ -1,38 +1,24 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  UseGuards,
-  Put,
-  HttpCode,
-  HttpStatus,
-  Query,
-  NotFoundException,
-  UnauthorizedException,
-  BadRequestException,
-  Req,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Query, BadRequestException, Req, NotFoundException } from '@nestjs/common';
 import { BoardService } from '../services/board.service';
-import { CreateBoardDto } from '../dto/create-board.dto';
-import { UpdateBoardDto } from '../dto/update-board.dto';
-import { AdminGuard } from '../guards/admin.guard';
 import { AuthenticatedGuard } from '../../Auth/guards/auth.guard';
 import { UserService } from '../../user/services/user.service';
 import { AuthenticatedRequest } from '../../../common/types';
+import { CreateBoardDTO } from '../dto/create.dto';
+import { HandleBoardMemberDTO, UpdateBoardDTO } from '../dto/update.dto';
+import { BoardAdminGuard } from '../guards/board-admin.guard';
+import { WithBoardRequest } from '../interfaces';
+import { BoardMemberGuard } from '../guards/board-member.guard';
 
 @UseGuards(AuthenticatedGuard)
-@Controller('board')
+@Controller('boards')
 export class BoardController {
   constructor(private readonly boardService: BoardService, private userService: UserService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AuthenticatedGuard)
   @Post('create')
-  async create(@Req() req: AuthenticatedRequest, @Body() createDTO: CreateBoardDto) {
-    const userId = req.user.id;
+  async create(@Req() req: AuthenticatedRequest, @Body() createDTO: CreateBoardDTO) {
+    const user = req.user;
 
     const boardByTitle = await this.boardService.findByTitle(createDTO.title);
 
@@ -40,94 +26,84 @@ export class BoardController {
       throw new BadRequestException('Already board exists with same title');
     }
 
-    return this.boardService.create(createDTO, userId);
+    return await this.boardService.create(createDTO, user);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Query('isPrivate') isPrivate?: boolean) {
-    return await this.boardService.findAll(isPrivate);
+    return await this.boardService.findAllWithRelations(isPrivate, ['members', 'members.user', 'admin']);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.boardService.findById(id);
+    return this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminGuard)
+  @UseGuards(BoardMemberGuard, BoardAdminGuard)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateDTO: UpdateBoardDto) {
-    const boardById = await this.boardService.findById(id);
-
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
-    }
-
+  async update(@Param('id') id: string, @Body() updateDTO: UpdateBoardDTO) {
     return this.boardService.update(id, updateDTO);
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminGuard)
+  @UseGuards(BoardMemberGuard, BoardAdminGuard)
   @Delete('delete/:id')
   async remove(@Param('id') id: string) {
-    const boardById = await this.boardService.findById(id);
-
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
-    }
-
     return await this.boardService.delete(id);
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminGuard)
-  @Post(':id/members/add/:userId')
-  async addMember(@Param('id') id: string, @Param('userId') userId: string) {
-    const boardById = await this.boardService.findById(id);
+  @UseGuards(BoardMemberGuard, BoardAdminGuard)
+  @Post(':id/members/add')
+  async addMember(@Req() req: WithBoardRequest, @Body() handleMemberDTO: HandleBoardMemberDTO) {
+    const board = req.board;
+    const user = req.user;
 
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
+    if (user.id === handleMemberDTO.userId) {
+      throw new BadRequestException("You can't add yourself to board");
     }
 
-    const user = await this.userService.findById(userId);
+    const userById = await this.userService.findById(handleMemberDTO.userId);
 
-    if (!user) {
+    if (!userById) {
       throw new NotFoundException('The user does not exists');
     }
 
-    if (boardById.members.find((member) => member.user['id'] === user.id)) {
+    const boardMember = this.boardService.findBoardMember(board, handleMemberDTO.userId);
+
+    if (boardMember) {
       throw new BadRequestException('User already be in the board');
     }
 
-    return this.boardService.addMember(id, userId);
+    return this.boardService.updateMembers(board.id, handleMemberDTO.userId, 'add');
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminGuard)
-  @Delete(':id/members/delete/:userId')
-  async deleteMember(@Param('id') id: string, @Param('userId') userId: string) {
-    const board = await this.boardService.findById(id);
+  @UseGuards(BoardMemberGuard, BoardAdminGuard)
+  @Delete(':id/members/delete')
+  async deleteMember(@Req() req: WithBoardRequest, @Body() handleMemberDTO: HandleBoardMemberDTO) {
+    const user = req.user;
+    const board = req.board;
 
-    if (!board) {
-      throw new NotFoundException('The board does not exists');
+    if (user.id === handleMemberDTO.userId) {
+      throw new BadRequestException("You can't remove yourself from board");
     }
 
-    const user = await this.userService.findById(userId);
+    const userById = await this.userService.findById(handleMemberDTO.userId);
 
-    if (!user) {
+    if (!userById) {
       throw new NotFoundException('The user does not exists');
     }
 
-    if (board.admin === user.id) {
-      throw new UnauthorizedException('You cant remove yourself from the board');
+    const boardMember = this.boardService.findBoardMember(board, userById.id);
+
+    if (!boardMember) {
+      throw new BadRequestException('User is not in the board');
     }
 
-    if (!board.members.find((member) => member.user['id'] === user.id)) {
-      throw new BadRequestException('User does not be in the board');
-    }
-
-    return await this.boardService.addMember(id, userId);
+    return this.boardService.updateMembers(board.id, handleMemberDTO.userId, 'delete');
   }
 }
