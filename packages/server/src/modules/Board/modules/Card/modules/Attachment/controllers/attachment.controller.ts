@@ -3,7 +3,10 @@ import {
   Delete,
   FileTypeValidator,
   Get,
+  HttpCode,
+  HttpStatus,
   MaxFileSizeValidator,
+  NotFoundException,
   Param,
   ParseFilePipe,
   Post,
@@ -11,16 +14,17 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
 import { CardAttachmentService } from '../services/attachments.service';
 
-@Controller('cards/attachments/:boardId/:cardId')
+@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@Controller('boards/:boardId/cards/:cardId/attachments')
 export class CardAttachmentController {
   constructor(private readonly cardAttachmentService: CardAttachmentService) {}
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @HttpCode(HttpStatus.CREATED)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
@@ -37,26 +41,32 @@ export class CardAttachmentController {
     )
     file: Express.Multer.File
   ) {
-    return this.cardAttachmentService.upload(cardId, file);
+    return await this.cardAttachmentService.upload(cardId, file);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findAll')
-  findAll(@Param('cardId') cardId: string) {
-    return this.cardAttachmentService.findAll(cardId);
+  @HttpCode(HttpStatus.OK)
+  @Get()
+  async findAll(@Param('cardId') cardId: string) {
+    return await this.cardAttachmentService.findAll(cardId);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findOne/:attachmentId')
-  findOne(@Param('attachmentId') attachmentId: string) {
-    return this.cardAttachmentService.findOne(attachmentId);
+  @HttpCode(HttpStatus.OK)
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.cardAttachmentService.findById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Delete('delete/:attachmentId')
-  remove(@Param('cardId') cardId: string, @Param('attachmentId') attachmentId: string) {
+  @HttpCode(HttpStatus.OK)
+  @Delete('delete/:id')
+  async delete(@Param('cardId') cardId: string, @Param('id') id: string) {
     const attachmentPath = `cards_attachments/${cardId}`;
 
-    return this.cardAttachmentService.remove(attachmentId, attachmentPath);
+    const attachmentById = await this.cardAttachmentService.findById(id);
+
+    if (!attachmentById) {
+      throw new NotFoundException('The attachment does not exists');
+    }
+
+    return await this.cardAttachmentService.delete(attachmentById, attachmentPath);
   }
 }

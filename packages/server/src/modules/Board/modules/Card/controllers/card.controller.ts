@@ -1,58 +1,152 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Request } from '@nestjs/common';
-import { CreateCardDto } from '../dto/create-card.dto';
-import { UpdateCardDto } from '../dto/update-card.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { AddCardMemberDto } from '../dto/add-member.dto';
-import { RemoveCardMemberDto } from '../dto/remove-member.dto';
-import { ListExistGuard } from '../guards/list-exists.guard';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Req, NotFoundException, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
+import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
+import { WithBoardRequest } from '../../../interfaces';
+import { BoardService } from '../../../services/board.service';
+import { BoardListService } from '../../List/services/list.service';
+import { CreateCardDTO, HandleCardMemberDTO, UpdateCardDTO } from '../dto/card.dto';
 import { BoardCardService } from '../services/card.service';
 
-@Controller('cards/:boardId')
+@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@Controller('boards/:boardId/cards')
 export class BoardCardController {
-  constructor(private readonly boardCardService: BoardCardService) {}
+  constructor(private boardCardService: BoardCardService, private boardService: BoardService, private boardListService: BoardListService) {}
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard, ListExistGuard)
-  @Post('create/:listId')
-  create(@Request() req, @Param('listId') listId: string, @Param('boardId') boardId: string, @Body() createCardDto: CreateCardDto) {
-    const userId = req.user.id;
+  @HttpCode(HttpStatus.CREATED)
+  @Post('create')
+  async create(@Req() req: WithBoardRequest, @Param('boardId') boardId: string, @Body() createDTO: CreateCardDTO) {
+    const board = req.board;
+    const user = req.user;
 
-    return this.boardCardService.create(boardId, listId, userId, createCardDto);
+    const listById = await this.boardListService.findById(createDTO.listId);
+
+    if (!listById) {
+      throw new NotFoundException('The list does not exists');
+    }
+
+    const cardExists = await this.boardCardService.findByQuery({
+      title: createDTO.title,
+      boardId,
+    });
+
+    if (cardExists) {
+      throw new BadRequestException('A card with that title already exists');
+    }
+
+    const member = this.boardService.findBoardMember(board, user.id);
+
+    return await this.boardCardService.create(boardId, member, createDTO);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard, ListExistGuard)
-  @Get('findAll/:listId')
-  findAll(@Param('listId') listId: string) {
-    return this.boardCardService.findAll(listId);
+  @HttpCode(HttpStatus.OK)
+  @Get()
+  async getAll() {
+    return await this.boardCardService.findAll();
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findOne/:cardId')
-  findOne(@Param('cardId') cardId: string) {
-    return this.boardCardService.findOne(cardId);
+  @HttpCode(HttpStatus.OK)
+  @Get('/lists/:listId')
+  async getAllByList(@Param('listId') listId: string) {
+    const listById = await this.boardListService.findById(listId);
+
+    if (!listById) {
+      throw new NotFoundException('The list does not exists');
+    }
+
+    return this.boardCardService.findAllByListId(listId);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Put('update/:cardId')
-  update(@Param('cardId') cardId: string, @Body() updateCardDto: UpdateCardDto) {
-    return this.boardCardService.update(cardId, updateCardDto);
+  @HttpCode(HttpStatus.OK)
+  @Get(':id')
+  async getOne(@Param('id') id: string) {
+    return this.boardCardService.findById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Delete('delete/:cardId')
-  remove(@Param('cardId') cardId: string) {
-    return this.boardCardService.remove(cardId);
+  @HttpCode(HttpStatus.OK)
+  @Put('update/:id')
+  async update(@Param('id') id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateCardDTO) {
+    if (updateDTO.title) {
+      const cardExists = await this.boardCardService.findByQuery({
+        title: updateDTO.title,
+        id,
+        boardId,
+      });
+
+      if (cardExists) {
+        throw new BadRequestException('A card with that title already exists');
+      }
+    } else {
+      const cardById = await this.boardCardService.findById(id);
+
+      if (!cardById) {
+        throw new NotFoundException('The card does not exists');
+      }
+    }
+
+    return await this.boardCardService.update(id, updateDTO);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Post('members/add/:cardId')
-  addMember(@Param('cardId') cardId: string, @Body() addCardMemberDto: AddCardMemberDto) {
-    return this.boardCardService.addMember(cardId, addCardMemberDto);
+  @HttpCode(HttpStatus.OK)
+  @Delete('delete/:id')
+  async delete(@Param('id') id: string) {
+    const cardById = await this.boardCardService.findById(id);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    return await this.boardCardService.delete(id);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Delete('members/delete/:cardId')
-  deleteMember(@Param('cardId') cardId: string, @Body() removeCardMemberDto: RemoveCardMemberDto) {
-    return this.boardCardService.deleteMember(cardId, removeCardMemberDto);
+  @HttpCode(HttpStatus.OK)
+  @Post(':id/members/add')
+  async addMember(@Req() req: WithBoardRequest, @Param('id') id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
+    const board = req.board;
+
+    const cardById = await this.boardCardService.findById(id);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    const member = await this.boardService.findBoardMember(board, handleMemberDTO.userId);
+
+    if (!member) {
+      throw new BadRequestException('The user is not in the board');
+    }
+
+    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, member.id);
+
+    if (userIsCardMember) {
+      throw new BadRequestException('The user is already in the card');
+    }
+
+    return this.boardCardService.updateMembers(cardById, member, 'add');
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Delete(':id/members/delete')
+  async removeMember(@Req() req: WithBoardRequest, @Param('id') id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
+    const board = req.board;
+
+    const cardById = await this.boardCardService.findById(id);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    const member = await this.boardService.findBoardMember(board, handleMemberDTO.userId);
+
+    if (!member) {
+      throw new BadRequestException('The user is not in the board');
+    }
+
+    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, member.id);
+
+    if (!userIsCardMember) {
+      throw new BadRequestException('The user is not in the card');
+    }
+
+    return this.boardCardService.updateMembers(cardById, member, 'delete');
   }
 }

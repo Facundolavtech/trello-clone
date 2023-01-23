@@ -1,41 +1,59 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CardLabelService } from '../services/label.service';
-import { CreateCardsLabelDto } from '../dto/create-label.dto';
-import { UpdateCardsLabelDto } from '../dto/update-label.dto';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
+import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
+import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 
-@Controller('cards/labels/:cardId/:boardId')
+@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@Controller('boards/:boardId/cards/:cardId/labels')
 export class CardLabelController {
   constructor(private readonly cardLabelService: CardLabelService) {}
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
+  @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  create(@Param('cardId') cardId: string, @Body() createCardsLabelDto: CreateCardsLabelDto) {
-    return this.cardLabelService.create(cardId, createCardsLabelDto);
+  async create(@Param('cardId') cardId: string, @Body() createDTO: CreateCardLabelDTO) {
+    const labelByName = await this.cardLabelService.findByName(createDTO.name);
+
+    if (labelByName) {
+      throw new BadRequestException('A label already exist with that name');
+    }
+
+    return this.cardLabelService.create(cardId, createDTO);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findAll')
-  findAll(@Param('cardId') cardId: string) {
+  @HttpCode(HttpStatus.OK)
+  @Get()
+  async getAll(@Param('cardId') cardId: string) {
     return this.cardLabelService.findAll(cardId);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Get('findOne/:labelId')
-  findOne(@Param('labelId') labelId: string) {
-    return this.cardLabelService.findOne(labelId);
+  @HttpCode(HttpStatus.OK)
+  @Get(':id')
+  async getOne(@Param('id') id: string) {
+    return await this.cardLabelService.findById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Put('update/:labelId')
-  update(@Param('labelId') labelId: string, @Body() updateCardsLabelDto: UpdateCardsLabelDto) {
-    return this.cardLabelService.update(labelId, updateCardsLabelDto);
+  @HttpCode(HttpStatus.OK)
+  @Put('update/:id')
+  async update(@Param('id') id: string, @Body() updateDTO: UpdateCardLabelDTO) {
+    const labelById = await this.cardLabelService.findById(id);
+
+    if (!labelById) {
+      throw new NotFoundException('The label does not exists');
+    }
+
+    return await this.cardLabelService.update(id, updateDTO);
   }
 
-  @UseGuards(AuthGuard('jwt'), BoardMemberGuard)
-  @Delete('delete/:labelId')
-  remove(@Param('labelId') labelId: string) {
-    return this.cardLabelService.remove(labelId);
+  @HttpCode(HttpStatus.OK)
+  @Delete('delete/:id')
+  async delete(@Param('id') id: string) {
+    const labelById = await this.cardLabelService.findById(id);
+
+    if (!labelById) {
+      throw new NotFoundException('The label does not exists');
+    }
+
+    return await this.cardLabelService.delete(id);
   }
 }
