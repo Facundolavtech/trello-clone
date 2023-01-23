@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID } from 'class-validator';
 
 export class UpdateBoardDTO {
   @IsOptional()
@@ -16,4 +16,10 @@ export class UpdateBoardDTO {
   @IsOptional()
   @IsString({ message: 'Error: The field value is not valid' })
   description?: string;
+}
+
+export class HandleBoardMemberDTO {
+  @IsNotEmpty({ message: 'Error: The user id is requiered' })
+  @IsUUID(4, { message: 'Error: The user id is not valid' })
+  userId: string;
 }
