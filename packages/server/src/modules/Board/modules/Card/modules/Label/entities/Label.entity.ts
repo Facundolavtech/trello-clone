@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../../../../../common/entities/Base.entity';
 import { BoardCard } from '../../../entities/Card.entity';
 
@@ -13,5 +13,9 @@ export class BoardCardLabel extends BaseEntity {
   @ManyToOne(() => BoardCard, (card) => card.labels, {
     onDelete: 'CASCADE',
   })
-  card: string;
+  @JoinColumn({ name: 'cardId' })
+  card: BoardCard;
+
+  @Column()
+  cardId: string;
 }
