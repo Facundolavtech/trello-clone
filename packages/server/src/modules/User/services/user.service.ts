@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcrypt';
 import { Repository } from 'typeorm';
-import { RegisterUserDTO } from '../../Auth/dto/auth.dto';
+import { RegisterLocalDTO, RegisterWithProviderDTO } from '../../Auth/dto/auth.dto';
 import { UpdateUserDTO } from '../dto/update.dto';
 import { User } from '../entities/User.entity';
 import { IUserProfile } from '../schemas/user.schema';
@@ -15,7 +15,7 @@ export class UserService {
     return await hash(plainPassword, 10);
   }
 
-  async create(registerDTO: RegisterUserDTO): Promise<User> {
+  async create(registerDTO: RegisterLocalDTO | RegisterWithProviderDTO): Promise<User> {
     return await this.userRepository.save(this.userRepository.create(registerDTO));
   }
 
