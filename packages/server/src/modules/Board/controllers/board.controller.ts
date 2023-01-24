@@ -38,7 +38,13 @@ export class BoardController {
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
+    const boardById = this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
+
+    if (!boardById) {
+      throw new NotFoundException('The board does not exists');
+    }
+
+    return boardById;
   }
 
   @HttpCode(HttpStatus.OK)
@@ -72,9 +78,9 @@ export class BoardController {
       throw new NotFoundException('The user does not exists');
     }
 
-    const boardMember = this.boardService.findBoardMember(board, handleMemberDTO.userId);
+    const userIsBoardMember = this.boardService.userIsBoardMember(board, handleMemberDTO.userId);
 
-    if (boardMember) {
+    if (userIsBoardMember) {
       throw new BadRequestException('User already be in the board');
     }
 
@@ -98,9 +104,9 @@ export class BoardController {
       throw new NotFoundException('The user does not exists');
     }
 
-    const boardMember = this.boardService.findBoardMember(board, userById.id);
+    const userIsBoardMember = this.boardService.userIsBoardMember(board, handleMemberDTO.userId);
 
-    if (!boardMember) {
+    if (!userIsBoardMember) {
       throw new BadRequestException('User is not in the board');
     }
 

@@ -24,12 +24,12 @@ export class BoardCardController {
       throw new NotFoundException('The list does not exists');
     }
 
-    const cardExists = await this.boardCardService.findByQuery({
+    const cardByQuery = await this.boardCardService.findByQuery({
+      listId: createDTO.listId,
       title: createDTO.title,
-      boardId,
     });
 
-    if (cardExists) {
+    if (cardByQuery) {
       throw new BadRequestException('A card with that title already exists');
     }
 
@@ -40,47 +40,33 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async getAll() {
-    return await this.boardCardService.findAll();
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Get('/lists/:listId')
-  async getAllByList(@Param('listId') listId: string) {
-    const listById = await this.boardListService.findById(listId);
-
-    if (!listById) {
-      throw new NotFoundException('The list does not exists');
-    }
-
-    return this.boardCardService.findAllByListId(listId);
+  async getAll(@Param('boardId') boardId: string) {
+    return await this.boardCardService.findAll(boardId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async getOne(@Param('id') id: string) {
-    return this.boardCardService.findById(id);
+    const cardById = await this.boardCardService.findById(id);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    return cardById;
   }
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateCardDTO) {
-    if (updateDTO.title) {
-      const cardExists = await this.boardCardService.findByQuery({
-        title: updateDTO.title,
-        id,
-        boardId,
-      });
+  async update(@Param('id') id: string, @Body() updateDTO: UpdateCardDTO) {
+    const cardById = await this.boardCardService.findById(id);
 
-      if (cardExists) {
-        throw new BadRequestException('A card with that title already exists');
-      }
-    } else {
-      const cardById = await this.boardCardService.findById(id);
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
 
-      if (!cardById) {
-        throw new NotFoundException('The card does not exists');
-      }
+    if (cardById.title === updateDTO.title) {
+      throw new BadRequestException('A card with that title already exists');
     }
 
     return await this.boardCardService.update(id, updateDTO);

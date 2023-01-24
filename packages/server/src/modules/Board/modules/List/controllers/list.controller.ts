@@ -17,12 +17,12 @@ export class BoardListController {
     boardId: string,
     @Body() createDTO: CreateListDTO
   ) {
-    const listExists = await this.boardListService.findByQuery({
-      name: createDTO.name,
+    const listByQuery = await this.boardListService.findByQuery({
       boardId,
+      name: createDTO.name,
     });
 
-    if (listExists) {
+    if (listByQuery) {
       throw new BadRequestException('A list already exists with this name');
     }
 
@@ -35,28 +35,20 @@ export class BoardListController {
     @Param('boardId')
     boardId: string
   ) {
-    return this.boardListService.findAllWithRelations(boardId, ['cards', 'cards.members']);
+    return await this.boardListService.findAllWithRelations(boardId, ['cards', 'cards.members']);
   }
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
   async update(@Param('id') id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateListDTO) {
-    if (updateDTO.name) {
-      const listExists = await this.boardListService.findByQuery({
-        name: updateDTO.name,
-        boardId,
-        id,
-      });
+    const listById = await this.boardListService.findById(id);
 
-      if (listExists) {
-        throw new BadRequestException('A list already exists with this name');
-      }
-    } else {
-      const listById = await this.boardListService.findById(id);
+    if (!listById) {
+      throw new NotFoundException('The list does not exists');
+    }
 
-      if (!listById) {
-        throw new NotFoundException('The list does not exists');
-      }
+    if (listById.name === updateDTO.name) {
+      throw new BadRequestException('A list with that name already exists');
     }
 
     return this.boardListService.update(id, updateDTO);
