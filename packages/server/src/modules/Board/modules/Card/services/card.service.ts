@@ -31,15 +31,9 @@ export class BoardCardService {
     return updatedCard.raw[0];
   }
 
-  async findAll(): Promise<BoardCard[]> {
+  async findAll(boardId: string): Promise<BoardCard[]> {
     return await this.cardRepository.find({
-      relations: ['members', 'attachments', 'labels', 'comments'],
-    });
-  }
-
-  async findAllByListId(listId: string): Promise<BoardCard[]> {
-    return await this.cardRepository.find({
-      where: { listId },
+      where: { board: { id: boardId } },
       relations: ['members', 'attachments', 'labels', 'comments'],
     });
   }
