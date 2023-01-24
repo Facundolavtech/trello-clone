@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { storage } from '../../../../../../../libs/firebase';
 import { BoardCardAttachment } from '../entities/Attachment.entity';
 
@@ -13,7 +13,7 @@ export class CardAttachmentService {
   ) {}
 
   async upload(cardId: string, file: Express.Multer.File): Promise<BoardCardAttachment> {
-    const storageRef = ref(storage, `cards_attachments/${cardId}/${file.originalname}`);
+    const storageRef = ref(storage, `card_attachments/${cardId}/${file.originalname}`);
 
     const snapshot = await uploadBytes(storageRef, file.buffer, {
       contentType: file.mimetype,
@@ -57,11 +57,9 @@ export class CardAttachmentService {
     });
   }
 
-  async findByName(name: string): Promise<BoardCardAttachment> {
+  async findByQuery(query: FindOptionsWhere<BoardCardAttachment>): Promise<BoardCardAttachment> {
     return await this.cardAttachmentRepository.findOne({
-      where: {
-        name,
-      },
+      where: query,
     });
   }
 }
