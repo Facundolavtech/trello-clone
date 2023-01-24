@@ -15,9 +15,11 @@ export class BoardCardAttachment extends BaseEntity {
 
   @ManyToOne(() => BoardCard, (card) => card.attachments, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   })
   @JoinColumn({ name: 'cardId' })
   card: BoardCard;
 
+  @Column()
   cardId: string;
 }
