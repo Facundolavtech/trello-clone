@@ -13,6 +13,8 @@ import { AuthModule } from './modules/Auth/auth.module';
 import { UserModule } from './modules/User/user.module';
 import { BoardModule } from './modules/Board/board.module';
 import { RedisCacheModule } from './modules/Redis/redis.module';
+import { TerminusModule } from '@nestjs/terminus';
+import { HealthModule } from './modules/Health/health.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { RedisCacheModule } from './modules/Redis/redis.module';
     UserModule,
     BoardModule,
     RedisCacheModule,
+    HealthModule,
+    TerminusModule,
     TypeOrmModule.forRootAsync(databaseConfigAsync),
     PassportModule.register({
       session: true,
