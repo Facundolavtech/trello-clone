@@ -11,7 +11,6 @@ export default registerAs('config', () => {
     globalPrefix: 'api',
     port: process.env.PORT,
     environment: process.env.NODE_ENV,
-    domain: process.env.DOMAIN,
     database: {
       user: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
@@ -21,9 +20,6 @@ export default registerAs('config', () => {
       session: {
         cookieName: 'thullo.sess',
         secret: process.env.SESSION_SECRET,
-      },
-      jwt: {
-        secret: process.env.JWT_SECRET,
       },
       oauth: {
         google: {

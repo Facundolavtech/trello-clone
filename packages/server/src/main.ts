@@ -21,7 +21,7 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const { globalPrefix, port, environment, domain, auth, client } = config();
+  const { globalPrefix, port, environment, auth, client } = config();
 
   app.setGlobalPrefix(globalPrefix);
 
@@ -51,7 +51,6 @@ async function bootstrap() {
       name: auth.session.cookieName,
       cookie: {
         maxAge: 60000 * 60 * 24 * 7,
-        domain: environment === NODE_ENV.PRODUCTION ? domain : undefined,
         httpOnly: true,
         secure: environment === NODE_ENV.PRODUCTION,
       },
