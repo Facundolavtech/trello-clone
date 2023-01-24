@@ -1,26 +1,27 @@
 FROM node:16.13.0-alpine
 
 ENV PORT=
-ENV DOMAIN=
 ENV CLIENT_BASE_URL=
+ENV GOOGLE_API_BASE_URL=
 ENV GOOGLE_CLIENT_ID=
-ENV DATABASE_HOST=
-ENV DATABASE_PORT=
-ENV DATABASE_NAME=
-ENV DATABASE_USER=
-ENV DATABASE_PASSWORD=
+ENV DATABASE_URL=
 ENV FIREBASE_API_KEY=
 ENV FIREBASE_AUTH_DOMAIN=
 ENV FIREBASE_PROJECT_ID=
 ENV FIREBASE_STORAGE_BUCKET=
 ENV FIREBASE_MESSAGE_SENDER_ID=
 ENV FIREBASE_APP_ID=
+ENV MAILER_HOST=
+ENV MAILER_PASSWORD=
+ENV MAILER_PORT=
+ENV MAILER_USER=
 ENV REDIS_CONNECTION_URL=
 ENV SESSION_SECRET=
 
 RUN apk update
 
 RUN apk add --update nginx
+RUN apk add --update redis
 
 ENV PROJECT_ROOT=/thullo/
 
@@ -35,5 +36,6 @@ RUN npm install -g typescript ts-node husky
 RUN npm install
 
 EXPOSE 8000
+EXPOSE 6379
 
-CMD nginx && npx nest build && npx cross-env NODE_ENV=production node dist/main.js
+CMD redis-server && nginx && npx nest build && npx cross-env NODE_ENV=production node dist/main.js
