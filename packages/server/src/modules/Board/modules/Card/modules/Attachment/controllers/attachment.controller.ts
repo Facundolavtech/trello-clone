@@ -9,24 +9,27 @@ import {
   NotFoundException,
   Param,
   ParseFilePipe,
+  BadRequestException,
   Post,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { EmptyBodyInterceptor } from '../../../../../../../common/interceptors/empty-body.interceptor';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
+import { BoardCardService } from '../../../services/card.service';
 import { CardAttachmentService } from '../services/attachments.service';
 
 @UseGuards(AuthenticatedGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/attachments')
 export class CardAttachmentController {
-  constructor(private readonly cardAttachmentService: CardAttachmentService) {}
+  constructor(private readonly cardAttachmentService: CardAttachmentService, private boardCardService: BoardCardService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(EmptyBodyInterceptor, FileInterceptor('file'))
   async uploadFile(
     @Param('cardId') cardId: string,
     @UploadedFile(
@@ -41,31 +44,58 @@ export class CardAttachmentController {
     )
     file: Express.Multer.File
   ) {
+    const cardById = await this.boardCardService.findById(cardId);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
+    const attachmentByQuery = await this.cardAttachmentService.findByQuery({
+      name: file.originalname,
+      cardId,
+    });
+
+    if (attachmentByQuery) {
+      throw new BadRequestException('An attachment with that name already exists');
+    }
+
     return await this.cardAttachmentService.upload(cardId, file);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(@Param('cardId') cardId: string) {
+    const cardById = await this.boardCardService.findById(cardId);
+
+    if (!cardById) {
+      throw new NotFoundException('The card does not exists');
+    }
+
     return await this.cardAttachmentService.findAll(cardId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async findOne(@Param('id') id: string) {
+    const attachmentById = await this.cardAttachmentService.findById(id);
+
+    if (!attachmentById) {
+      throw new NotFoundException('The attachment does not exists');
+    }
+
     return await this.cardAttachmentService.findById(id);
   }
 
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
   async delete(@Param('cardId') cardId: string, @Param('id') id: string) {
-    const attachmentPath = `cards_attachments/${cardId}`;
-
     const attachmentById = await this.cardAttachmentService.findById(id);
 
     if (!attachmentById) {
       throw new NotFoundException('The attachment does not exists');
     }
+
+    const attachmentPath = `card_attachments/${cardId}`;
 
     return await this.cardAttachmentService.delete(attachmentById, attachmentPath);
   }
