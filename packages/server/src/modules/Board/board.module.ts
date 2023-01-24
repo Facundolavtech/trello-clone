@@ -12,7 +12,7 @@ import { BoardListService } from './modules/List/services/list.service';
 import { CardAttachmentService } from './modules/Card/modules/Attachment/services/attachments.service';
 import { CardCommentService } from './modules/Card/modules/Comment/services/comment.service';
 import { CardLabelService } from './modules/Card/modules/Label/services/label.service';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../User/user.module';
 
 @Module({
   imports: [EntitiesModule, UserModule],

@@ -2,15 +2,15 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EntitiesModule } from '../../common/entities/entities.module';
-import { User } from '../user/entities/User.entity';
+import { User } from '../User/entities/User.entity';
 import { UserService } from '../User/services/user.service';
-import { UserModule } from '../user/user.module';
+import { UserModule } from '../User/user.module';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { RegisterStrategy } from './strategies/register.strategy';
-import { SessionSerializer } from './utils/SessionSerializer';
+import { SessionSerializer } from './utils/sessionSerializer';
 
 @Module({
   imports: [

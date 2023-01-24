@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
-import { User } from '../../user/entities/User.entity';
-import { IUser } from '../../user/schemas/user.schema';
-import { UserService } from '../../user/services/user.service';
+import { User } from '../../User/entities/User.entity';
+import { IUser } from '../../User/schemas/user.schema';
+import { UserService } from '../../User/services/user.service';
 
 type SerializedUser = IUser;
 

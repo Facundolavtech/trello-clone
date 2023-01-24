@@ -5,7 +5,7 @@ import { Request } from 'express';
 import { Strategy } from 'passport-custom';
 import { ConfigType } from '@nestjs/config';
 import { AuthService } from '../services/auth.service';
-import { User } from '../../user/entities/User.entity';
+import { User } from '../../User/entities/User.entity';
 import config from '../../../config';
 import { UserProviders } from '../../User/constants';
 import { IGoogleUserDTO } from '../types';

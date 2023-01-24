@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Query, BadRequestException, Req, NotFoundException } from '@nestjs/common';
 import { BoardService } from '../services/board.service';
 import { AuthenticatedGuard } from '../../Auth/guards/auth.guard';
-import { UserService } from '../../user/services/user.service';
+import { UserService } from '../../User/services/user.service';
 import { AuthenticatedRequest } from '../../../common/types';
 import { CreateBoardDTO } from '../dto/create.dto';
 import { HandleBoardMemberDTO, UpdateBoardDTO } from '../dto/update.dto';
