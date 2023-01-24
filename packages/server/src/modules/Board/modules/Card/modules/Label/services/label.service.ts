@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
 import { BoardCardLabel } from '../entities/Label.entity';
 
@@ -42,5 +42,9 @@ export class CardLabelService {
 
   async findByName(name: string): Promise<BoardCardLabel> {
     return await this.cardLabelRepository.findOne({ where: { name } });
+  }
+
+  async findOneByQuery(query: FindOptionsWhere<BoardCardLabel>): Promise<BoardCardLabel> {
+    return await this.cardLabelRepository.findOne({ where: query });
   }
 }
