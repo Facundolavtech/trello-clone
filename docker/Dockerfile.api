@@ -21,7 +21,6 @@ ENV SESSION_SECRET=
 RUN apk update
 
 RUN apk add --update nginx
-RUN apk add --update redis
 
 ENV PROJECT_ROOT=/thullo/
 
@@ -36,6 +35,5 @@ RUN npm install -g typescript ts-node husky
 RUN npm install
 
 EXPOSE 8000
-EXPOSE 6379
 
-CMD redis-server && nginx && npx nest build && npx cross-env NODE_ENV=production node dist/main.js
+CMD nginx && npx nest build && npx cross-env NODE_ENV=production node dist/main.js
