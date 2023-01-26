@@ -1,13 +1,17 @@
-import type { NextPage } from "next";
-import SEO from "../components/SEO";
+import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  return (
-    <>
-      <SEO />
-      <h1>Hello world</h1>
-    </>
-  );
+  return null;
 };
 
 export default Home;
+
+export const getServerSideProps = () => {
+  return {
+    redirect: {
+      permanent: false,
+      destination: '/dashboard',
+    },
+    props: {},
+  };
+};
