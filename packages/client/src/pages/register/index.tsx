@@ -1,7 +1,7 @@
 import SEO from '../../components/SEO';
-import { Box } from '@chakra-ui/react';
 import AuthCard from '../../features/Auth/components/Card';
 import AuthLayout from '../../layout/Auth';
+import RegisterForm from '../../features/Auth/components/Form/Register';
 
 const Register = () => {
   return (
@@ -9,7 +9,7 @@ const Register = () => {
       <SEO title="Register" />
       <AuthLayout>
         <AuthCard formType="register">
-          <Box></Box>
+          <RegisterForm />
         </AuthCard>
       </AuthLayout>
     </>

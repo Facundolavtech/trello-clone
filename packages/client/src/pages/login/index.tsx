@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/react';
 import SEO from '../../components/SEO';
 import AuthCard from '../../features/Auth/components/Card';
+import LoginForm from '../../features/Auth/components/Form/Login';
 import AuthLayout from '../../layout/Auth';
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
       <SEO title="Login" />
       <AuthLayout>
         <AuthCard formType="login">
-          <Box></Box>
+          <LoginForm />
         </AuthCard>
       </AuthLayout>
     </>
