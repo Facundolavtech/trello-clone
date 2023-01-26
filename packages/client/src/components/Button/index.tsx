@@ -13,9 +13,11 @@ type Props = {
   fontWeight?: number;
   disabled?: boolean;
   style?: CSSProperties;
+  loading?: boolean;
+  onClick?: (params: any) => any;
 };
 
-const Button: FC<Props> = ({ children, width, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style }) => {
+const Button: FC<Props> = ({ children, width, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style, onClick, loading = false }) => {
   return (
     <ChakraButton
       width={width}
@@ -26,9 +28,11 @@ const Button: FC<Props> = ({ children, width, px, py, variant, fontWeight = 500,
       fontFamily={fontFamily}
       variant={variant}
       isDisabled={disabled}
+      isLoading={loading}
       style={style}
       display="flex"
       alignItems="center"
+      onClick={onClick}
     >
       {children}
     </ChakraButton>
