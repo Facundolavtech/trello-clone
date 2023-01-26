@@ -2,12 +2,20 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from '../redux/store';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import config from '../config';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <ReduxProvider store={store}>
+      <GoogleOAuthProvider clientId={config.Auth.Providers.Google.clientId} onScriptLoadError={() => null}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </GoogleOAuthProvider>
+    </ReduxProvider>
   );
 }
 
