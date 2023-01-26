@@ -20,6 +20,9 @@ const theme = extendTheme({
       1: '#2F80ED',
       2: '#DAE4FD',
     },
+    brands: {
+      google: '#4285F4',
+    },
     black: {
       default: '#000000',
     },
