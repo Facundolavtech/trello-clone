@@ -10,13 +10,15 @@ type Props = {
 
 const AuthCard: FC<Props> = ({ formType = 'login', children }) => {
   return (
-    <Box padding={12} width="full" maxWidth={400} bg="white" borderRadius={8}>
-      <VStack spacing={12} width="full" alignItems="flex-start">
+    <Box padding={8} width="full" maxWidth={400} bg="white" borderRadius={8}>
+      <VStack spacing={8} width="full" alignItems="flex-start">
         <Center width="full">
           <Logo width="64px" height="64px" withTitle={false} />
         </Center>
         <AuthTitle title={formType === 'login' ? 'Login' : 'Register'} />
-        {children}
+        <VStack justifyContent="flex-start" width="full" spacing={4}>
+          {children}
+        </VStack>
       </VStack>
     </Box>
   );
