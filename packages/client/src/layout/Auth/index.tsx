@@ -7,7 +7,7 @@ type Props = {
 
 const AuthLayout: FC<Props> = ({ children }) => {
   return (
-    <Box width="full" px={16} height="100vh" bg="blue.1" display="flex" alignItems="center" justifyContent="center">
+    <Box width="full" px={{ base: 8, md: 16 }} py={{ base: 8, md: 16 }} height="full" bg="blue.1" display="flex" alignItems="center" justifyContent="center">
       {children}
     </Box>
   );
