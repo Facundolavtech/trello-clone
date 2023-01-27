@@ -99,6 +99,11 @@ const theme = extendTheme({
     sm: '0px 2px 4px rgba(0, 0, 0, 0.05)',
     md: '0px 4px 12px rgba(0, 0, 0, 0.05)',
   },
+  breakpoints: {
+    sm: '668px',
+    md: '992px',
+    lg: '1312px',
+  },
 });
 
 export default theme;
