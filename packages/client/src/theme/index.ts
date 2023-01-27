@@ -1,7 +1,13 @@
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { cardTheme } from './card';
 
+export const themeConfig: ThemeConfig = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+};
+
 const theme = extendTheme({
+  config: themeConfig,
   styles: {
     global: {
       body: {
