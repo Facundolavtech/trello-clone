@@ -1,4 +1,4 @@
-import { Center, Divider, Stack, Text, VStack } from '@chakra-ui/react';
+import { Center, Stack, Text, VStack } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { LoginSchema } from '../../../validations';
 import ErrorMessage from '../ErrorMessage';

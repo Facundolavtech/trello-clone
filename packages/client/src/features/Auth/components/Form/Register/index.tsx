@@ -1,4 +1,4 @@
-import { Center, Divider, Flex, Stack, Text, VStack } from '@chakra-ui/react';
+import { Center, Stack, Text, VStack } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
