@@ -1,4 +1,5 @@
 import { Divider, HStack, Text } from '@chakra-ui/react';
+import Searchbar from '../../../features/Board/components/Searchbar';
 import WrappedContainer from '../../Containers/Wrapped';
 import Logo from '../../Logo';
 
@@ -15,7 +16,7 @@ const Header = () => {
           </HStack>
         </HStack>
         <HStack spacing={10}>
-          <Text>Searchbox</Text>
+          <Searchbar />
           <Text>Profile</Text>
         </HStack>
       </WrappedContainer>
