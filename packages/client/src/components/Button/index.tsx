@@ -1,11 +1,13 @@
 import { CSSProperties, FC, ReactNode } from 'react';
-import { Button as ChakraButton } from '@chakra-ui/react';
+import { Button as ChakraButton, As } from '@chakra-ui/react';
 import { FontFamily } from '../../theme/constants';
 
 type Props = {
   children: ReactNode;
   width?: number | string;
+  as?: As;
   height?: number | string;
+  type?: 'button' | 'submit';
   px?: number;
   py?: number;
   variant: 'primary' | 'lightgray' | 'outline' | 'link';
@@ -17,14 +19,30 @@ type Props = {
   onClick?: (params: any) => any;
 };
 
-const Button: FC<Props> = ({ children, width, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style, onClick, loading = false }) => {
+const Button: FC<Props> = ({
+  children,
+  width,
+  type = 'button',
+  as,
+  px,
+  py,
+  variant,
+  fontWeight = 500,
+  fontFamily,
+  disabled = false,
+  style,
+  onClick,
+  loading = false,
+}) => {
   return (
     <ChakraButton
       width={width}
       height="auto"
+      as={as}
       px={px}
       py={py}
       fontWeight={fontWeight}
+      type={type}
       fontFamily={fontFamily}
       variant={variant}
       isDisabled={disabled}
