@@ -19,7 +19,7 @@ const AuthInput: FC<Props> = ({ icon, type, placeholder, disabled = false, handl
         <Icon as={icon} color="gray.400" />
       </InputLeftElement>
       <Input
-        focusBorderColor="gray.500"
+        focusBorderColor="blue.1"
         type={type}
         placeholder={placeholder}
         background="white"
@@ -27,7 +27,7 @@ const AuthInput: FC<Props> = ({ icon, type, placeholder, disabled = false, handl
         value={value}
         disabled={disabled}
         onChange={handleChange}
-        _placeholder={{ fontSize: 15, color: 'gray.400' }}
+        _placeholder={{ fontSize: 14, color: 'gray.4' }}
       />
     </InputGroup>
   );
