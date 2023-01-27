@@ -1,4 +1,4 @@
-import { HStack, Image, Text } from '@chakra-ui/react';
+import { Heading, HStack, Image, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { FontFamily } from '../../theme/constants';
 
@@ -13,9 +13,9 @@ const Logo: FC<Props> = ({ withTitle = false, width, height }) => {
     <HStack alignItems="center" spacing={4}>
       <Image objectFit="contain" src="/assets/svg/logo.svg" alt="Logo" width={width} height={height} />
       {withTitle && (
-        <Text color="gray.1" fontSize={18} fontWeight={600} fontFamily={FontFamily.Poppins}>
+        <Heading as="h1" color="gray.1" fontSize={18} fontWeight={600} fontFamily={FontFamily.Poppins}>
           Thullo
-        </Text>
+        </Heading>
       )}
     </HStack>
   );
