@@ -11,7 +11,7 @@ type Props = {
   px?: number;
   py?: number;
   variant: 'primary' | 'lightgray' | 'outline' | 'link';
-  fontFamily: FontFamily;
+  fontFamily?: FontFamily;
   fontWeight?: number;
   disabled?: boolean;
   style?: CSSProperties;
