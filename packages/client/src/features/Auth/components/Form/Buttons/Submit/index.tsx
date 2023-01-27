@@ -1,5 +1,7 @@
 import { FC } from 'react';
-import { Button, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+import Button from '../../../../../../components/Button';
+import { FontFamily } from '../../../../../../theme/constants';
 
 type Props = {
   content: string;
@@ -9,7 +11,7 @@ type Props = {
 
 const SubmitButton: FC<Props> = ({ content, loading = false, disabled = false }) => {
   return (
-    <Button type="submit" py={6} px={8} variant="primary" isLoading={loading} disabled={disabled}>
+    <Button fontFamily={FontFamily.Poppins} type="submit" py={4} width="full" variant="primary" loading={loading} disabled={disabled}>
       <Text fontWeight={500} fontSize={16}>
         {content}
       </Text>
