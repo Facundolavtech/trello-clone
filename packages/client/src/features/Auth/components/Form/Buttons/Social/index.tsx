@@ -18,16 +18,16 @@ const SocialProviderButton: FC<Props> = ({ icon, bg, content, onClick, loading =
       width="full"
       fontFamily={FontFamily.Poppins}
       variant="primary"
-      py={1}
-      px={1}
-      style={{ backgroundColor: bg, borderRadius: 4 }}
+      py={0.5}
+      px={0.5}
+      style={{ backgroundColor: bg, borderRadius: 8 }}
       onClick={onClick}
       loading={loading}
     >
-      <Box width="42px" height="42px" borderRadius={4} bg="#fff" display="flex" alignItems="center" justifyContent="center">
+      <Box width="45px" height="45px" borderRadius={6} bg="#fff" display="flex" alignItems="center" justifyContent="center">
         <Icon as={icon} width={21} height={21} />
       </Box>
-      <Text mx="auto" fontWeight={400} color="white" fontSize={14} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+      <Text mx="auto" fontWeight={400} color="white" fontSize={14} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" fontFamily={FontFamily.Poppins}>
         {content}
       </Text>
     </Button>
