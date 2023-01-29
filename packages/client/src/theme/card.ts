@@ -24,6 +24,7 @@ const variants = {
       boxShadow: ' 0px 4px 12px rgba(0, 0, 0, 0.05)',
       padding: '12px',
       borderRadius: '12px',
+      _hover: { cursor: 'pointer' },
     },
   }),
 };
