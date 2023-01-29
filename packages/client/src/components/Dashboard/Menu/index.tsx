@@ -7,7 +7,7 @@ const Menu = () => {
     <ChakraMenu>
       <MenuButton />
       <MenuList padding={4}>
-        <VStack spacing={2} alignItems="flex-start">
+        <VStack alignItems="flex-start">
           <Text color="gray.4" fontSize={14} fontWeight={400}>
             flavagnino8@gmail.com
           </Text>
@@ -19,7 +19,7 @@ const Menu = () => {
           </Text>
         </VStack>
         <Divider orientation="horizontal" width="full" borderColor="rgba(0,0,0,0.1)" my={4} />
-        <VStack spacing={4}>
+        <VStack>
           <MenuItems />
         </VStack>
       </MenuList>
