@@ -1,5 +1,5 @@
-import { Heading, HStack, Image, Text } from '@chakra-ui/react';
 import { FC } from 'react';
+import { Heading, HStack, Image } from '@chakra-ui/react';
 import { FontFamily } from '../../theme/constants';
 
 type Props = {
