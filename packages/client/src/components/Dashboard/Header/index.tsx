@@ -1,4 +1,4 @@
-import { Divider, HStack, Text, Icon } from '@chakra-ui/react';
+import { Divider, HStack, Text, Icon, Flex, Box } from '@chakra-ui/react';
 import Searchbar from '../../../features/Board/components/Searchbar';
 import BoardTitle from '../../../features/Board/components/Title';
 import Button from '../../Button';
@@ -14,9 +14,9 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <HStack as="header" boxShadow="0px 2px 2px rgba(0, 0, 0, 0.05)" width="full" bg="white" height="68px" px={6} alignItems="center">
+    <HStack as="header" boxShadow="0px 2px 2px rgba(0, 0, 0, 0.05)" width="full" bg="white" height="68px" alignItems="center">
       <WrappedContainer styles={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <HStack spacing={16} height="full">
+        <Box gap={16} display="flex" height="full">
           <Logo withTitle width="32px" height="29px" />
           {router.pathname.includes(AppRoutes.BOARD) && (
             <HStack spacing={4} height="full">
@@ -32,11 +32,11 @@ const Header = () => {
               </Link>
             </HStack>
           )}
-        </HStack>
-        <HStack spacing={10}>
+        </Box>
+        <Box gap={10} display="flex">
           <Searchbar />
           <Menu />
-        </HStack>
+        </Box>
       </WrappedContainer>
     </HStack>
   );
