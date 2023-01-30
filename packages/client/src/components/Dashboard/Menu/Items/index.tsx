@@ -2,9 +2,12 @@ import { ReactElement } from 'react';
 import Link from 'next/link';
 import { FiLogOut } from 'react-icons/fi';
 import MenuItem from '../Item';
+import useAuthMethods from '../../../../features/Auth/hooks/useAuthMethods';
 
 const MenuItems = () => {
-  return <MenuItem icon={FiLogOut} content="Logout" bg="red.400" styles={{ borderRadius: 8, fontWeight: 500, fontSize: 14 }} color="white" onClick={() => null} />;
+  const { logout } = useAuthMethods();
+
+  return <MenuItem icon={FiLogOut} content="Logout" bg="red.400" styles={{ borderRadius: 8, fontWeight: 500, fontSize: 14 }} color="white" onClick={logout} />;
 };
 
 export default MenuItems;
