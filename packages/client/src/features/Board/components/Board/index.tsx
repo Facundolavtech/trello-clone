@@ -28,7 +28,6 @@ const Board: FC<Props> = ({ board }) => {
               borderRadius={8}
               width="28px"
               height="28px"
-              style={{ fontSize: 12, fontWeight: 500 }}
               color="white"
               bg="gray.4"
               name={member.user.name}
