@@ -3,11 +3,11 @@ import SocialProviders from '../constants/providers';
 import useAuthMethods from './useAuthMethods';
 
 const useGoogleToken = () => {
-  const { loginWithSocialProvider } = useAuthMethods();
+  const { loginSocialMutation } = useAuthMethods();
 
   const getTokenAndLogin = useGoogleLogin({
-    onSuccess: async (res) => {
-      return await loginWithSocialProvider(SocialProviders.GOOGLE, res.access_token);
+    onSuccess: (res) => {
+      return loginSocialMutation.mutate({ provider: SocialProviders.GOOGLE, token: res.access_token });
     },
     onError: () => {
       return;
