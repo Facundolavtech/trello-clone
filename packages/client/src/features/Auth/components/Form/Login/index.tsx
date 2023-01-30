@@ -8,7 +8,6 @@ import { FcGoogle } from 'react-icons/fc';
 import SubmitButton from '../Buttons/Submit';
 import AuthInput from '../Input';
 import useAuthMethods from '../../../hooks/useAuthMethods';
-import { useState } from 'react';
 import SocialProviderButton from '../Buttons/Social';
 import SwitchFormButton from '../Buttons/SwitchForm';
 import useGoogleToken from '../../../hooks/useGoogleToken';
@@ -20,19 +19,17 @@ export interface ILoginFormValues {
 }
 
 const LoginForm = () => {
-  const { loginWithLocalProvider } = useAuthMethods();
+  const { loginLocalMutation, loginSocialMutation } = useAuthMethods();
   const initialValues: ILoginFormValues = { email: '', password: '' };
-  const [status] = useState('idle');
   const { getTokenAndLogin } = useGoogleToken();
 
   return (
     <>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
-          loginWithLocalProvider(values);
+        onSubmit={(values) => {
+          loginLocalMutation.mutate({ ...values });
           values.password = '';
-          actions.setSubmitting(false);
         }}
         validationSchema={LoginSchema}
       >
@@ -46,7 +43,7 @@ const LoginForm = () => {
                 name="email"
                 type="email"
                 value={values.email}
-                disabled={status === 'loading'}
+                disabled={loginLocalMutation.isLoading}
                 handleChange={handleChange}
               />
               <AuthInput
@@ -55,10 +52,10 @@ const LoginForm = () => {
                 name="password"
                 type="password"
                 value={values.password}
-                disabled={status === 'loading'}
+                disabled={loginLocalMutation.isLoading}
                 handleChange={handleChange}
               />
-              <SubmitButton content="Enter" disabled={status === 'loading'} loading={status === 'loading'} />
+              <SubmitButton content="Enter" disabled={loginLocalMutation.isLoading} loading={loginLocalMutation.isLoading} />
             </Stack>
           </Form>
         )}
@@ -73,7 +70,13 @@ const LoginForm = () => {
           </Text>
         </Center>
         <Stack width="full">
-          <SocialProviderButton bg="brands.google" icon={FcGoogle} onClick={getTokenAndLogin} loading={status === 'loading'} content="Continue with Google" />
+          <SocialProviderButton
+            bg="brands.google"
+            icon={FcGoogle}
+            onClick={getTokenAndLogin}
+            loading={loginSocialMutation.isLoading}
+            content="Continue with Google"
+          />
         </Stack>
       </VStack>
     </>

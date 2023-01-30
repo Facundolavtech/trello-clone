@@ -9,7 +9,6 @@ import { RegisterSchema } from '../../../validations';
 import ErrorMessage from '../ErrorMessage';
 import AuthInput from '../Input';
 import SubmitButton from '../Buttons/Submit';
-import { useState } from 'react';
 import SocialProviderButton from '../Buttons/Social';
 import SwitchFormButton from '../Buttons/SwitchForm';
 import useGoogleToken from '../../../hooks/useGoogleToken';
@@ -24,9 +23,8 @@ export interface IRegisterFormValues {
 }
 
 const RegisterForm = () => {
-  const { registerWithLocalProvider } = useAuthMethods();
+  const { registerLocalMutation, loginSocialMutation } = useAuthMethods();
   const initialValues: IRegisterFormValues = { name: '', username: '', email: '', password: '', passwordConfirmation: '' };
-  const [status] = useState('idle');
   const { getTokenAndLogin } = useGoogleToken();
 
   return (
@@ -34,7 +32,7 @@ const RegisterForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          registerWithLocalProvider(values);
+          registerLocalMutation.mutate({ ...values });
           values.password = '';
           values.passwordConfirmation = '';
           actions.setSubmitting(false);
@@ -51,7 +49,7 @@ const RegisterForm = () => {
                 name="name"
                 type="text"
                 value={values.name}
-                disabled={status === 'loading'}
+                disabled={registerLocalMutation.isLoading}
                 handleChange={handleChange}
               />
               <AuthInput
@@ -60,7 +58,7 @@ const RegisterForm = () => {
                 name="username"
                 type="text"
                 value={values.username}
-                disabled={status === 'loading'}
+                disabled={registerLocalMutation.isLoading}
                 handleChange={handleChange}
               />
               <AuthInput
@@ -69,7 +67,7 @@ const RegisterForm = () => {
                 name="email"
                 type="email"
                 value={values.email}
-                disabled={status === 'loading'}
+                disabled={registerLocalMutation.isLoading}
                 handleChange={handleChange}
               />
               <AuthInput
@@ -78,7 +76,7 @@ const RegisterForm = () => {
                 name="password"
                 type="password"
                 value={values.password}
-                disabled={status === 'loading'}
+                disabled={registerLocalMutation.isLoading}
                 handleChange={handleChange}
               />
               <AuthInput
@@ -87,10 +85,10 @@ const RegisterForm = () => {
                 name="passwordConfirmation"
                 type="password"
                 value={values.passwordConfirmation}
-                disabled={status === 'loading'}
+                disabled={registerLocalMutation.isLoading}
                 handleChange={handleChange}
               />
-              <SubmitButton content="Register" disabled={status === 'loading'} loading={status === 'loading'} />
+              <SubmitButton content="Register" disabled={registerLocalMutation.isLoading} loading={registerLocalMutation.isLoading} />
             </Stack>
           </Form>
         )}
@@ -105,7 +103,13 @@ const RegisterForm = () => {
           </Text>
         </Center>
         <Stack width="full">
-          <SocialProviderButton bg="brands.google" icon={FcGoogle} onClick={getTokenAndLogin} loading={status === 'loading'} content="Register with Google" />
+          <SocialProviderButton
+            bg="brands.google"
+            icon={FcGoogle}
+            onClick={getTokenAndLogin}
+            loading={loginSocialMutation.isLoading}
+            content="Register with Google"
+          />
         </Stack>
       </VStack>
     </>
