@@ -2,23 +2,32 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
-import { Provider as ReduxProvider } from 'react-redux';
-import store from '../redux/store';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import config from '../config';
 import NextProgress from '../libs/NextProgress';
+import { QueryClientProvider, QueryClient } from 'react-query';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        staleTime: 30000,
+        retry: false,
+      },
+    },
+  });
+
   return (
-    <ReduxProvider store={store}>
+    <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={config.Auth.Providers.Google.clientId} onScriptLoadError={() => null}>
         <ChakraProvider theme={theme}>
           <NextProgress />
           <Component {...pageProps} />
         </ChakraProvider>
       </GoogleOAuthProvider>
-    </ReduxProvider>
+    </QueryClientProvider>
   );
 }
 
-export default MyApp;
+export default App;
