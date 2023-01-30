@@ -1,7 +1,7 @@
 export enum ApiRoutes {
   AUTH = '/auth',
   USER = '/user',
-  BOARD = '/board',
+  BOARD = '/boards',
 }
 
 export enum AppRoutes {
