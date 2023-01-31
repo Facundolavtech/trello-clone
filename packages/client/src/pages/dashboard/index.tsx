@@ -1,26 +1,12 @@
-import { Heading, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
-import { useQuery } from 'react-query';
+import { Heading, HStack, VStack } from '@chakra-ui/react';
 import WrappedContainer from '../../components/Containers/Wrapped';
 import SEO from '../../components/SEO';
-import http from '../../config/http';
-import { ApiRoutes } from '../../config/routes';
-import Board from '../../features/Board/components/Board';
+import BoardList from '../../features/Board/components/BoardList';
 import NewBoardButton from '../../features/Board/components/Buttons/NewBoard';
 import { withSession } from '../../hoc/withSession';
 import DashboardLayout from '../../layout/Dashboard';
-import { IBoard } from '../../models/board.model';
 
 const Dashboard = () => {
-  const getBoardsQuery = useQuery('boards/all', async () => {
-    const response: AxiosResponse<IBoard[]> = await http.api.get(`${ApiRoutes.BOARD}`);
-    return response.data;
-  });
-
-  if (getBoardsQuery.isLoading) return null;
-
-  if (getBoardsQuery.error) return null;
-
   return (
     <>
       <SEO title="Dashboard" />
@@ -33,11 +19,7 @@ const Dashboard = () => {
               </Heading>
               <NewBoardButton />
             </HStack>
-            <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
-              {getBoardsQuery.data?.map((board) => (
-                <Board key={board.id} board={board} />
-              ))}
-            </SimpleGrid>
+            <BoardList />
           </VStack>
         </WrappedContainer>
       </DashboardLayout>
