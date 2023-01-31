@@ -28,6 +28,10 @@ export interface IBoardMember {
   id: string;
   createdAt: number;
   updatedAt: number;
+  user: IBoardMemberUser;
+}
+
+interface IBoardMemberUser {
   user: {
     id: string;
     createdAt: number;
