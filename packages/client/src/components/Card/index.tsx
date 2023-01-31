@@ -5,8 +5,8 @@ type Props = {
   children: ReactNode;
   className?: string;
   variant: 'bordered' | 'bordered-shadow' | 'board-card';
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   styles?: CSSProperties;
   as?: As;
   onClick?: (event: any) => void;
