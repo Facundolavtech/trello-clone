@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import config from '../config';
 import NextProgress from '../libs/NextProgress';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import SEO from '../components/SEO';
 
 function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
@@ -23,6 +24,7 @@ function App({ Component, pageProps }: AppProps) {
       <GoogleOAuthProvider clientId={config.Auth.Providers.Google.clientId} onScriptLoadError={() => null}>
         <ChakraProvider theme={theme}>
           <NextProgress />
+          <SEO />
           <Component {...pageProps} />
         </ChakraProvider>
       </GoogleOAuthProvider>
