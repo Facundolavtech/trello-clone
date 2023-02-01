@@ -4,20 +4,20 @@ import Header from '../../components/Dashboard/Header';
 import useUser from '../../hooks/useUser';
 
 type Props = {
-	children: ReactNode;
+  children: ReactNode;
 };
 
 const DashboardLayout: FC<Props> = ({ children }) => {
-	const { getProfile } = useUser();
+  const { getProfile } = useUser();
 
-	useQuery(['user/profile'], getProfile);
+  useQuery(['user/profile'], getProfile);
 
-	return (
-		<>
-			<Header />
-			{children}
-		</>
-	);
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
 };
 
 export default DashboardLayout;

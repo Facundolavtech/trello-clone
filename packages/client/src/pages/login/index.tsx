@@ -5,16 +5,16 @@ import { withSession } from '../../hoc/withSession';
 import AuthLayout from '../../layout/Auth';
 
 const Login = () => {
-	return (
-		<>
-			<SEO title="Login" />
-			<AuthLayout>
-				<AuthCard formType="login">
-					<LoginForm />
-				</AuthCard>
-			</AuthLayout>
-		</>
-	);
+  return (
+    <>
+      <SEO title="Login" />
+      <AuthLayout>
+        <AuthCard formType="login">
+          <LoginForm />
+        </AuthCard>
+      </AuthLayout>
+    </>
+  );
 };
 
 export default withSession(Login);

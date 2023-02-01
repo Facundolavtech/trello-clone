@@ -9,43 +9,43 @@ import { IBoard } from '../../../../models/board.model';
 import BoardCard from './Card';
 
 const BoardList = () => {
-	const getBoardsQuery = useQuery(['boards/all'], async () => {
-		const response: AxiosResponse<IBoard[]> = await http.api.get(`${ApiRoutes.BOARD}`);
-		return response.data;
-	});
+  const getBoardsQuery = useQuery(['boards/all'], async () => {
+    const response: AxiosResponse<IBoard[]> = await http.api.get(`${ApiRoutes.BOARD}`);
+    return response.data;
+  });
 
-	if (getBoardsQuery.isLoading) {
-		return (
-			<SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
-				{new Array(4).fill(4).map((_, index) => {
-					return (
-						<Card key={index} variant="board-card" height="230px">
-							<Skeleton width="full" height="full" />
-						</Card>
-					);
-				})}
-			</SimpleGrid>
-		);
-	}
+  if (getBoardsQuery.isLoading) {
+    return (
+      <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
+        {new Array(4).fill(4).map((_, index) => {
+          return (
+            <Card key={index} variant="board-card" height="230px">
+              <Skeleton width="full" height="full" />
+            </Card>
+          );
+        })}
+      </SimpleGrid>
+    );
+  }
 
-	if (getBoardsQuery.error) {
-		return (
-			<VStack width="full" justifyContent="center" alignItems="center" spacing={4}>
-				<Icon as={MdError} width={10} height={10} color="error" />
-				<Heading color="error" fontWeight={500} fontSize={22}>
-					An error occurred while trying to get the boards
-				</Heading>
-			</VStack>
-		);
-	}
+  if (getBoardsQuery.error) {
+    return (
+      <VStack width="full" justifyContent="center" alignItems="center" spacing={4}>
+        <Icon as={MdError} width={10} height={10} color="error" />
+        <Heading color="error" fontWeight={500} fontSize={22}>
+          An error occurred while trying to get the boards
+        </Heading>
+      </VStack>
+    );
+  }
 
-	return (
-		<SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
-			{getBoardsQuery.data?.map((board) => (
-				<BoardCard key={board.id} board={board} />
-			))}
-		</SimpleGrid>
-	);
+  return (
+    <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
+      {getBoardsQuery.data?.map((board) => (
+        <BoardCard key={board.id} board={board} />
+      ))}
+    </SimpleGrid>
+  );
 };
 
 export default BoardList;

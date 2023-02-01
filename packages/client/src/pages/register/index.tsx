@@ -5,16 +5,16 @@ import RegisterForm from '../../features/Auth/components/Form/Register';
 import { withSession } from '../../hoc/withSession';
 
 const Register = () => {
-	return (
-		<>
-			<SEO title="Register" />
-			<AuthLayout>
-				<AuthCard formType="register">
-					<RegisterForm />
-				</AuthCard>
-			</AuthLayout>
-		</>
-	);
+  return (
+    <>
+      <SEO title="Register" />
+      <AuthLayout>
+        <AuthCard formType="register">
+          <RegisterForm />
+        </AuthCard>
+      </AuthLayout>
+    </>
+  );
 };
 
 export default withSession(Register);

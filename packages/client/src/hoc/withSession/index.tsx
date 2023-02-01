@@ -7,50 +7,50 @@ import { ApiRoutes, AppRoutes } from '../../config/routes';
 const excludedPaths = ['/login', '/register'];
 
 export const withSession = (Component) => {
-	const Wrapped = (props) => {
-		const router = useRouter();
-		const toast = useToast();
+  const Wrapped = (props) => {
+    const router = useRouter();
+    const toast = useToast();
 
-		const { isLoading, error, isSuccess } = useQuery(['auth/status'], () => http.api.get(`${ApiRoutes.AUTH}/status`), {
-			onSuccess: () => {
-				if (!excludedPaths.includes(router.pathname)) return;
+    const { isLoading, error, isSuccess } = useQuery(['auth/status'], () => http.api.get(`${ApiRoutes.AUTH}/status`), {
+      onSuccess: () => {
+        if (!excludedPaths.includes(router.pathname)) return;
 
-				router.push(AppRoutes.DASHBOARD);
-			},
-			onError: () => {
-				if (excludedPaths.includes(router.pathname)) return;
+        router.push(AppRoutes.DASHBOARD);
+      },
+      onError: () => {
+        if (excludedPaths.includes(router.pathname)) return;
 
-				router.push(AppRoutes.LOGIN);
-				toast({
-					title: 'Session Expired',
-					description: 'Please login again',
-					status: 'error',
-					duration: 2000,
-					isClosable: false,
-					position: 'top-right',
-					variant: 'solid',
-				});
-			},
-		});
+        router.push(AppRoutes.LOGIN);
+        toast({
+          title: 'Session Expired',
+          description: 'Please login again',
+          status: 'error',
+          duration: 2000,
+          isClosable: false,
+          position: 'top-right',
+          variant: 'solid',
+        });
+      },
+    });
 
-		if (isLoading) return null;
+    if (isLoading) return null;
 
-		if (error) {
-			if (!excludedPaths.includes(router.pathname)) {
-				router.push(AppRoutes.LOGIN);
-				return null;
-			}
-		}
+    if (error) {
+      if (!excludedPaths.includes(router.pathname)) {
+        router.push(AppRoutes.LOGIN);
+        return null;
+      }
+    }
 
-		if (isSuccess) {
-			if (excludedPaths.includes(router.pathname)) {
-				router.push(AppRoutes.DASHBOARD);
-				return null;
-			}
-		}
+    if (isSuccess) {
+      if (excludedPaths.includes(router.pathname)) {
+        router.push(AppRoutes.DASHBOARD);
+        return null;
+      }
+    }
 
-		return <Component {...props} />;
-	};
+    return <Component {...props} />;
+  };
 
-	return Wrapped;
+  return Wrapped;
 };
