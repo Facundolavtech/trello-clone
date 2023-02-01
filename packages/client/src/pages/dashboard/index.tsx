@@ -7,24 +7,24 @@ import { withSession } from '../../hoc/withSession';
 import DashboardLayout from '../../layout/Dashboard';
 
 const Dashboard = () => {
-  return (
-    <>
-      <SEO title="Dashboard" />
-      <DashboardLayout>
-        <WrappedContainer>
-          <VStack spacing="40px" mt="60px" width="full">
-            <HStack width="full" justifyContent="space-between">
-              <Heading fontWeight={500} fontSize={18} color="gray.1">
-                All boards
-              </Heading>
-              <NewBoardButton />
-            </HStack>
-            <BoardList />
-          </VStack>
-        </WrappedContainer>
-      </DashboardLayout>
-    </>
-  );
+	return (
+		<>
+			<SEO title="Dashboard" />
+			<DashboardLayout>
+				<WrappedContainer>
+					<VStack spacing="40px" mt="60px" width="full">
+						<HStack width="full" justifyContent="space-between">
+							<Heading fontWeight={500} fontSize={18} color="gray.1">
+								All boards
+							</Heading>
+							<NewBoardButton />
+						</HStack>
+						<BoardList />
+					</VStack>
+				</WrappedContainer>
+			</DashboardLayout>
+		</>
+	);
 };
 
 export default withSession(Dashboard);
