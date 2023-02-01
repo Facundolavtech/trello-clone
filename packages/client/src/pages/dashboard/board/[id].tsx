@@ -1,35 +1,44 @@
 import { Text } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
-import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import SEO from '../../../components/SEO';
-import http from '../../../config/http';
-import { ApiRoutes } from '../../../config/routes';
+import { GetServerSidePropsContext } from 'next';
+import { useQuery } from '@tanstack/react-query';
+import useBoard from '../../../features/Board/hooks/useBoard';
+import BoardLayout from '../../../features/Board/layouts/BoardLayout';
 import { withSession } from '../../../hoc/withSession';
-import DashboardLayout from '../../../layout/Dashboard';
-import { IBoard } from '../../../models/board.model';
 
-const Board = () => {
-  const router = useRouter();
+const Board = ({ id }) => {
+	const { getBoardById } = useBoard();
 
-  const getBoardQuery = useQuery('boards/id', async () => {
-    const response: AxiosResponse<IBoard> = await http.api.get(`${ApiRoutes.BOARD}/${router.query.id}`);
+	const { data, isLoading, error } = useQuery([`board/${id}`], async () => await getBoardById(id));
 
-    return response.data;
-  });
+	if (isLoading) {
+		return (
+			<BoardLayout>
+				<Text>Loading...</Text>
+			</BoardLayout>
+		);
+	}
 
-  if (getBoardQuery.isLoading) return null;
+	if (error) {
+		return (
+			<BoardLayout>
+				<Text>Error</Text>
+			</BoardLayout>
+		);
+	}
 
-  if (getBoardQuery.error) return null;
-
-  return (
-    <>
-      <SEO title={getBoardQuery.data?.title} />
-      <DashboardLayout>
-        <Text>{JSON.stringify(getBoardQuery.data, null, 2)}</Text>
-      </DashboardLayout>
-    </>
-  );
+	return (
+		<BoardLayout title={data?.title}>
+			<Text>{JSON.stringify(data, null, 2)}</Text>
+		</BoardLayout>
+	);
 };
 
 export default withSession(Board);
+
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
+	return {
+		props: {
+			id: ctx.params?.id,
+		},
+	};
+};
