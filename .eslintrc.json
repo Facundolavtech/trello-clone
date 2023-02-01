@@ -1,30 +1,18 @@
 {
-	"root": true,
-	"env": {
-		"node": true,
-		"jest": true
-	},
-	"ignorePatterns": ["**/*"],
-	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
-	"overrides": [
-		{
-			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
-		}
-	],
-	"plugins": ["prettier"],
-	"rules": {
-		"prettier/prettier": [
-			"error",
-			{
-				"endOfLine": "auto",
-				"bracketSpacing": true,
-				"printWidth": 166,
-				"semi": true,
-				"singleQuote": true,
-				"tabWidth": 2,
-				"trailingComma": "es5",
-				"useTabs": true
-			}
-		]
-	}
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "ignorePatterns": ["**/*"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
+    }
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"]
+  }
 }
