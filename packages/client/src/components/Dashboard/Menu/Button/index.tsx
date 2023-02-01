@@ -11,9 +11,9 @@ const MenuButton = () => {
 		<ChakraMenuButton transition="all 0.2s">
 			<HStack spacing="20px" alignItems="center">
 				<HStack spacing="11px">
-					<Avatar width="32px" height="32px" name={data.name} src={data.picture || ''} bg={data.picture ? 'transparent' : 'gray.4'} color="gray.1" />
+					<Avatar width="32px" height="32px" name={data?.name} src={data?.picture || ''} bg={data?.picture ? 'transparent' : 'gray.4'} color="gray.1" />
 					<Text color="gray.1" fontSize={12} fontWeight={700} fontFamily={FontFamily.NotoSans}>
-						{data.name}
+						{data?.name}
 					</Text>
 				</HStack>
 				<RiArrowDownSFill color="gray.1" />
