@@ -1,36 +1,56 @@
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import useUser from '../../hooks/useUser';
-import { AppRoutes } from '../../config/routes';
 import { useToast } from '@chakra-ui/react';
-import { AxiosError } from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import http from '../../config/http';
+import { ApiRoutes, AppRoutes } from '../../config/routes';
 
-export const withSession = (Component: any) => {
-  const Wrapped = (props: any) => {
-    const { getProfile } = useUser();
-    const toast = useToast();
+const excludedPaths = ['/login', '/register'];
 
-    const router = useRouter();
+export const withSession = (Component) => {
+	const Wrapped = (props) => {
+		const router = useRouter();
+		const toast = useToast();
 
-    const { error, isLoading } = useQuery('user/profile', () => getProfile(), {
-      onError(err: AxiosError<any, any>) {
-        toast({
-          title: 'Error',
-          description: err.response?.data?.message,
-          status: 'error',
-          position: 'top-right',
-          variant: 'solid',
-          duration: 2000,
-          isClosable: false,
-        });
-        return router.push(AppRoutes.LOGIN);
-      },
-    });
+		const { isLoading, error, isSuccess } = useQuery(['auth/status'], () => http.api.get(`${ApiRoutes.AUTH}/status`), {
+			onSuccess: () => {
+				if (!excludedPaths.includes(router.pathname)) return;
 
-    if (isLoading || error) return null;
+				router.push(AppRoutes.DASHBOARD);
+			},
+			onError: () => {
+				if (excludedPaths.includes(router.pathname)) return;
 
-    return <Component {...props} />;
-  };
+				router.push(AppRoutes.LOGIN);
+				toast({
+					title: 'Session Expired',
+					description: 'Please login again',
+					status: 'error',
+					duration: 2000,
+					isClosable: false,
+					position: 'top-right',
+					variant: 'solid',
+				});
+			},
+		});
 
-  return Wrapped;
+		if (isLoading) return null;
+
+		if (error) {
+			if (!excludedPaths.includes(router.pathname)) {
+				router.push(AppRoutes.LOGIN);
+				return null;
+			}
+		}
+
+		if (isSuccess) {
+			if (excludedPaths.includes(router.pathname)) {
+				router.push(AppRoutes.DASHBOARD);
+				return null;
+			}
+		}
+
+		return <Component {...props} />;
+	};
+
+	return Wrapped;
 };
