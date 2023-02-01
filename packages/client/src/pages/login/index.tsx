@@ -1,7 +1,7 @@
 import SEO from '../../components/SEO';
 import AuthCard from '../../features/Auth/components/Card';
 import LoginForm from '../../features/Auth/components/Form/Login';
-import { withSession } from '../../hoc/withSession';
+import withSession from '../../hoc/withSession';
 import AuthLayout from '../../layout/Auth';
 
 const Login = () => {

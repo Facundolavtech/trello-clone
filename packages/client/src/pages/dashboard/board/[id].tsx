@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import useBoard from '../../../features/Board/hooks/useBoard';
 import BoardLayout from '../../../features/Board/layouts/BoardLayout';
-import { withSession } from '../../../hoc/withSession';
+import withSession from '../../../hoc/withSession';
 
 const Board = ({ id }) => {
   const { getBoardById } = useBoard();
