@@ -68,6 +68,7 @@ const useAuthMethods = () => {
 		enabled: false,
 		onSuccess: () => {
 			queryClient.removeQueries(['user/profile']);
+			queryClient.removeQueries(['auth/status']);
 			router.push(AppRoutes.LOGIN);
 		},
 	});
