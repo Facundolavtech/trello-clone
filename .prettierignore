@@ -1,7 +1,10 @@
-# Add files here to ignore them from prettier formatting
-
-/dist
 /coverage
+/node_modules
 /tmp
-/.vercel
-
+/packages/client/.husky
+/packages/client/.next
+/packages/client/.vercel
+/packages/server/dist
+/packages/server/data
+/packages/server/node_modules/
+/packages/server/redis.conf
