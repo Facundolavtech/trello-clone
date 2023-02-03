@@ -1,7 +1,8 @@
-import { Heading, SkeletonText } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import useQueryState from '../../../../hooks/useQueryState';
 import { IBoard } from '../../../../models/board.model';
+import Loading from './Loading';
 
 const BoardTitle = () => {
   const { query } = useRouter();
@@ -9,7 +10,7 @@ const BoardTitle = () => {
   const state = useQueryState<IBoard>(`board/${query.id}`);
 
   if (state.status === 'loading') {
-    return <SkeletonText noOfLines={2}>Loading</SkeletonText>;
+    return <Loading />;
   }
 
   return (

@@ -1,21 +1,16 @@
-import { Divider, HStack, Menu as ChakraMenu, MenuList, SkeletonCircle, SkeletonText, Text, VStack } from '@chakra-ui/react';
+import { Divider, Menu as ChakraMenu, MenuList, Text, VStack } from '@chakra-ui/react';
 import MenuItems from './Items';
 import MenuButton from './Button';
 import formatDate from 'date-fns/format';
 import { fromUnixTime } from 'date-fns';
-import { IUser } from '../../../models/user.model';
-import useQueryState from '../../../hooks/useQueryState';
+import useUserProfile from '../../../hooks/useUserProfile';
+import Loading from './Loading';
 
 const Menu = () => {
-  const state = useQueryState<IUser>('user/profile');
+  const { data: user, isLoading } = useUserProfile();
 
-  if (state.status === 'loading') {
-    return (
-      <HStack spacing={4}>
-        <SkeletonCircle size="8" />
-        <SkeletonText noOfLines={2}>Loading user</SkeletonText>
-      </HStack>
-    );
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -24,12 +19,12 @@ const Menu = () => {
       <MenuList padding={4}>
         <VStack alignItems="flex-start">
           <Text color="gray.4" fontSize={14} fontWeight={400}>
-            {state.data?.email}
+            {user?.email}
           </Text>
           <Text color="gray.4" fontSize={14} fontWeight={400}>
             Register at:{' '}
             <Text as="strong" color="gray.3" fontWeight={500}>
-              {formatDate(fromUnixTime(state.data?.createdAt || 0), 'dd/MM/yyyy')}
+              {formatDate(fromUnixTime(user?.createdAt || 0), 'dd/MM/yyyy')}
             </Text>
           </Text>
         </VStack>
