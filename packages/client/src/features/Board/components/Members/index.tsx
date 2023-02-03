@@ -1,0 +1,51 @@
+import { Avatar, HStack, Text, Tooltip } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import useQueryState from '../../../../hooks/useQueryState';
+import { IBoard } from '../../../../models/board.model';
+import { IUser } from '../../../../models/user.model';
+import { FontFamily } from '../../../../theme/constants';
+import useBoard from '../../hooks/useBoard';
+import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
+import AddBoardMemberButton from '../Buttons/AddMember';
+import Loading from './Loading';
+
+const BoardMembers = () => {
+  const router = useRouter();
+
+  const boardId = router.query.id as string;
+
+  const { data: board, isLoading } = useBoard({ id: boardId });
+  const userState = useQueryState<IUser>('user/profile');
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!board || !userState.data) return null;
+
+  return (
+    <HStack spacing="16px">
+      {board.members.slice(0, 4).map((member) => (
+        <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
+          <Avatar
+            src={member.user.picture ?? ''}
+            name={member.user.name}
+            width="32px"
+            height="32px"
+            borderRadius="8px"
+            bg={member.user.picture ? 'transparent' : 'gray.4'}
+            color="white"
+          />
+        </Tooltip>
+      ))}
+      {board.members.length > 4 && (
+        <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
+          +{board.members.length - 4} others
+        </Text>
+      )}
+      {userIsBoardAdmin(board.admin.id, userState.data.id) && <AddBoardMemberButton />}
+    </HStack>
+  );
+};
+
+export default BoardMembers;
