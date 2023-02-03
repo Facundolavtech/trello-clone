@@ -7,7 +7,7 @@ export class CreateBoardDTO {
 
   @IsNotEmpty({ message: 'Error: The field is required' })
   @IsBoolean({ message: 'Error: The field value is not valid' })
-  visible: boolean;
+  isPrivate: boolean;
 
   @IsNotEmpty({ message: 'Error: The field is required' })
   @IsString({ message: 'Error: The field value is not valid' })

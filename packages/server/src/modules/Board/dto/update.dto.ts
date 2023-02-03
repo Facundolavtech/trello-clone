@@ -7,7 +7,7 @@ export class UpdateBoardDTO {
 
   @IsOptional()
   @IsBoolean({ message: 'Error: The field value is not valid' })
-  visible?: boolean;
+  isPrivate?: boolean;
 
   @IsOptional()
   @IsUrl({}, { message: 'Error: The field value is not valid' })
