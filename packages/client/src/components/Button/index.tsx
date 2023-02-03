@@ -5,8 +5,8 @@ import { FontFamily } from '../../theme/constants';
 type Props = {
   children: ReactNode;
   width?: number | string;
-  as?: As;
   height?: number | string;
+  as?: As;
   type?: 'button' | 'submit';
   px?: number;
   py?: number;
@@ -20,11 +20,16 @@ type Props = {
 };
 
 const Button: FC<Props> = forwardRef(
-  ({ children, width, type = 'button', as, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style, onClick, loading = false }, ref) => {
+  (
+    { children, width, height = 'auto', type = 'button', as, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style, onClick, loading = false },
+    ref
+  ) => {
     return (
       <ChakraButton
         width={width}
-        height="auto"
+        height={height}
+        minW="initial"
+        minH="initial"
         as={as}
         px={px}
         py={py}
