@@ -18,14 +18,14 @@ export class UserController {
 
   @UseGuards(AuthenticatedGuard)
   @HttpCode(HttpStatus.OK)
-  @Put('profile/update')
+  @Put('changePassword')
   async updateProfile(@Req() req: AuthenticatedRequest, @Body() updateDTO: UpdateUserDTO) {
     const userId = req.user.id;
 
-    if (updateDTO.password !== undefined) {
-      updateDTO.password = await this.userService.hashPassword(updateDTO.password);
-    }
+    const hashedPassword = await this.userService.hashPassword(updateDTO.password);
 
-    return this.userService.update(userId, updateDTO);
+    await this.userService.changePassword(userId, hashedPassword);
+
+    return 'Password changed';
   }
 }

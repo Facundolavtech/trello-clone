@@ -39,6 +39,10 @@ export class UserService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
+  async changePassword(id: string, newPassword: string): Promise<void> {
+    await this.update(id, { password: newPassword });
+  }
+
   async formatUserProfile(user: User): Promise<IUserProfile> {
     return {
       id: user.id,
