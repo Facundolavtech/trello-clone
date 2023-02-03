@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, BadRequestException } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions/not-found.exception';
+import { CustomUUIDPipe } from '../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
 import { CreateListDTO, UpdateListDTO } from '../dto/list.dto';
@@ -13,7 +14,7 @@ export class BoardListController {
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
   async create(
-    @Param('boardId')
+    @Param('boardId', CustomUUIDPipe)
     boardId: string,
     @Body() createDTO: CreateListDTO
   ) {
@@ -32,7 +33,7 @@ export class BoardListController {
   @HttpCode(HttpStatus.OK)
   @Get()
   async findAll(
-    @Param('boardId')
+    @Param('boardId', CustomUUIDPipe)
     boardId: string
   ) {
     return await this.boardListService.findAllWithRelations(boardId, ['cards', 'cards.members']);
@@ -40,7 +41,7 @@ export class BoardListController {
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateListDTO) {
+  async update(@Param('id', CustomUUIDPipe) id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateListDTO) {
     const listById = await this.boardListService.findById(id);
 
     if (!listById) {
@@ -56,7 +57,7 @@ export class BoardListController {
 
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', CustomUUIDPipe) id: string) {
     const listById = await this.boardListService.findById(id);
 
     if (!listById) {

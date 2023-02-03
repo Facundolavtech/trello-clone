@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Req, NotFoundException } from '@nestjs/common';
+import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedRequest } from '../../../../../../../common/types';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
@@ -16,7 +17,7 @@ export class CardCommentController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  async create(@Req() req: WithBoardRequest, @Param('cardId') cardId: string, @Body() createDTO: CreateCardCommentDTO) {
+  async create(@Req() req: WithBoardRequest, @Param('cardId', CustomUUIDPipe) cardId: string, @Body() createDTO: CreateCardCommentDTO) {
     const userId = req.user.id;
     const board = req.board;
 
@@ -33,7 +34,7 @@ export class CardCommentController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async getAll(@Param('cardId') cardId: string) {
+  async getAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
     const cardById = await this.cardService.findById(cardId);
 
     if (!cardById) {
@@ -45,7 +46,7 @@ export class CardCommentController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', CustomUUIDPipe) id: string) {
     const commentById = await this.cardCommentService.findById(id);
 
     if (!commentById) {
@@ -58,14 +59,14 @@ export class CardCommentController {
   @UseGuards(CommentAuthorGuard)
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateDTO: UpdateCardCommentDTO) {
+  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateCardCommentDTO) {
     return await this.cardCommentService.update(id, updateDTO);
   }
 
   @UseGuards(CommentAuthorGuard)
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', CustomUUIDPipe) id: string) {
     return await this.cardCommentService.delete(id);
   }
 }

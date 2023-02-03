@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Req, NotFoundException, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
+import { CustomUUIDPipe } from '../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
 import { WithBoardRequest } from '../../../interfaces';
@@ -14,7 +15,7 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  async create(@Req() req: WithBoardRequest, @Param('boardId') boardId: string, @Body() createDTO: CreateCardDTO) {
+  async create(@Req() req: WithBoardRequest, @Param('boardId', CustomUUIDPipe) boardId: string, @Body() createDTO: CreateCardDTO) {
     const board = req.board;
     const user = req.user;
 
@@ -40,13 +41,13 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async getAll(@Param('boardId') boardId: string) {
+  async getAll(@Param('boardId', CustomUUIDPipe) boardId: string) {
     return await this.boardCardService.findAll(boardId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  async getOne(@Param('id') id: string) {
+  async getOne(@Param('id', CustomUUIDPipe) id: string) {
     const cardById = await this.boardCardService.findById(id);
 
     if (!cardById) {
@@ -58,7 +59,7 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateDTO: UpdateCardDTO) {
+  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateCardDTO) {
     const cardById = await this.boardCardService.findById(id);
 
     if (!cardById) {
@@ -74,7 +75,7 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', CustomUUIDPipe) id: string) {
     const cardById = await this.boardCardService.findById(id);
 
     if (!cardById) {
@@ -86,7 +87,7 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Post(':id/members/add')
-  async addMember(@Req() req: WithBoardRequest, @Param('id') id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
+  async addMember(@Req() req: WithBoardRequest, @Param('id', CustomUUIDPipe) id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
     const board = req.board;
 
     const cardById = await this.boardCardService.findById(id);
@@ -112,7 +113,7 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Delete(':id/members/delete')
-  async removeMember(@Req() req: WithBoardRequest, @Param('id') id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
+  async removeMember(@Req() req: WithBoardRequest, @Param('id', CustomUUIDPipe) id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
     const board = req.board;
 
     const cardById = await this.boardCardService.findById(id);

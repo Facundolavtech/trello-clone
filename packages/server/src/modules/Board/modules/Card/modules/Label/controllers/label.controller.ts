@@ -4,6 +4,7 @@ import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
 import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardCardService } from '../../../services/card.service';
+import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 
 @UseGuards(AuthenticatedGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/labels')
@@ -12,7 +13,7 @@ export class CardLabelController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  async create(@Param('cardId') cardId: string, @Body() createDTO: CreateCardLabelDTO) {
+  async create(@Param('cardId', CustomUUIDPipe) cardId: string, @Body() createDTO: CreateCardLabelDTO) {
     const cardById = await this.boardCardService.findById(cardId);
 
     if (!cardById) {
@@ -33,7 +34,7 @@ export class CardLabelController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async getAll(@Param('cardId') cardId: string) {
+  async getAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
     const cardById = await this.boardCardService.findById(cardId);
 
     if (!cardById) {
@@ -45,7 +46,7 @@ export class CardLabelController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  async getOne(@Param('id') id: string) {
+  async getOne(@Param('id', CustomUUIDPipe) id: string) {
     const labelById = await this.cardLabelService.findById(id);
 
     if (!labelById) {
@@ -57,7 +58,7 @@ export class CardLabelController {
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateDTO: UpdateCardLabelDTO) {
+  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateCardLabelDTO) {
     const labelById = await this.cardLabelService.findById(id);
 
     if (!labelById) {
@@ -73,7 +74,7 @@ export class CardLabelController {
 
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', CustomUUIDPipe) id: string) {
     const labelById = await this.cardLabelService.findById(id);
 
     if (!labelById) {

@@ -17,6 +17,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EmptyBodyInterceptor } from '../../../../../../../common/interceptors/empty-body.interceptor';
+import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
 import { BoardCardService } from '../../../services/card.service';
@@ -31,7 +32,7 @@ export class CardAttachmentController {
   @Post('upload')
   @UseInterceptors(EmptyBodyInterceptor, FileInterceptor('file'))
   async uploadFile(
-    @Param('cardId') cardId: string,
+    @Param('cardId', CustomUUIDPipe) cardId: string,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -64,7 +65,7 @@ export class CardAttachmentController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Param('cardId') cardId: string) {
+  async findAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
     const cardById = await this.boardCardService.findById(cardId);
 
     if (!cardById) {
@@ -76,7 +77,7 @@ export class CardAttachmentController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', CustomUUIDPipe) id: string) {
     const attachmentById = await this.cardAttachmentService.findById(id);
 
     if (!attachmentById) {
@@ -88,7 +89,7 @@ export class CardAttachmentController {
 
   @HttpCode(HttpStatus.OK)
   @Delete('delete/:id')
-  async delete(@Param('cardId') cardId: string, @Param('id') id: string) {
+  async delete(@Param('cardId', CustomUUIDPipe) cardId: string, @Param('id') id: string) {
     const attachmentById = await this.cardAttachmentService.findById(id);
 
     if (!attachmentById) {
