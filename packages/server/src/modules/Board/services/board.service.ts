@@ -56,15 +56,25 @@ export class BoardService {
     return await this.boardRepository.findOne({ where: { id }, relations });
   }
 
-  async findAll(isPrivate = false): Promise<Board[]> {
+  async findAll(userId: string): Promise<Board[]> {
     return await this.boardRepository.find({
-      where: { isPrivate },
+      where: [
+        {
+          members: { userId },
+        },
+        { isPrivate: false },
+      ],
     });
   }
 
-  async findAllWithRelations(isPrivate = false, relations: string[]): Promise<Board[]> {
+  async findAllWithRelations(userId: string, relations: string[]): Promise<Board[]> {
     return await this.boardRepository.find({
-      where: { isPrivate },
+      where: [
+        {
+          members: { userId },
+        },
+        { isPrivate: false },
+      ],
       relations,
     });
   }
