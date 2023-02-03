@@ -1,4 +1,19 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Query, BadRequestException, Req, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+  Put,
+  HttpCode,
+  HttpStatus,
+  BadRequestException,
+  Req,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { BoardService } from '../services/board.service';
 import { AuthenticatedGuard } from '../../Auth/guards/auth.guard';
 import { UserService } from '../../User/services/user.service';
@@ -8,6 +23,7 @@ import { HandleBoardMemberDTO, UpdateBoardDTO } from '../dto/update.dto';
 import { BoardAdminGuard } from '../guards/board-admin.guard';
 import { WithBoardRequest } from '../interfaces';
 import { BoardMemberGuard } from '../guards/board-member.guard';
+import { CustomUUIDPipe } from '../../../common/pipes/uuid.pipe';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('boards')
@@ -31,17 +47,25 @@ export class BoardController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  async findAll(@Query('isPrivate') isPrivate?: boolean) {
-    return await this.boardService.findAllWithRelations(isPrivate, ['members', 'members.user', 'admin']);
+  async findAll(@Req() req: AuthenticatedRequest) {
+    const userId = req.user.id;
+
+    return await this.boardService.findAllWithRelations(userId, ['members', 'members.user', 'admin']);
   }
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const boardById = this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
+  async findOne(@Req() req: AuthenticatedRequest, @Param('id', CustomUUIDPipe) id: string) {
+    const boardById = await this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
 
     if (!boardById) {
       throw new NotFoundException('The board does not exists');
+    }
+
+    const userId = req.user.id;
+
+    if (!this.boardService.userIsBoardMember(boardById, userId) && boardById.isPrivate) {
+      throw new UnauthorizedException('You are not allowed to access this board');
     }
 
     return boardById;
@@ -50,14 +74,14 @@ export class BoardController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
   @Put('update/:id')
-  async update(@Param('id') id: string, @Body() updateDTO: UpdateBoardDTO) {
-    return this.boardService.update(id, updateDTO);
+  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateBoardDTO) {
+    return await this.boardService.update(id, updateDTO);
   }
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
   @Delete('delete/:id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', CustomUUIDPipe) id: string) {
     return await this.boardService.delete(id);
   }
 
