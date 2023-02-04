@@ -4,22 +4,16 @@ import { useQuery } from '@tanstack/react-query';
 import http from '../../config/http';
 import { ApiRoutes, AppRoutes } from '../../config/routes';
 
-const excludedPaths = ['/login', '/register'];
-
 const withSession = (Component) => {
   const Wrapped = (props) => {
     const router = useRouter();
     const toast = useToast();
 
-    const isExcludedRoute = excludedPaths.includes(router.pathname);
-
-    const { isLoading, error, isSuccess } = useQuery(['auth/status'], () => http.api.get(`${ApiRoutes.AUTH}/status`), {
-      onSuccess: () => handleSessionSuccess(),
+    const { isLoading, error } = useQuery(['auth/status'], () => http.api.get(`${ApiRoutes.AUTH}/status`), {
       onError: () => handleSessionError(),
     });
 
     function handleSessionError() {
-      if (isExcludedRoute) return;
       router.push(AppRoutes.LOGIN);
 
       toast({
@@ -33,27 +27,7 @@ const withSession = (Component) => {
       });
     }
 
-    function handleSessionSuccess() {
-      if (!isExcludedRoute) return;
-
-      router.push(AppRoutes.DASHBOARD);
-    }
-
-    if (isLoading) return null;
-
-    if (error) {
-      if (!isExcludedRoute) {
-        router.push(AppRoutes.LOGIN);
-        return null;
-      }
-    }
-
-    if (isSuccess) {
-      if (isExcludedRoute) {
-        router.push(AppRoutes.DASHBOARD);
-        return null;
-      }
-    }
+    if (isLoading || error) return null;
 
     return <Component {...props} />;
   };
