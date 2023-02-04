@@ -1,4 +1,5 @@
 @import './reset.css';
+@import './fonts.css';
 
 * {
   font-family: 'Poppins', sans-serif;
