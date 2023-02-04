@@ -54,6 +54,7 @@ async function bootstrap() {
         httpOnly: true,
         domain: environment === NODE_ENV.PRODUCTION ? process.env.CLIENT_DOMAIN : undefined,
         secure: environment === NODE_ENV.PRODUCTION,
+        sameSite: 'none',
       },
       secret: auth.session.secret,
       resave: false,
