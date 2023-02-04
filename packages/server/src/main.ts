@@ -53,7 +53,7 @@ async function bootstrap() {
         maxAge: 60000 * 60 * 24 * 7,
         httpOnly: true,
         secure: environment === NODE_ENV.PRODUCTION,
-        sameSite: 'none',
+        sameSite: environment === NODE_ENV.PRODUCTION ? 'none' : undefined,
       },
       secret: auth.session.secret,
       resave: false,
