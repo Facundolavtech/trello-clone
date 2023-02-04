@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { Heading, HStack, Icon, Stack } from '@chakra-ui/react';
+import { HStack, Stack, VStack } from '@chakra-ui/react';
 import useBoard from '../../hooks/useBoard';
 import BoardLayout from '../../layouts/BoardLayout';
 import BoardMembers from '../Members';
 import PrivacyBoardButton from '../Buttons/Privacy';
 import ShowBoardMenuButton from '../Buttons/ShowMenu';
-import { MdError } from 'react-icons/md';
+import Lists from '../../../BoardList/components/Lists';
+import Error from './Error';
 
 type Props = {
   id: string;
@@ -17,22 +18,28 @@ const BoardPage: FC<Props> = ({ id }) => {
   if (error) {
     return (
       <BoardLayout>
-        <Icon as={MdError} fontSize={18} color="error" />
-        <Heading color="error" fontWeight={500} fontSize={18}>
-          {error.response?.data?.message}
-        </Heading>
+        <Error error={error} />
       </BoardLayout>
     );
   }
 
   return (
     <BoardLayout title={data?.title}>
-      <Stack width="full" direction={{ base: 'column', md: 'row' }} justifyContent={{ base: 'flex-start', md: 'space-between' }}>
-        <HStack spacing="19px">
-          <PrivacyBoardButton />
-          <BoardMembers />
-        </HStack>
-        <ShowBoardMenuButton />
+      <Stack width="full" mt="35px">
+        <Stack width="full" direction={{ base: 'column', md: 'row' }} pb={10}>
+          <VStack width="full" alignItems="flex-start" spacing="52px">
+            <HStack width="full" justifyContent="space-between">
+              <HStack spacing="19px" width="full">
+                <PrivacyBoardButton />
+                <BoardMembers />
+              </HStack>
+              <ShowBoardMenuButton />
+            </HStack>
+            <HStack width="full" spacing="35px" overflowX="auto" alignItems="flex-start">
+              <Lists />
+            </HStack>
+          </VStack>
+        </Stack>
       </Stack>
     </BoardLayout>
   );
