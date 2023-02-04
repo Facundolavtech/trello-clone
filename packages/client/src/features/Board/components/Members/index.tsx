@@ -1,8 +1,6 @@
 import { Avatar, HStack, Text, Tooltip } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import useQueryState from '../../../../hooks/useQueryState';
-import { IBoard } from '../../../../models/board.model';
-import { IUser } from '../../../../models/user.model';
+import useUserProfile from '../../../../hooks/useUserProfile';
 import { FontFamily } from '../../../../theme/constants';
 import useBoard from '../../hooks/useBoard';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
@@ -15,13 +13,13 @@ const BoardMembers = () => {
   const boardId = router.query.id as string;
 
   const { data: board, isLoading } = useBoard({ id: boardId });
-  const userState = useQueryState<IUser>('user/profile');
+  const { data: user } = useUserProfile();
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (!board || !userState.data) return null;
+  if (!board || !user) return null;
 
   return (
     <HStack spacing="16px">
@@ -43,7 +41,7 @@ const BoardMembers = () => {
           +{board.members.length - 4} others
         </Text>
       )}
-      {userIsBoardAdmin(board.admin.id, userState.data.id) && <AddBoardMemberButton />}
+      {userIsBoardAdmin(board.admin.id, user.id) && <AddBoardMemberButton />}
     </HStack>
   );
 };
