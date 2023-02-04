@@ -1,8 +1,12 @@
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import withSession from '../../../hoc/withSession';
 import BoardPage from '../../../features/Board/components/BoardPage';
 
-const Board = ({ id }) => {
+type Props = {
+  id: string;
+};
+
+const Board: NextPage<Props> = ({ id }) => {
   return <BoardPage id={id} />;
 };
 
