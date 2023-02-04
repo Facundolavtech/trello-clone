@@ -29,7 +29,7 @@ const BoardCard: FC<Props> = ({ board }) => {
               width="28px"
               height="28px"
               color="white"
-              bg="gray.4"
+              bg={member.user.picture ? 'transparent' : 'gray.4'}
               name={member.user.name}
               key={member.user.id}
               src={member.user.picture ?? ''}
