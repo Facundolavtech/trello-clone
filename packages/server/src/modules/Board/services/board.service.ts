@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like, And, ArrayContains, In } from 'typeorm';
 import { User } from '../../User/entities/User.entity';
 import { CreateBoardDTO } from '../dto/create.dto';
 import { UpdateBoardDTO } from '../dto/update.dto';
@@ -68,15 +68,20 @@ export class BoardService {
   }
 
   async findAllWithRelations(userId: string, relations: string[]): Promise<Board[]> {
-    return await this.boardRepository.find({
-      where: [
-        {
-          members: { userId },
-        },
-        { isPrivate: false },
-      ],
-      relations,
-    });
+    const subquery = this.boardRepository
+      .createQueryBuilder('board')
+      .leftJoin('board.members', 'member')
+      .leftJoin('member.user', 'user')
+      .where('board.isPrivate = true AND user.id = :userId', { userId })
+      .select('board.id');
+
+    return await this.boardRepository
+      .createQueryBuilder('board')
+      .leftJoinAndSelect('board.admin', 'admin')
+      .leftJoinAndSelect('board.members', 'member')
+      .leftJoinAndSelect('member.user', 'user')
+      .where('board.isPrivate = false OR board.id IN (' + subquery.getQuery() + ')', subquery.getParameters())
+      .getMany();
   }
 
   async findByTitle(title: string): Promise<Board> {
