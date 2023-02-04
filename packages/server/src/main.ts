@@ -52,7 +52,6 @@ async function bootstrap() {
       cookie: {
         maxAge: 60000 * 60 * 24 * 7,
         httpOnly: true,
-        domain: environment === NODE_ENV.PRODUCTION ? process.env.CLIENT_DOMAIN : undefined,
         secure: environment === NODE_ENV.PRODUCTION,
         sameSite: 'none',
       },
