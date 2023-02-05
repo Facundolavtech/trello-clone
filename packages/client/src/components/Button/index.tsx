@@ -17,11 +17,28 @@ type Props = {
   style?: CSSProperties;
   loading?: boolean;
   onClick?: (params: any) => any;
+  [x: string]: any;
 };
 
 const Button: FC<Props> = forwardRef(
   (
-    { children, width, height = 'auto', type = 'button', as, px, py, variant, fontWeight = 500, fontFamily, disabled = false, style, onClick, loading = false },
+    {
+      children,
+      width,
+      height = 'auto',
+      type = 'button',
+      as,
+      px,
+      py,
+      variant,
+      fontWeight = 500,
+      fontFamily,
+      disabled = false,
+      style,
+      onClick,
+      loading = false,
+      ...rest
+    },
     ref
   ) => {
     return (
@@ -43,6 +60,7 @@ const Button: FC<Props> = forwardRef(
         display="flex"
         alignItems="center"
         onClick={onClick}
+        {...rest}
       >
         {children}
       </ChakraButton>
