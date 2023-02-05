@@ -1,9 +1,4 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
-import { useQuery } from '@tanstack/react-query';
-import http from '../../../../config/http';
-import { ApiRoutes } from '../../../../config/routes';
-import { IBoard } from '../../../../models/board.model';
 import BoardCard from './Card';
 import Loading from './Loading';
 import Error from './Error';
