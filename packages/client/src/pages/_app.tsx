@@ -8,6 +8,7 @@ import config from '../config';
 import NextProgress from '../libs/NextProgress';
 import { QueryClientProvider, QueryClient, Hydrate } from '@tanstack/react-query';
 import SEO from '../components/SEO';
+import NiceModal from '@ebay/nice-modal-react';
 
 function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -30,7 +31,9 @@ function App({ Component, pageProps }: AppProps) {
           <NextProgress />
           <Hydrate state={pageProps.dehydratedState}>
             <SEO />
-            <Component {...pageProps} />
+            <NiceModal.Provider>
+              <Component {...pageProps} />
+            </NiceModal.Provider>
           </Hydrate>
         </ChakraProvider>
       </GoogleOAuthProvider>
