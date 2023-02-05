@@ -14,14 +14,9 @@ const useBoardMethods = ({ id }: Props) => {
 
   const handleBoardPrivacyMutation = useMutation(({ type }: { type: BoardPrivacyType }) => handleBoardPrivacy({ type, id }), {
     onSuccess: (data: IBoard) => {
-      queryClient.setQueryData([`board/${id}`], (oldData) =>
-        oldData
-          ? {
-              ...oldData,
-              isPrivate: data.isPrivate,
-            }
-          : oldData
-      );
+      queryClient.setQueryData([`board/${id}`], (oldData: IBoard | undefined) => {
+        return oldData ? Object.assign({}, oldData, { isPrivate: data.isPrivate }) : oldData;
+      });
     },
     onError: (err: AxiosError<any>) => {
       return toast({
