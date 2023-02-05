@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import { FontFamily } from '../../../../theme/constants';
 
@@ -8,9 +8,9 @@ type Props = {
 
 const AuthTitle: FC<Props> = ({ title }) => {
   return (
-    <Text textAlign="left" color="gray.1" fontWeight={600} fontFamily={FontFamily.Poppins} fontSize={26}>
+    <Heading as="h1" textAlign="left" color="gray.1" fontWeight={600} fontFamily={FontFamily.Poppins} fontSize={26}>
       {title}
-    </Text>
+    </Heading>
   );
 };
 
