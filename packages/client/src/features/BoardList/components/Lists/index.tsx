@@ -1,6 +1,5 @@
 import { VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React from 'react';
 import useBoardLists from '../../hooks/useBoardLists';
 import List from '../List';
 import Loading from './Loading';
@@ -18,7 +17,7 @@ const Lists = () => {
   return (
     <>
       {lists?.map((list) => (
-        <VStack key={list.id} spacing="17px" alignItems="flex-start">
+        <VStack key={list.id} spacing="17px" pb="17px" alignItems="flex-start">
           <List list={list} />
         </VStack>
       ))}
