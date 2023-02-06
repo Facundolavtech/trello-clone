@@ -1,7 +1,7 @@
-import { SkeletonText } from '@chakra-ui/react';
+import SkeletonText from '../../../../components/SkeletonText';
 
 const Loading = () => {
-  return <SkeletonText noOfLines={2}>Loading</SkeletonText>;
+  return <SkeletonText containerWidth="80px" />;
 };
 
 export default Loading;
