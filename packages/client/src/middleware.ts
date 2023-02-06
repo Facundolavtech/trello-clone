@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import config from '../config';
-import { ApiRoutes, AppRoutes } from '../config/routes';
+import config from './config';
+import { ApiRoutes, AppRoutes } from './config/routes';
 
 export async function middleware(req: NextRequest) {
   const response = NextResponse.next();
   const { origin } = req.nextUrl;
 
-  const token = req.cookies['thullo.sess'];
+  const token = req.cookies.get('thullo.sess');
 
   if (token) {
     try {
