@@ -8,37 +8,29 @@ export async function middleware(req: NextRequest) {
 
   const token = req.cookies.get('thullo.sess');
 
-  if (token) {
-    try {
-      const res = await fetch(`${config.Api.BaseURL}${ApiRoutes.AUTH.replace('/', '')}/status`, {
-        credentials: 'include',
-        method: 'GET',
-        headers: {
-          Cookie: `thullo.sess=${token};`,
-        },
-      });
+  try {
+    const res = await fetch(`${config.Api.BaseURL}${ApiRoutes.AUTH.replace('/', '')}/status`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Cookie: `thullo.sess=${token};`,
+      },
+    });
 
-      if (res.status !== 200) throw new Error();
+    if (res.status !== 200) throw new Error();
 
-      if (req.url.endsWith(AppRoutes.LOGIN) || req.url.endsWith(AppRoutes.REGISTER)) {
-        return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
-      }
-
-      if (req.url === `${origin}/`) {
-        return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
-      }
-
-      return response;
-    } catch {
-      response.headers.set('Set-Cookie', `thullo.sess=; Max-Age=0`);
-
-      if (req.url.includes(AppRoutes.DASHBOARD) || req.url === `${origin}/`) {
-        return NextResponse.redirect(`${origin}${AppRoutes.LOGIN}`);
-      }
-
-      return response;
+    if (req.url.endsWith(AppRoutes.LOGIN) || req.url.endsWith(AppRoutes.REGISTER)) {
+      return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
     }
-  } else {
+
+    if (req.url === `${origin}/`) {
+      return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
+    }
+
+    return response;
+  } catch {
+    response.headers.set('Set-Cookie', `thullo.sess=; Max-Age=0`);
+
     if (req.url.includes(AppRoutes.DASHBOARD) || req.url === `${origin}/`) {
       return NextResponse.redirect(`${origin}${AppRoutes.LOGIN}`);
     }
