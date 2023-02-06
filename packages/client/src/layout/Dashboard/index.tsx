@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import Header from '../../components/Dashboard/Header';
 import useUserProfile from '../../hooks/useUserProfile';
 
@@ -7,7 +7,11 @@ type Props = {
 };
 
 const DashboardLayout: FC<Props> = ({ children }) => {
-  useUserProfile();
+  const userProfileQuery = useUserProfile();
+
+  useEffect(() => {
+    userProfileQuery.refetch();
+  }, []);
 
   return (
     <>
