@@ -4,7 +4,6 @@ import WrappedContainer from '../../components/Containers/Wrapped';
 import SEO from '../../components/SEO';
 import BoardList from '../../features/Board/components/BoardList';
 import NewBoardButton from '../../features/Board/components/Buttons/NewBoard';
-import withSession from '../../hoc/withSession';
 import DashboardLayout from '../../layout/Dashboard';
 
 const Dashboard: NextPage = () => {
@@ -28,4 +27,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default withSession(Dashboard);
+export default Dashboard;
