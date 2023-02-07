@@ -9,9 +9,7 @@ const Register: NextPage = () => {
     <>
       <SEO title="Register" />
       <AuthLayout>
-        <AuthCard formType="register">
-          <RegisterForm />
-        </AuthCard>
+        <AuthCard formType="register" form={<RegisterForm />} />
       </AuthLayout>
     </>
   );

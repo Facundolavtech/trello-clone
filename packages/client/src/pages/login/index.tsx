@@ -9,9 +9,7 @@ const Login: NextPage = () => {
     <>
       <SEO title="Login" />
       <AuthLayout>
-        <AuthCard formType="login">
-          <LoginForm />
-        </AuthCard>
+        <AuthCard formType="login" form={<LoginForm />} />
       </AuthLayout>
     </>
   );
