@@ -5,3 +5,27 @@
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
 }
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+.board__canvas::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.board__canvas::-webkit-scrollbar-track {
+  background: #ffffff;
+  padding: 8px;
+}
+
+.board__canvas::-webkit-scrollbar-thumb {
+  background: #2f80ed;
+  border-radius: 8px;
+}
+
+.board__canvas::-webkit-scrollbar-thumb:hover {
+  background: rgba(46, 129, 237, 0.8);
+}
