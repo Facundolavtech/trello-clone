@@ -24,8 +24,6 @@ export class UserController {
 
     const hashedPassword = await this.userService.hashPassword(updateDTO.password);
 
-    await this.userService.changePassword(userId, hashedPassword);
-
-    return 'Password changed';
+    return await this.userService.changePassword(userId, hashedPassword);
   }
 }
