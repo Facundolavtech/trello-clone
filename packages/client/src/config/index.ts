@@ -1,4 +1,4 @@
-import { CookieSerializeOptions } from 'cookie';
+import { OptionsType } from 'cookies-next/lib/types';
 
 export default {
   Api: {
@@ -11,11 +11,11 @@ export default {
       },
     },
     Cookie: {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       maxAge: 7 * 24 * 3600 * 1000,
       path: '/',
       sameSite: 'none',
-    } as CookieSerializeOptions,
+    } as OptionsType,
   },
 };
