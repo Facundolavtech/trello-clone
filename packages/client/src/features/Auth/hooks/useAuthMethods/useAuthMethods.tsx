@@ -1,19 +1,19 @@
 import { useToast } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useIsMutating, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AppRoutes } from '../../../../config/routes';
 import { ILoginFormValues } from '../../components/Form/Login';
 import { IRegisterFormValues } from '../../components/Form/Register';
-import SocialProviders from '../../constants/providers';
-import { loginWithLocalProvider, loginWithSocialProvider, logout, registerWithLocalProvider } from '../../services/auth.service';
+import { ILoginWithSocialProviderParams, loginWithLocalProvider, loginWithSocialProvider, logout, registerWithLocalProvider } from '../../services/auth.service';
 
 const useAuthMethods = () => {
   const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
 
-  const loginSocialMutation = useMutation(({ provider, token }: { provider: SocialProviders; token: string }) => loginWithSocialProvider({ provider, token }), {
+  const loginSocialMutation = useMutation(({ provider, token }: ILoginWithSocialProviderParams) => loginWithSocialProvider({ provider, token }), {
+    mutationKey: ['auth/social'],
     onSuccess: () => {
       return router.push(AppRoutes.DASHBOARD);
     },
@@ -33,7 +33,7 @@ const useAuthMethods = () => {
     onSuccess: () => {
       return router.push(AppRoutes.DASHBOARD);
     },
-    onError: (err: AxiosError<any, any>) => {
+    onError: (err: AxiosError<any>) => {
       toast({
         isClosable: false,
         status: 'error',
@@ -69,11 +69,14 @@ const useAuthMethods = () => {
     },
   });
 
+  const loginSocialIsMutatingValue = useIsMutating(['auth/social']);
+
   return {
     loginSocialMutation,
     loginLocalMutation,
     registerLocalMutation,
     logout: logoutQuery.refetch,
+    loginSocialIsMutating: loginSocialIsMutatingValue > 0,
   };
 };
 
