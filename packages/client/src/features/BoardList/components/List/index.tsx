@@ -16,7 +16,7 @@ const List: FC<Props> = ({ list }) => {
 
   return (
     <VStack spacing="17px">
-      <HStack width={{ base: 'full', md: '240px' }} justifyContent="space-between" alignItems="center">
+      <HStack width="240px" justifyContent="space-between" alignItems="center">
         <Heading color="gray.1" fontWeight={500} fontSize={14}>
           {list.name}
         </Heading>
