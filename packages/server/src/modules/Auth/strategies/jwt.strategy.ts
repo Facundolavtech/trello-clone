@@ -5,26 +5,15 @@ import config from '../../../config';
 import { ConfigType } from '@nestjs/config';
 import { IJwtPayload } from '../types';
 import { UserService } from '../../User/services/user.service';
-import { Request } from 'express';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(@Inject(config.KEY) readonly configService: ConfigType<typeof config>, private userService: UserService) {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([JwtStrategy.extractJWT, ExtractJwt.fromAuthHeaderAsBearerToken()]),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
       secretOrKey: configService.auth.jwt.secret,
     });
-  }
-
-  private static extractJWT(req: Request): string | null {
-    let data: string = req?.cookies['thullo:sid'];
-
-    if (!data) {
-      return null;
-    }
-
-    return data;
   }
 
   async validate(payload: IJwtPayload) {
