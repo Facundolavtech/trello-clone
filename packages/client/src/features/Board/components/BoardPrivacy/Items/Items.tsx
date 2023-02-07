@@ -1,6 +1,7 @@
 import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { BiWorld } from 'react-icons/bi';
+import { MdCheck } from 'react-icons/md';
 import { TiLockClosed } from 'react-icons/ti';
 import { FontFamily } from '../../../../../theme/constants';
 import useBoard from '../../../hooks/useBoard';
@@ -24,10 +25,10 @@ const BoardPrivacyMenuItems = () => {
 
   return (
     <VStack spacing="15px" width="full">
-      <BoardPrivacyMenuItem onClick={() => handleBoardPrivacy('public')}>
+      <BoardPrivacyMenuItem onClick={() => handleBoardPrivacy('public')} disabled={!data?.isPrivate || false}>
         <VStack spacing="8px" alignItems="flex-start">
           <HStack spacing="8px">
-            <Icon as={BiWorld} color="gray.2" fontSize={14} />
+            <Icon as={!data?.isPrivate ? MdCheck : BiWorld} color="gray.2" fontSize={14} />
             <Text color="gray.2" fontSize={12} fontWeight={500} fontFamily={FontFamily.NotoSans}>
               Public
             </Text>
@@ -37,10 +38,10 @@ const BoardPrivacyMenuItems = () => {
           </Text>
         </VStack>
       </BoardPrivacyMenuItem>
-      <BoardPrivacyMenuItem onClick={() => handleBoardPrivacy('private')}>
+      <BoardPrivacyMenuItem onClick={() => handleBoardPrivacy('private')} disabled={data?.isPrivate || false}>
         <VStack spacing="8px" alignItems="flex-start">
           <HStack spacing="8px">
-            <Icon as={TiLockClosed} color="gray.2" fontSize={14} />
+            <Icon as={data?.isPrivate ? MdCheck : TiLockClosed} color="gray.2" fontSize={14} />
             <Text color="gray.2" fontSize={12} fontWeight={500} fontFamily={FontFamily.NotoSans}>
               Private
             </Text>
