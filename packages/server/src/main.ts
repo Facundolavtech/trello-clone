@@ -34,7 +34,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalFilters(new AllExceptionsFilter());
 
-  app.enableCors({ origin: client.baseURL, credentials: true, preflightContinue: true });
+  app.enableCors({ origin: client.baseURL, credentials: true });
   app.use(helmet({ crossOriginResourcePolicy: false }));
 
   app.use(cookieParser());
