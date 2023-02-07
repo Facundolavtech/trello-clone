@@ -6,11 +6,11 @@ const useGoogleToken = () => {
   const { loginSocialMutation } = useAuthMethods();
 
   const getTokenAndLogin = useGoogleLogin({
-    onSuccess: (res) => {
-      return loginSocialMutation.mutate({ provider: SocialProviders.GOOGLE, token: res.access_token });
+    onSuccess: ({ access_token }) => {
+      loginSocialMutation.mutate({ provider: SocialProviders.GOOGLE, token: access_token });
     },
     onError: () => {
-      return;
+      return null;
     },
   });
 
