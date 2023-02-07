@@ -29,7 +29,7 @@ const BoardPage: FC<Props> = ({ id }) => {
   return (
     <BoardLayout title={data?.title}>
       <Stack width="full" mt="35px">
-        <Stack width="full" direction={{ base: 'column', md: 'row' }} pb={10}>
+        <Stack width="full" direction={{ base: 'column', md: 'row' }} mb={10}>
           <VStack width="full" alignItems="flex-start" spacing="52px">
             <HStack width="full" justifyContent="space-between">
               <Flex gap="19px" width="full">
@@ -38,9 +38,20 @@ const BoardPage: FC<Props> = ({ id }) => {
               </Flex>
               <ShowBoardMenuButton />
             </HStack>
-            <HStack width="full" spacing="35px" overflowX="auto" alignItems="flex-start">
+            <HStack
+              width="100%"
+              spacing="35px"
+              position="relative"
+              overflow="auto"
+              height={600}
+              alignItems="flex-start"
+              borderRadius="12px"
+              padding={8}
+              backgroundColor="#f8f8f8"
+              className="board__canvas"
+            >
               <Lists />
-              <Button width="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
+              <Button minWidth="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
                 <Text color="blue.1" fontWeight={500} fontSize={12} fontFamily={FontFamily.NotoSans}>
                   Add another list
                 </Text>
