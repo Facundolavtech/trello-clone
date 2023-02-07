@@ -6,5 +6,5 @@ export function setSessionCookie(token: string, req?: any, res?: any): void {
 }
 
 export function deleteSessionCookie(req?: any, res?: any): void {
-  return deleteCookie('thullo:sid', { req, res });
+  return deleteCookie('thullo:sid', { req, res, path: config.Auth.Cookie.path });
 }
