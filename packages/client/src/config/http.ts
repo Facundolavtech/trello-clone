@@ -1,21 +1,32 @@
 import config from '.';
 import axios from 'axios';
 import { createStandaloneToast } from '@chakra-ui/react';
-import Router from 'next/router';
 import { AppRoutes } from './routes';
+import { getCookie } from 'cookies-next';
 
 const { toast } = createStandaloneToast();
 
 const http = {
   api: axios.create({
     baseURL: config.Api.BaseURL,
-    withCredentials: true,
   }),
 };
 
 export default http;
 
 let isHandlingError = false;
+
+http.api.interceptors.request.use((config) => {
+  const token = getCookie('thullo:sid');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  } else {
+    if (typeof window !== 'undefined') {
+      window.location.href = AppRoutes.LOGIN;
+    }
+  }
+  return config;
+});
 
 http.api.interceptors.response.use(
   (response) => {
@@ -30,7 +41,8 @@ http.api.interceptors.response.use(
     if (error.response?.status === 401 && error.response?.data.code === 'TokenExpiredError') {
       try {
         await axios.get('/api/logout');
-      } catch (error) {
+      } catch {
+        return null;
       } finally {
         toast({
           position: 'top-right',
@@ -40,7 +52,10 @@ http.api.interceptors.response.use(
           duration: 2000,
           isClosable: false,
         });
-        Router.push(AppRoutes.LOGIN);
+
+        if (typeof window !== 'undefined') {
+          window.location.href = AppRoutes.LOGIN;
+        }
       }
     }
 
