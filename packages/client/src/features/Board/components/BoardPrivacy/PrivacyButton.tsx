@@ -5,6 +5,7 @@ import { IoMdLock, IoMdUnlock } from 'react-icons/io';
 import Button from '../../../../components/Button';
 import useBoard from '../../hooks/useBoard';
 import Loading from './Loading';
+import useBoardMethods from '../../hooks/useBoardMethods';
 
 type Props = {
   disabled: boolean;
@@ -15,13 +16,23 @@ const PrivacyButton: FC<Props> = ({ disabled }) => {
   const boardId = router.query.id as string;
 
   const { data, isLoading } = useBoard({ id: boardId });
+  const { handleBoardPrivacyIsMutating: isMutating } = useBoardMethods({ id: boardId });
 
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <Button as="div" variant="lightgray" height="32px" width="98px" style={{ gap: '11px' }} _hover={disabled && { cursor: 'initial', opacity: 1 }}>
+    <Button
+      as="div"
+      loading={isMutating}
+      disabled={isMutating}
+      variant="lightgray"
+      height="32px"
+      width="98px"
+      style={{ gap: '11px' }}
+      _hover={disabled && { cursor: 'initial', opacity: 1 }}
+    >
       <Icon as={data?.isPrivate ? IoMdLock : IoMdUnlock} fontSize={12} color="gray.3" />
       <Text fontSize={12} fontWeight={500} color="gray.3">
         {data?.isPrivate ? 'Private' : 'Public'}
