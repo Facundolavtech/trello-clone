@@ -11,7 +11,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: '#f2f3f8',
+        bg: '#F8F9FD',
       },
       a: {
         _hover: {
@@ -53,34 +53,75 @@ const theme = extendTheme({
       baseStyle: {
         display: 'flex',
         borderRadius: '8px',
-        fontWeight: 500,
         _hover: {
           cursor: 'pointer',
+        },
+        _disabled: {
+          cursor: 'not-allowed',
+          _hover: {
+            opacity: 0.4,
+          },
+        },
+        _loading: {
+          cursor: 'not-allowed',
+          _hover: {
+            opacity: 0.4,
+          },
         },
       },
       variants: {
         primary: {
-          backgroundColor: 'blue.1',
+          background: 'blue.1',
           color: 'white',
           _hover: {
             opacity: 0.8,
             cursor: 'pointer',
             transition: 'opacity 0.2s ease-out',
           },
+          _loading: {
+            _hover: {
+              background: 'blue.1',
+            },
+          },
+          _disabled: {
+            _hover: {
+              background: 'blue.1',
+            },
+          },
         },
         lightgray: {
-          backgroundColor: 'lightgray.1',
+          background: 'lightgray.1',
           _hover: {
             opacity: 0.8,
             transition: 'opacity 0.2s ease-out',
+          },
+          _loading: {
+            _hover: {
+              background: 'lightgray.1',
+            },
+          },
+          _disabled: {
+            _hover: {
+              background: 'lightgray.1',
+            },
           },
         },
         outline: {
           borderColor: 'gray.4',
           borderWidth: '1px',
-          backgroundColor: 'white',
+          background: 'white',
           _hover: {
             borderColor: 'gray.3',
+          },
+          _loading: {
+            _hover: {
+              background: 'gray.4',
+            },
+          },
+          _disabled: {
+            _hover: {
+              background: 'gray.4',
+            },
           },
         },
         link: {
