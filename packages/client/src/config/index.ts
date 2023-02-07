@@ -12,10 +12,8 @@ export default {
     },
     Cookie: {
       httpOnly: false,
-      secure: true,
       maxAge: 7 * 24 * 3600 * 1000,
       path: '/',
-      sameSite: 'none',
     } as OptionsType,
   },
 };
