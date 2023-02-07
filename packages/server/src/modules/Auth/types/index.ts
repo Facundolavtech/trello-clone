@@ -10,3 +10,8 @@ export interface IAuthProviderUserDTO {
 }
 
 export type IGoogleUserDTO = IAuthProviderUserDTO;
+
+export interface IJwtPayload {
+  id: string;
+  email: string;
+}

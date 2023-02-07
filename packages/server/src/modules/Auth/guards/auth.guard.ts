@@ -1,15 +1,20 @@
-import { CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common/decorators';
+import { UnauthorizedException } from '@nestjs/common/exceptions';
+import { AuthGuard } from '@nestjs/passport';
 
-export class AuthenticatedGuard implements CanActivate {
-  async canActivate(context: ExecutionContext): Promise<any> {
-    const request = context.switchToHttp().getRequest();
-
-    const isAuthenticated: boolean = request.isAuthenticated();
-
-    if (!isAuthenticated) {
-      throw new UnauthorizedException('Please sign in to continue');
+@Injectable()
+export class AuthenticatedGuard extends AuthGuard('jwt') {
+  handleRequest(err, user) {
+    if (err || !user) {
+      throw (
+        err ||
+        new UnauthorizedException({
+          code: 'TokenExpiredError',
+          message: 'Token expired, please sign in again to continue',
+          statusCode: 401,
+        })
+      );
     }
-
-    return isAuthenticated;
+    return user;
   }
 }

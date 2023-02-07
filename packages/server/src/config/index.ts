@@ -17,9 +17,9 @@ export default registerAs('config', () => {
       name: process.env.DATABASE_NAME,
     },
     auth: {
-      session: {
-        cookieName: 'thullo.sess',
-        secret: process.env.SESSION_SECRET,
+      jwt: {
+        secret: process.env.JWT_SECRET,
+        expiresIn: process.env.JWT_EXPIRES_IN,
       },
       oauth: {
         google: {

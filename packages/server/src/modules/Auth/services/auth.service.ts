@@ -3,18 +3,23 @@ import { compare } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../User/entities/User.entity';
 import { Repository } from 'typeorm';
-import { IAuthProviderUserDTO } from '../types';
+import { IAuthProviderUserDTO, IJwtPayload } from '../types';
 import { UserService } from '../../User/services/user.service';
 import { UserProviders } from '../../User/constants';
 import formatUserProvider from '../utils/formatProvider';
 import { RegisterLocalDTO } from '../dto/auth.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService, @InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(private userService: UserService, @InjectRepository(User) private userRepository: Repository<User>, private jwtService: JwtService) {}
 
   async comparePassword(plainPassword: string, hashPassword: string): Promise<boolean> {
     return await compare(plainPassword, hashPassword);
+  }
+
+  signJwt(payload: IJwtPayload): string {
+    return this.jwtService.sign(payload);
   }
 
   async loginWithProvider(userData: IAuthProviderUserDTO): Promise<User> {

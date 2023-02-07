@@ -4,9 +4,7 @@ import * as cookieParser from 'cookie-parser';
 import { SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import * as session from 'express-session';
 import * as passport from 'passport';
-import * as connectRedis from 'connect-redis';
 import * as morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import helmet from 'helmet';
@@ -41,28 +39,9 @@ async function bootstrap() {
   app.enableCors({ origin: client.baseURL, credentials: true });
   app.use(helmet());
 
-  const RedisStore = connectRedis(session);
-
   await redisClient.connect();
 
-  app.use(
-    session({
-      store: new RedisStore({ client: redisClient }),
-      name: auth.session.cookieName,
-      cookie: {
-        maxAge: 60000 * 60 * 24 * 7,
-        httpOnly: true,
-        secure: environment === NODE_ENV.PRODUCTION,
-        sameSite: environment === NODE_ENV.PRODUCTION ? 'none' : undefined,
-      },
-      secret: auth.session.secret,
-      resave: false,
-      saveUninitialized: false,
-    })
-  );
-
   app.use(passport.initialize());
-  app.use(passport.session());
 
   app.use(cookieParser());
 
