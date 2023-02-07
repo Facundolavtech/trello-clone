@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import http from '../../config/http';
 import { ApiRoutes } from '../../config/routes';
-import setSessionCookie from '../../utils/setSessionCookie';
+import { setSessionCookie } from '../../utils/sessionCookie';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { name, username, email, password } = req.body;
@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const response = await http.api.post(`${ApiRoutes.AUTH}/local/register`, { name, username, email, password });
 
-    res.setHeader('Set-Cookie', setSessionCookie(response.data.token));
+    setSessionCookie(response.data.token, req, res);
 
     res.status(200).json({ success: 'Logged in' });
   } catch (error: any) {
