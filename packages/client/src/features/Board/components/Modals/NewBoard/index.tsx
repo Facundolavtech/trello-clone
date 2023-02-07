@@ -21,14 +21,18 @@ interface INewBoardValuesCover {
   src: string;
 }
 
-const initialNewBoardValues: INewBoardValues = {
-  cover: boardCovers[Math.floor(Math.random() * boardCovers.length)],
-  title: '',
-  isPrivate: true,
+const getRandomCover = (covers: INewBoardValuesCover[]) => {
+  return covers[Math.floor(Math.random() * boardCovers.length)];
 };
 
 const NewBoardModal = NiceModal.create(() => {
   const modal = useModal();
+
+  const initialNewBoardValues: INewBoardValues = {
+    cover: getRandomCover(boardCovers),
+    title: '',
+    isPrivate: true,
+  };
 
   const [newBoardValues, setNewBoardValues] = useState(initialNewBoardValues);
 
