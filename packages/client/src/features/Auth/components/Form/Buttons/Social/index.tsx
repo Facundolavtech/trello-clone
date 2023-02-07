@@ -8,24 +8,27 @@ type Props = {
   icon: IconType;
   bg: string;
   content: string;
-  onClick?: () => any;
+  onClick?: (e: any) => void;
   loading?: boolean;
+  disabled?: boolean;
 };
 
-const SocialProviderButton: FC<Props> = ({ icon, bg, content, onClick, loading = false }) => {
+const SocialProviderButton: FC<Props> = ({ icon, bg, content, onClick, loading = false, disabled = false }) => {
   return (
     <Button
       width="full"
       fontFamily={FontFamily.Poppins}
       variant="primary"
+      height="50px"
       py={0.5}
       px={0.5}
       style={{ backgroundColor: bg, borderRadius: 8 }}
       onClick={onClick}
       loading={loading}
+      disabled={disabled}
     >
-      <Box width="45px" height="45px" borderRadius={6} bg="#fff" display="flex" alignItems="center" justifyContent="center">
-        <Icon as={icon} width={21} height={21} />
+      <Box width="45px" height="full" borderRadius={6} bg="#fff" display="flex" alignItems="center" justifyContent="center">
+        <Icon as={icon} fontSize={21} />
       </Box>
       <Text mx="auto" fontWeight={400} color="white" fontSize={14} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" fontFamily={FontFamily.Poppins}>
         {content}
