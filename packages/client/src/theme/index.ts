@@ -55,16 +55,17 @@ const theme = extendTheme({
         borderRadius: '8px',
         _hover: {
           cursor: 'pointer',
+          opacity: 1,
         },
         _disabled: {
-          cursor: 'not-allowed',
           _hover: {
+            cursor: 'not-allowed',
             opacity: 0.4,
           },
         },
         _loading: {
-          cursor: 'not-allowed',
           _hover: {
+            cursor: 'not-allowed',
             opacity: 0.4,
           },
         },
@@ -85,7 +86,7 @@ const theme = extendTheme({
           },
           _disabled: {
             _hover: {
-              background: 'blue.1',
+              background: 'blue.1 !important',
             },
           },
         },
