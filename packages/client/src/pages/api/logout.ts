@@ -1,13 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { serialize } from 'cookie';
+import { NextApiResponse } from 'next';
 
 export default async (_, res: NextApiResponse) => {
-  res.setHeader(
-    'Set-Cookie',
-    serialize('thullo:sid', '', {
-      maxAge: -1,
-      path: '/',
-    })
-  );
+  res.setHeader('Set-Cookie', 'thullo:sid=; path=/; Max-Age=0;');
   return res.status(200).json({ success: 'Logged out' });
 };
