@@ -43,20 +43,22 @@ const BoardPage: FC<Props> = ({ id }) => {
               spacing="35px"
               position="relative"
               overflow="auto"
-              height={600}
+              height={data ? 600 : 'auto'}
               alignItems="flex-start"
               borderRadius="12px"
               padding={8}
-              backgroundColor="#f8f8f8"
+              backgroundColor={data ? '#f8f8f8' : 'none'}
               className="board__canvas"
             >
               <Lists />
-              <Button minWidth="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
-                <Text color="blue.1" fontWeight={500} fontSize={12} fontFamily={FontFamily.NotoSans}>
-                  Add another list
-                </Text>
-                <Icon as={AiOutlinePlus} color="blue.1" fontSize={12} />
-              </Button>
+              {data && (
+                <Button minWidth="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
+                  <Text color="blue.1" fontWeight={500} fontSize={12} fontFamily={FontFamily.NotoSans}>
+                    Add another list
+                  </Text>
+                  <Icon as={AiOutlinePlus} color="blue.1" fontSize={12} />
+                </Button>
+              )}
             </HStack>
           </VStack>
         </Stack>
