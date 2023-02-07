@@ -20,13 +20,7 @@ export class UserService {
   }
 
   async update(id: string, updateDTO: UpdateUserDTO): Promise<User> {
-    const updatedUser = await this.userRepository
-      .createQueryBuilder('user')
-      .update('user', updateDTO)
-      .where('id = :id', { id })
-      .returning('*')
-      .updateEntity(true)
-      .execute();
+    const updatedUser = await this.userRepository.createQueryBuilder().update(updateDTO).where('id = :id', { id }).returning('*').updateEntity(true).execute();
 
     return updatedUser.raw[0];
   }
@@ -39,11 +33,11 @@ export class UserService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  async changePassword(id: string, newPassword: string): Promise<void> {
-    await this.update(id, { password: newPassword });
+  async changePassword(id: string, newPassword: string): Promise<User> {
+    return await this.update(id, { password: newPassword });
   }
 
-  async formatUserProfile(user: User): Promise<IUserProfile> {
+  formatUserProfile(user: User): IUserProfile {
     return {
       id: user.id,
       name: user.name,
