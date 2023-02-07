@@ -10,6 +10,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const message = exception.sqlMessage || exception.response || exception;
 
     return response.status(status).json({
+      ...exception.response,
       statusCode: status,
       message: status === 500 ? 'An error occurred on our servers, we will work to fix it as soon as possible' : message.message,
       timestamp: new Date(Date.now()),
