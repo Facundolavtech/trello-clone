@@ -21,5 +21,6 @@ export async function registerWithLocalProvider(credentials: IRegisterFormValues
 }
 
 export async function logout(): Promise<void> {
+  document.cookie = 'thullo:sid=; Max-Age=0; Path=/;';
   return await axios.get('/api/logout');
 }
