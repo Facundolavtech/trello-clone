@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Modal, ModalContent, ModalOverlay, HStack, Flex } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import boardCovers from '../../../helpers/covers';
@@ -9,6 +9,10 @@ import CancelButton from './Buttons/Cancel';
 import CloseModalButton from './Buttons/Close';
 import Cover from './Cover';
 import PrivacyButton from './Buttons/Privacy';
+import { Form, Formik } from 'formik';
+import NewBoardSchema from './validations';
+import useBoardMethods from '../../../hooks/useBoardMethods';
+import { useRouter } from 'next/router';
 
 export interface INewBoardValues {
   title: string;
@@ -27,6 +31,10 @@ const getRandomCover = (covers: INewBoardValuesCover[]) => {
 
 const NewBoardModal = NiceModal.create(() => {
   const modal = useModal();
+  const router = useRouter();
+  const boardId = router.query.id as string;
+
+  const { createBoardMutation } = useBoardMethods({ id: boardId });
 
   const initialNewBoardValues: INewBoardValues = {
     cover: getRandomCover(boardCovers),
@@ -34,16 +42,17 @@ const NewBoardModal = NiceModal.create(() => {
     isPrivate: true,
   };
 
-  const [newBoardValues, setNewBoardValues] = useState(initialNewBoardValues);
+  useEffect(() => {
+    if (createBoardMutation.status === 'success') {
+      handleHideModal();
+    }
+  }, [createBoardMutation.status]);
 
-  const handleSubmit = () => {
-    if (!newBoardValues.title.trim() || !newBoardValues.cover.src) return;
-
-    console.log(newBoardValues);
+  const handleSubmit = (values: INewBoardValues) => {
+    createBoardMutation.mutate({ ...values, cover: values.cover.src });
   };
 
   const handleHideModal = () => {
-    setNewBoardValues(initialNewBoardValues);
     modal.hide();
   };
 
@@ -51,17 +60,23 @@ const NewBoardModal = NiceModal.create(() => {
     <Modal isOpen={modal.visible} onClose={handleHideModal}>
       <ModalOverlay />
       <ModalContent py="27px" px="24px" borderRadius="8px" maxW="90%" width="307px" position="relative">
-        <CloseModalButton onClick={handleHideModal} />
-        <Cover src={newBoardValues.cover.src} />
-        <Title onChange={(e) => setNewBoardValues({ ...newBoardValues, title: e.target.value })} />
-        <Flex width="full" justifyContent="space-between" mb="22px">
-          <CoverMenu newBoardValues={newBoardValues} setNewBoardValues={setNewBoardValues} />
-          <PrivacyButton newBoardValues={newBoardValues} setNewBoardValues={setNewBoardValues} />
-        </Flex>
-        <HStack width="full" justifyContent="flex-end" spacing="17px">
-          <CancelButton onClick={handleHideModal} />
-          <SubmitButton onClick={handleSubmit} />
-        </HStack>
+        <Formik initialValues={initialNewBoardValues} validationSchema={NewBoardSchema} onSubmit={handleSubmit}>
+          {({ handleSubmit, handleChange, values, errors, setFieldValue, resetForm }) => (
+            <Form onSubmit={handleSubmit}>
+              <CloseModalButton onClick={handleHideModal} />
+              <Cover src={values.cover.src} />
+              <Title onChange={handleChange} value={values.title} error={errors.title} />
+              <Flex width="full" justifyContent="space-between" mb="22px">
+                <CoverMenu setFieldValue={setFieldValue} />
+                <PrivacyButton setFieldValue={setFieldValue} value={values.isPrivate} />
+              </Flex>
+              <HStack width="full" justifyContent="flex-end" spacing="17px">
+                <CancelButton onClick={handleHideModal} />
+                <SubmitButton loading={createBoardMutation.isLoading} />
+              </HStack>
+            </Form>
+          )}
+        </Formik>
       </ModalContent>
     </Modal>
   );

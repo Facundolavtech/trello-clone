@@ -4,12 +4,12 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../../../../../../../components/Button';
 
 type Props = {
-  onClick: (e: any) => void;
+  loading: boolean;
 };
 
-const SubmitButton: FC<Props> = ({ onClick }) => {
+const SubmitButton: FC<Props> = ({ loading }) => {
   return (
-    <Button height="30px" width="76px" variant="primary" style={{ gap: 11 }} onClick={onClick}>
+    <Button height="30px" width="76px" loading={loading} disabled={loading} type="submit" variant="primary" style={{ gap: 11 }}>
       <Icon as={AiOutlinePlus} fontSize={14} color="white" />
       <Text color="white" fontWeight={500} fontSize={10}>
         Create

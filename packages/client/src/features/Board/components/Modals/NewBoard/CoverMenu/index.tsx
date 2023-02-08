@@ -2,14 +2,12 @@ import { FC } from 'react';
 import { Menu as ChakraMenu, MenuButton as ChakraMenuButton, Button, Text, MenuList, Wrap, Icon, WrapItem } from '@chakra-ui/react';
 import { AiFillPicture } from 'react-icons/ai';
 import boardCovers from '../../../../helpers/covers';
-import { INewBoardValues } from '..';
 
 type Props = {
-  newBoardValues: INewBoardValues;
-  setNewBoardValues: (e: any) => void;
+  setFieldValue: (key: string, value: any) => void;
 };
 
-const CoverMenu: FC<Props> = ({ newBoardValues, setNewBoardValues }) => {
+const CoverMenu: FC<Props> = ({ setFieldValue }) => {
   return (
     <ChakraMenu>
       {({ onClose }) => (
@@ -50,8 +48,9 @@ const CoverMenu: FC<Props> = ({ newBoardValues, setNewBoardValues }) => {
                 <WrapItem
                   _hover={{ cursor: 'pointer' }}
                   key={cover.name}
+                  id="cover"
                   onClick={() => {
-                    setNewBoardValues({ ...newBoardValues, cover }), onClose();
+                    setFieldValue('cover', cover), onClose();
                   }}
                   width="100%"
                   height="48px"
