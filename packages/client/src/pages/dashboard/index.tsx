@@ -12,7 +12,7 @@ const Dashboard: NextPage = () => {
       <SEO title="Dashboard" />
       <DashboardLayout>
         <WrappedContainer>
-          <VStack spacing="40px" mt="60px" width="full">
+          <VStack spacing="40px" my="60px" width="full">
             <HStack width="full" justifyContent="space-between">
               <Heading fontWeight={500} fontSize={18} color="gray.1">
                 All boards
