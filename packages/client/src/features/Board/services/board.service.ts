@@ -10,6 +10,17 @@ export interface IHandleBoardPrivacyParams {
   id: string;
 }
 
+export interface ICreateBoardParams {
+  title: string;
+  cover: string;
+  isPrivate: boolean;
+}
+
+export async function createBoard(params: ICreateBoardParams): Promise<IBoard> {
+  const response: AxiosResponse<IBoard> = await http.api.post(`${ApiRoutes.BOARD}/create`, params);
+  return response.data;
+}
+
 export async function getBoardById(id: string): Promise<IBoard> {
   const response: AxiosResponse<IBoard> = await http.api.get(`${ApiRoutes.BOARD}/${id}`);
   return response.data;
