@@ -1,11 +1,12 @@
 import { useToast } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useIsMutating, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppRoutes } from '../../../../config/routes';
 import { ILoginFormValues } from '../../components/Form/Login';
 import { IRegisterFormValues } from '../../components/Form/Register';
-import { ILoginWithSocialProviderParams, loginWithLocalProvider, loginWithSocialProvider, logout, registerWithLocalProvider } from '../../services/auth.service';
+import { ILoginWithSocialProviderParams, loginWithLocalProvider, loginWithSocialProvider, registerWithLocalProvider } from '../../services/auth.service';
+import { deleteSessionCookie } from '../../../../utils/sessionCookie';
 
 const useAuthMethods = () => {
   const router = useRouter();
@@ -61,13 +62,11 @@ const useAuthMethods = () => {
     },
   });
 
-  const logoutQuery = useQuery(['auth/logout'], logout, {
-    enabled: false,
-    onSuccess: () => {
-      queryClient.removeQueries();
-      router.push(AppRoutes.LOGIN);
-    },
-  });
+  const logout = () => {
+    deleteSessionCookie();
+    queryClient.removeQueries();
+    router.push(AppRoutes.LOGIN);
+  };
 
   const loginSocialIsMutatingValue = useIsMutating(['auth/social']);
 
@@ -75,7 +74,7 @@ const useAuthMethods = () => {
     loginSocialMutation,
     loginLocalMutation,
     registerLocalMutation,
-    logout: logoutQuery.refetch,
+    logout,
     loginSocialIsMutating: loginSocialIsMutatingValue > 0,
   };
 };

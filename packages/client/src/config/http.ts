@@ -3,6 +3,7 @@ import axios from 'axios';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { AppRoutes } from './routes';
 import { getCookie } from 'cookies-next';
+import { deleteSessionCookie } from '../utils/sessionCookie';
 
 const { toast } = createStandaloneToast();
 
@@ -39,23 +40,19 @@ http.api.interceptors.response.use(
     isHandlingError = true;
 
     if (error.response?.status === 401 && error.response?.data.code === 'TokenExpiredError') {
-      try {
-        await axios.get('/api/logout');
-      } catch {
-        return null;
-      } finally {
-        toast({
-          position: 'top-right',
-          title: 'Error',
-          description: error.response.data.message,
-          status: 'error',
-          duration: 2000,
-          isClosable: false,
-        });
+      deleteSessionCookie();
 
-        if (typeof window !== 'undefined') {
-          window.location.href = AppRoutes.LOGIN;
-        }
+      toast({
+        position: 'top-right',
+        title: 'Error',
+        description: error.response.data.message,
+        status: 'error',
+        duration: 2000,
+        isClosable: false,
+      });
+
+      if (typeof window !== 'undefined') {
+        window.location.href = AppRoutes.LOGIN;
       }
     }
 
