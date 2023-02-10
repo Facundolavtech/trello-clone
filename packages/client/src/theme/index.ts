@@ -42,6 +42,7 @@ const theme = extendTheme({
       4: '#BDBDBD',
       5: '#E0E0E0',
     },
+    submit: '#219653',
   },
   semanticTokens: {
     colors: {
@@ -88,6 +89,24 @@ const theme = extendTheme({
           _disabled: {
             _hover: {
               background: 'blue.1 !important',
+            },
+          },
+        },
+        submit: {
+          background: 'submit',
+          color: 'white',
+          _hover: {
+            opacity: 0.8,
+            transition: 'opacity 0.2s ease-out',
+          },
+          _loading: {
+            _hover: {
+              background: 'submit',
+            },
+          },
+          _disabled: {
+            _hover: {
+              background: 'submit',
             },
           },
         },
