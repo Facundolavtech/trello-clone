@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import useBoardLists from '../../hooks/useBoardLists';
 import List from '../List';
 import Loading from './Loading';
+import CreateListMenu from '../../../BoardList/components/CreateMenu';
 
 const Lists = () => {
   const router = useRouter();
@@ -17,10 +18,9 @@ const Lists = () => {
   return (
     <>
       {lists?.map((list) => (
-        <VStack key={list.id} spacing="17px" pb="17px" alignItems="flex-start">
-          <List list={list} />
-        </VStack>
+        <List list={list} key={list.id} />
       ))}
+      {lists && <CreateListMenu />}
     </>
   );
 };
