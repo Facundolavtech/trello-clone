@@ -1,4 +1,4 @@
-import { Avatar, HStack, Text, Tooltip } from '@chakra-ui/react';
+import { Avatar, Box, HStack, Text, Tooltip } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import useUserProfile from '../../../../hooks/useUserProfile';
 import { FontFamily } from '../../../../theme/constants';
@@ -23,23 +23,29 @@ const BoardMembers = () => {
 
   return (
     <HStack spacing="16px">
-      {board.members.slice(0, 4).map((member) => (
-        <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
-          <Avatar
-            src={member.user.picture ?? ''}
-            name={member.user.name}
-            width="32px"
-            height="32px"
-            borderRadius="8px"
-            bg={member.user.picture ? 'transparent' : 'gray.4'}
-            color="white"
-          />
-        </Tooltip>
-      ))}
+      {board.members
+        .sort((a, b) => a.createdAt - b.createdAt)
+        .slice(0, 4)
+        .map((member) => (
+          <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
+            <Avatar
+              size="sm"
+              src={member.user.picture ?? ''}
+              name={member.user.name}
+              width="32px"
+              height="32px"
+              borderRadius="8px"
+              bg={member.user.picture ? 'transparent' : 'gray.4'}
+              color="white"
+            />
+          </Tooltip>
+        ))}
       {board.members.length > 4 && (
-        <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
-          +{board.members.length - 4} others
-        </Text>
+        <Box display="flex" alignItems="center" justifyContent="center" width="32px" height="32px" borderRadius="8px" bg="lightgray.1">
+          <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
+            +{board.members.length - 4}
+          </Text>
+        </Box>
       )}
       {userIsBoardAdmin(board.admin.id, user.id) && <AddBoardMemberButton />}
     </HStack>
