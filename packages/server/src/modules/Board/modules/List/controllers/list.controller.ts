@@ -27,7 +27,9 @@ export class BoardListController {
       throw new BadRequestException('A list already exists with this name');
     }
 
-    return await this.boardListService.create(boardId, createDTO);
+    const createResult = await this.boardListService.create(boardId, createDTO);
+
+    return await this.boardListService.findByIdWithRelations(createResult.id, ['cards', 'cards.members']);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -41,7 +43,7 @@ export class BoardListController {
 
   @HttpCode(HttpStatus.OK)
   @Put('update/:id')
-  async update(@Param('id', CustomUUIDPipe) id: string, @Param('boardId') boardId: string, @Body() updateDTO: UpdateListDTO) {
+  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateListDTO) {
     const listById = await this.boardListService.findById(id);
 
     if (!listById) {
