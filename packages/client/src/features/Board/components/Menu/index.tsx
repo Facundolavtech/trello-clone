@@ -5,7 +5,7 @@ import { HiDocumentText } from 'react-icons/hi';
 import { useBoardContext } from '../../context/board';
 import useBoard from '../../hooks/useBoard';
 import { useRouter } from 'next/router';
-import { FontFamily } from '../../../../theme/constants';
+import { FontFamily, HeaderStyles } from '../../../../theme/constants';
 import { format, fromUnixTime } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import Button from '../../../../components/Button';
@@ -25,10 +25,11 @@ const BoardMenu = () => {
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerContent
           className="hide__scroll"
-          marginTop="68px"
           boxShadow="none"
           maxWidth={{ base: '320px', md: '377px' }}
-          position="relative"
+          position="fixed"
+          marginTop={`${HeaderStyles.height}px`}
+          right={0}
           zIndex={50}
           padding="20px"
           overflowY="auto"
@@ -44,7 +45,7 @@ const BoardMenu = () => {
                     <Icon as={MdClose} color="gray.2" fontSize={18} />
                   </Box>
                 </HStack>
-                <Divider width="full" orientation="horizontal" borderColor="gray.5" borderWidth={1} />
+                <Divider width="full" orientation="horizontal" borderColor="gray.5" />
               </VStack>
               <VStack spacing="13px" width="full" alignItems="flex-start">
                 <HStack spacing="6px" width="full" justifyContent="flex-start">
@@ -55,6 +56,7 @@ const BoardMenu = () => {
                 </HStack>
                 <HStack spacing="13px">
                   <Avatar
+                    size="sm"
                     name={board?.admin.name}
                     src={board?.admin.picture || ''}
                     bg={board?.admin.picture ? 'transparent' : '#C4C4C4'}
@@ -112,6 +114,7 @@ const BoardMenu = () => {
                 <HStack width="full" justifyContent="space-between">
                   <HStack spacing="17px">
                     <Avatar
+                      size="sm"
                       src={board?.admin.picture || ''}
                       bg={board?.admin.picture ? 'transparent' : '#C4C4C4'}
                       name={board?.admin.name}
@@ -124,9 +127,11 @@ const BoardMenu = () => {
                       {board?.admin.name}
                     </Text>
                   </HStack>
-                  <Text color="gray.4" fontWeight={500} fontSize={10}>
-                    Admin
-                  </Text>
+                  <Box width="63px">
+                    <Text textAlign="center" color="gray.4" fontWeight={500} fontSize={10}>
+                      Admin
+                    </Text>
+                  </Box>
                 </HStack>
                 {board?.members
                   .filter((member) => member.user.id !== board.admin.id)
@@ -135,6 +140,7 @@ const BoardMenu = () => {
                       <HStack width="full" justifyContent="space-between" key={member.id}>
                         <HStack spacing="17px">
                           <Avatar
+                            size="sm"
                             src={member.user.picture || ''}
                             bg={member.user.picture ? 'transparent' : '#C4C4C4'}
                             color="white"
