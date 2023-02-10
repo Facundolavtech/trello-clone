@@ -12,7 +12,7 @@ const CoverMenu: FC<Props> = ({ setFieldValue }) => {
     <ChakraMenu>
       {({ onClose }) => (
         <>
-          <ChakraMenuButton>
+          <ChakraMenuButton type="button">
             <Button as="div" width="120px" height="32px" variant="lightgray" style={{ gap: 12, justifyContent: 'flex-start' }}>
               <Icon as={AiFillPicture} fontSize={14} color="gray.3" />
               <Text color="gray.3" fontWeight={500} fontSize={12}>

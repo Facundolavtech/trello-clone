@@ -16,6 +16,7 @@ const PrivacyButton: FC<Props> = ({ setFieldValue, value }) => {
       id="isPrivate"
       width="120px"
       height="32px"
+      type="button"
       variant="lightgray"
       style={{ gap: 12, justifyContent: 'flex-start' }}
       onClick={() => setFieldValue('isPrivate', !isPrivate)}
