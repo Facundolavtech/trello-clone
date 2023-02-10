@@ -11,6 +11,11 @@ body {
   scroll-behavior: smooth;
 }
 
+.hide__scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .board__canvas::-webkit-scrollbar {
   width: 8px;
   height: 8px;
