@@ -61,7 +61,7 @@ const NewBoardModal = NiceModal.create(() => {
       <ModalOverlay />
       <ModalContent py="27px" px="24px" borderRadius="8px" maxW="90%" width="307px" position="relative">
         <Formik initialValues={initialNewBoardValues} validationSchema={NewBoardSchema} onSubmit={handleSubmit}>
-          {({ handleSubmit, handleChange, values, errors, setFieldValue, resetForm }) => (
+          {({ handleSubmit, handleChange, values, errors, setFieldValue }) => (
             <Form onSubmit={handleSubmit}>
               <CloseModalButton onClick={handleHideModal} />
               <Cover src={values.cover.src} />
