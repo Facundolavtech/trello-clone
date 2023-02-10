@@ -9,12 +9,23 @@ import Menu from '../Menu';
 import Link from 'next/link';
 import { AppRoutes } from '../../../config/routes';
 import { useRouter } from 'next/router';
+import { HeaderStyles } from '../../../theme/constants';
 
 const Header = () => {
   const router = useRouter();
 
   return (
-    <HStack as="header" position="relative" zIndex={100} boxShadow="0px 2px 2px rgba(0, 0, 0, 0.05)" width="full" bg="white" height="68px" alignItems="center">
+    <HStack
+      as="header"
+      position="fixed"
+      top={0}
+      zIndex={100}
+      boxShadow="0px 2px 2px rgba(0, 0, 0, 0.05)"
+      width="full"
+      bg="white"
+      height={HeaderStyles.height}
+      alignItems="center"
+    >
       <WrappedContainer styles={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box gap={16} display="flex" height="full">
           <Logo withTitle width="32px" height="29px" />
