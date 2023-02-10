@@ -28,6 +28,10 @@ export class BoardListService {
     return await this.boardListRepository.findOne({ where: { id } });
   }
 
+  async findByIdWithRelations(id: string, relations: string[]): Promise<BoardList> {
+    return await this.boardListRepository.findOne({ where: { id }, relations, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
+  }
+
   async findByQuery(query: FindOptionsWhere<BoardList>): Promise<BoardList> {
     return await this.boardListRepository.findOne({ where: query });
   }
@@ -37,6 +41,11 @@ export class BoardListService {
   }
 
   async findAllWithRelations(boardId: string, relations: string[]): Promise<BoardList[]> {
-    return await this.boardListRepository.find({ where: { boardId }, relations, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
+    return await this.boardListRepository.find({
+      where: { boardId },
+      relations,
+      select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'],
+      order: { createdAt: 'asc' },
+    });
   }
 }
