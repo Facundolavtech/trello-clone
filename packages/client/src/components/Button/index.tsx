@@ -10,7 +10,7 @@ type Props = {
   type?: 'button' | 'submit';
   px?: number;
   py?: number;
-  variant: 'primary' | 'lightgray' | 'outline' | 'link';
+  variant: 'primary' | 'lightgray' | 'outline' | 'link' | 'submit';
   fontFamily?: FontFamily;
   fontWeight?: number;
   disabled?: boolean;
