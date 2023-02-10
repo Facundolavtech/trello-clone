@@ -16,21 +16,21 @@ body {
   height: 0;
 }
 
-.board__canvas::-webkit-scrollbar {
+.custom__scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-.board__canvas::-webkit-scrollbar-track {
-  background: #ffffff;
-  padding: 8px;
+.custom__scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.board__canvas::-webkit-scrollbar-thumb {
+.custom__scrollbar::-webkit-scrollbar-thumb {
   background: #2f80ed;
-  border-radius: 8px;
+  border-radius: 9999px;
+  background-clip: padding-box;
 }
 
-.board__canvas::-webkit-scrollbar-thumb:hover {
+.custom__scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(46, 129, 237, 0.8);
 }
