@@ -25,6 +25,7 @@ const BoardCard: FC<Props> = ({ board }) => {
         <HStack spacing="12px" width="full" alignItems="center">
           {board.members.slice(0, 3).map((member) => (
             <Avatar
+              size="sm"
               borderRadius={8}
               width="28px"
               height="28px"
