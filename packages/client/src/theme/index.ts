@@ -40,6 +40,7 @@ const theme = extendTheme({
       2: '#4F4F4F',
       3: '#828282',
       4: '#BDBDBD',
+      5: '#E0E0E0',
     },
   },
   semanticTokens: {
