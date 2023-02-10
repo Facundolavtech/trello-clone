@@ -5,12 +5,17 @@ import formatDate from 'date-fns/format';
 import { fromUnixTime } from 'date-fns';
 import useUserProfile from '../../../hooks/useUserProfile';
 import Loading from './Loading';
+import Error from './Error';
 
 const Menu = () => {
-  const { data: user, isLoading } = useUserProfile();
+  const { data: user, isLoading, error } = useUserProfile();
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
   }
 
   return (
