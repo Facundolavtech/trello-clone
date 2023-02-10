@@ -10,6 +10,7 @@ import Error from './Error';
 import Button from '../../../../components/Button';
 import { FontFamily } from '../../../../theme/constants';
 import { AiOutlinePlus } from 'react-icons/ai';
+import BoardMenu from '../Menu';
 
 type Props = {
   id: string;
@@ -28,6 +29,7 @@ const BoardPage: FC<Props> = ({ id }) => {
 
   return (
     <BoardLayout title={data?.title}>
+      <BoardMenu />
       <Stack width="full" mt="35px">
         <Stack width="full" direction={{ base: 'column', md: 'row' }} mb={10}>
           <VStack width="full" alignItems="flex-start" spacing="52px">
