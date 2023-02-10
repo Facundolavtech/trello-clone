@@ -1,10 +1,11 @@
-import { HStack, SkeletonCircle, SkeletonText } from '@chakra-ui/react';
+import { HStack, SkeletonCircle } from '@chakra-ui/react';
+import SkeletonText from '../../SkeletonText';
 
 const Loading = () => {
   return (
     <HStack spacing={4}>
       <SkeletonCircle size="8" />
-      <SkeletonText noOfLines={2}>Loading user</SkeletonText>
+      <SkeletonText containerWidth={32} />
     </HStack>
   );
 };
