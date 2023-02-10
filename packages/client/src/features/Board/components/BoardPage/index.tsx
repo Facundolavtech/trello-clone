@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Flex, HStack, Icon, Stack, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Stack, VStack } from '@chakra-ui/react';
 import useBoard from '../../hooks/useBoard';
 import BoardLayout from '../../layouts/BoardLayout';
 import BoardMembers from '../Members';
@@ -7,9 +7,6 @@ import BoardPrivacy from '../BoardPrivacy';
 import ShowBoardMenuButton from '../Buttons/ShowMenu';
 import Lists from '../../../BoardList/components/Lists';
 import Error from './Error';
-import Button from '../../../../components/Button';
-import { FontFamily } from '../../../../theme/constants';
-import { AiOutlinePlus } from 'react-icons/ai';
 import BoardMenu from '../Menu';
 
 type Props = {
@@ -40,28 +37,23 @@ const BoardPage: FC<Props> = ({ id }) => {
               </Flex>
               <ShowBoardMenuButton />
             </HStack>
-            <HStack
+            <Box
+              display="flex"
               width="100%"
-              spacing="35px"
+              gap="35px"
               position="relative"
-              overflow="auto"
-              height={data ? 600 : 'auto'}
+              overflowX="auto"
+              overflowY="hidden"
+              height={data ? 480 : 'auto'}
               alignItems="flex-start"
+              backdropFilter="blur(10px)"
               borderRadius="12px"
               padding={8}
-              backgroundColor={data ? '#f8f8f8' : 'none'}
-              className="board__canvas"
+              backgroundColor={data ? 'rgba(248, 248, 248, 0.5)' : 'none'}
+              className="custom__scrollbar"
             >
               <Lists />
-              {data && (
-                <Button minWidth="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
-                  <Text color="blue.1" fontWeight={500} fontSize={12} fontFamily={FontFamily.NotoSans}>
-                    Add another list
-                  </Text>
-                  <Icon as={AiOutlinePlus} color="blue.1" fontSize={12} />
-                </Button>
-              )}
-            </HStack>
+            </Box>
           </VStack>
         </Stack>
       </Stack>
