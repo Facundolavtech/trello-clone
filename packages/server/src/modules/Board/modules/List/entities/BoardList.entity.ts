@@ -5,7 +5,7 @@ import { BoardCard } from '../../Card/entities/Card.entity';
 
 @Entity('BoardList')
 export class BoardList extends BaseEntity {
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   name: string;
 
   @ManyToOne(() => Board, (board) => board.lists, {
