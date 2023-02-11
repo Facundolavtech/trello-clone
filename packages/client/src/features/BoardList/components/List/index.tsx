@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { Icon, Heading, HStack, Box, VStack, Text } from '@chakra-ui/react';
-import { MdMoreHoriz } from 'react-icons/md';
+import { Icon, Heading, VStack, Text, Flex } from '@chakra-ui/react';
 import { BoardList } from '../../../../models/board-list.model';
 import Cards from '../../../BoardCard/components/Cards';
 import Button from '../../../../components/Button';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { FontFamily } from '../../../../theme/constants';
+import ListOptionsMenu from '../OptionsMenu';
 
 type Props = {
   list: BoardList;
@@ -38,14 +38,12 @@ const List: FC<Props> = ({ list }) => {
     >
       <VStack spacing="28px" alignItems="flex-start" width="full">
         <VStack spacing="17px" alignItems="flex-start" width="full">
-          <HStack width="full" justifyContent="space-between" alignItems="center">
+          <Flex width="full" justifyContent="space-between" alignItems="center">
             <Heading color="gray.1" fontWeight={500} fontSize={14}>
               {list.name}
             </Heading>
-            <Box as="button" display="flex" alignItems="center">
-              <Icon as={MdMoreHoriz} fontSize={16} color="gray.3" />
-            </Box>
-          </HStack>
+            <ListOptionsMenu list={list} />
+          </Flex>
           <Cards cards={list.cards} />
         </VStack>
         <Button width="full" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between', minHeight: '32px' }}>
