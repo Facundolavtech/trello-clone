@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Input, Text, VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import useCreateBoardList from '../../../hooks/useCreateBoardList';
 import { CreateListSchema } from '../../../validations';
 
 interface ICreateListFormValues {
-  title: string;
+  name: string;
 }
 
 type Props = {
@@ -25,7 +25,7 @@ const CreateListForm: FC<Props> = ({ onClose }) => {
 
   const formik = useFormik<ICreateListFormValues>({
     initialValues: {
-      title: '',
+      name: '',
     },
     validationSchema: CreateListSchema,
     onSubmit: (values) => handleSubmit(values),
@@ -55,8 +55,8 @@ const CreateListForm: FC<Props> = ({ onClose }) => {
       <VStack width="full" spacing={2} alignItems="flex-start">
         <Input
           disabled={createBoardListMutation.isLoading}
-          name="title"
-          value={formik.values.title}
+          name="name"
+          value={formik.values.name}
           type="text"
           onChange={formik.handleChange}
           variant="unstyled"
@@ -64,7 +64,7 @@ const CreateListForm: FC<Props> = ({ onClose }) => {
           _placeholder={{ fontFamily: FontFamily.NotoSans, color: 'gray.4', fontSize: 14, fontWeight: 500 }}
           placeholder="Enter a title for this list..."
         />
-        {formik.errors.title && <FormErrorMessage>{formik.errors.title}</FormErrorMessage>}
+        {formik.errors.name && <FormErrorMessage>{formik.errors.name}</FormErrorMessage>}
       </VStack>
       <Button
         loading={createBoardListMutation.isLoading}
