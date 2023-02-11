@@ -10,7 +10,7 @@ type Props = {
   type?: 'button' | 'submit';
   px?: number;
   py?: number;
-  variant: 'primary' | 'lightgray' | 'outline' | 'link' | 'submit';
+  variant: 'primary' | 'lightgray' | 'outline' | 'link' | 'submit' | 'delete';
   fontFamily?: FontFamily;
   fontWeight?: number;
   disabled?: boolean;
@@ -39,7 +39,7 @@ const Button: FC<Props> = forwardRef(
       loading = false,
       ...rest
     },
-    ref
+    _
   ) => {
     return (
       <ChakraButton
