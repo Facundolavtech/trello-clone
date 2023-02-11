@@ -43,6 +43,7 @@ const theme = extendTheme({
       5: '#E0E0E0',
     },
     submit: '#219653',
+    delete: '#EB5757',
   },
   semanticTokens: {
     colors: {
@@ -106,7 +107,25 @@ const theme = extendTheme({
           },
           _disabled: {
             _hover: {
-              background: 'submit',
+              background: 'submit !important',
+            },
+          },
+        },
+        delete: {
+          background: 'delete',
+          color: 'white',
+          _hover: {
+            opacity: 0.8,
+            transition: 'opacity 0.2s ease-out',
+          },
+          _loading: {
+            _hover: {
+              background: 'delete',
+            },
+          },
+          _disabled: {
+            _hover: {
+              background: 'delete !important',
             },
           },
         },
@@ -123,7 +142,7 @@ const theme = extendTheme({
           },
           _disabled: {
             _hover: {
-              background: 'lightgray.1',
+              background: 'lightgray.1 !important',
             },
           },
         },
@@ -141,7 +160,7 @@ const theme = extendTheme({
           },
           _disabled: {
             _hover: {
-              background: 'gray.4',
+              background: 'gray.4 !important',
             },
           },
         },
