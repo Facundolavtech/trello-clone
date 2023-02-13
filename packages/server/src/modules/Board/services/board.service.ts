@@ -4,7 +4,7 @@ import { Repository, Like, And, ArrayContains, In } from 'typeorm';
 import { User } from '../../User/entities/User.entity';
 import { CreateBoardDTO } from '../dto/create.dto';
 import { UpdateBoardDTO } from '../dto/update.dto';
-import { Board } from '../entities/Board.entity';
+import { Board, BoardVisibility } from '../entities/Board.entity';
 import { BoardMember } from '../entities/BoardMember.entity';
 
 @Injectable()
@@ -48,44 +48,35 @@ export class BoardService {
     }
   }
 
-  async findById(id: string): Promise<Board> {
-    return await this.boardRepository.findOne({ where: { id } });
-  }
-
-  async findByIdWithRelations(id: string, relations: string[]): Promise<Board> {
+  async findById(id: string, relations?: string[]): Promise<Board> {
     return await this.boardRepository.findOne({ where: { id }, relations });
   }
 
   async findAll(userId: string): Promise<Board[]> {
-    return await this.boardRepository.find({
-      where: [
-        {
-          members: { userId },
-        },
-        { isPrivate: false },
-      ],
-    });
-  }
-
-  async findAllWithRelations(userId: string, relations: string[]): Promise<Board[]> {
     const subquery = this.boardRepository
-      .createQueryBuilder('board')
-      .leftJoin('board.members', 'member')
+      .createQueryBuilder('boardSubquery')
+      .leftJoin('boardSubquery.members', 'member')
       .leftJoin('member.user', 'user')
-      .where('board.isPrivate = true AND user.id = :userId', { userId })
-      .select('board.id');
+      .where('boardSubquery.visibility = :privateVisibility AND user.id = :userId', {
+        privateVisibility: BoardVisibility.PRIVATE,
+        userId,
+      })
+      .select('boardSubquery.id');
 
     return await this.boardRepository
       .createQueryBuilder('board')
       .leftJoinAndSelect('board.admin', 'admin')
       .leftJoinAndSelect('board.members', 'member')
       .leftJoinAndSelect('member.user', 'user')
-      .where('board.isPrivate = false OR board.id IN (' + subquery.getQuery() + ')', subquery.getParameters())
+      .where('board.visibility = :publicVisibility OR board.id IN (' + subquery.getQuery() + ')', {
+        ...subquery.getParameters(),
+        publicVisibility: BoardVisibility.PUBLIC,
+      })
       .getMany();
   }
 
-  async findByTitle(title: string): Promise<Board> {
-    return await this.boardRepository.findOne({ where: { title } });
+  async findByTitle(title: string, relations?: string[]): Promise<Board> {
+    return await this.boardRepository.findOne({ where: { title }, relations });
   }
 
   async createBoardMember(boardId: string, userId: string): Promise<BoardMember> {
