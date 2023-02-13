@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
+import { NODE_ENV } from '../../constants';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -8,6 +9,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response: Response = ctx.getResponse();
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     const message = exception.sqlMessage || exception.response || exception;
+
+    if (process.env.NODE_ENV === NODE_ENV.DEVELOPMENT) {
+      console.log(exception);
+    }
 
     return response.status(status).json({
       ...exception.response,
