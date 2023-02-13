@@ -1,34 +1,30 @@
-import { CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
-import { BadRequestException, UnauthorizedException } from '@nestjs/common/exceptions';
-import { BoardService } from '../services/board.service';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common/exceptions';
+import { CustomUUIDPipe } from '../../../common/pipes/uuid.pipe';
+import { AuthenticatedRequest } from '../../../common/types';
+import { BoardMemberService } from '../services/board-member.service';
+
+interface IBoardMemberGuardRequest extends AuthenticatedRequest {
+  params: {
+    boardId: string;
+  };
+}
 
 @Injectable()
 export class BoardMemberGuard implements CanActivate {
-  constructor(private boardService: BoardService) {}
+  constructor(private boardMemberService: BoardMemberService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request: IBoardMemberGuardRequest = context.switchToHttp().getRequest();
 
-    const userId: string = request.user.id;
-    const boardId: string = request.params.boardId || request.params.id;
+    const userId = request.user.id;
+    const boardId = await new CustomUUIDPipe().transform(request.params.boardId);
 
-    if (!boardId) {
-      throw new BadRequestException('Specifies the board ID');
-    }
-
-    const boardById = await this.boardService.findByIdWithRelations(boardId, ['members']);
-
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
-    }
-
-    const isBoardMember = this.boardService.userIsBoardMember(boardById, userId);
+    const isBoardMember = await this.boardMemberService.userIsBoardMember(boardId, userId);
 
     if (!isBoardMember) {
       throw new UnauthorizedException('You need to be a board member to perform this action');
     }
-
-    request.board = boardById;
 
     return true;
   }
