@@ -5,6 +5,11 @@ import { BoardCard } from '../modules/Card/entities/Card.entity';
 import { BoardList } from '../modules/List/entities/BoardList.entity';
 import { BoardMember } from './BoardMember.entity';
 
+export enum BoardVisibility {
+  PUBLIC = 'public',
+  PRIVATE = 'private',
+}
+
 @Entity('Board')
 export class Board extends BaseEntity {
   @Column({ nullable: false, unique: true })

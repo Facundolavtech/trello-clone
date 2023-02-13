@@ -1,4 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString, Matches, IsUUID, Length } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, Matches, IsUUID, Length } from 'class-validator';
+import { BoardVisibility } from '../entities/Board.entity';
 
 export class UpdateBoardDTO {
   @IsOptional()
@@ -7,8 +8,8 @@ export class UpdateBoardDTO {
   title?: string;
 
   @IsOptional()
-  @IsBoolean({ message: 'Error: Board privacy is not valid' })
-  isPrivate?: boolean;
+  @IsEnum(BoardVisibility, { message: 'Error: Board visibility is not valid' })
+  visibility: BoardVisibility;
 
   @IsOptional()
   @IsString({ message: 'Error: Board description is not valid' })
