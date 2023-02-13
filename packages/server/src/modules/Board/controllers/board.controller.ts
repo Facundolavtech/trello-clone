@@ -50,13 +50,13 @@ export class BoardController {
   async findAll(@Req() req: AuthenticatedRequest) {
     const userId = req.user.id;
 
-    return await this.boardService.findAllWithRelations(userId, ['members', 'members.user', 'admin']);
+    return await this.boardService.findAll(userId);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get(':id')
-  async findOne(@Req() req: AuthenticatedRequest, @Param('id', CustomUUIDPipe) id: string) {
-    const boardById = await this.boardService.findByIdWithRelations(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
+  @Get(':boardId')
+  async findOne(@Req() req: AuthenticatedRequest, @Param('boardId', CustomUUIDPipe) id: string) {
+    const boardById = await this.boardService.findById(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
 
     if (!boardById) {
       throw new NotFoundException('The board does not exists');
@@ -73,21 +73,21 @@ export class BoardController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
-  @Put('update/:id')
-  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateBoardDTO) {
+  @Put('update/:boardId')
+  async update(@Param('boardId', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateBoardDTO) {
     return await this.boardService.update(id, updateDTO);
   }
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
-  @Delete('delete/:id')
-  async remove(@Param('id', CustomUUIDPipe) id: string) {
+  @Delete('delete/:boardId')
+  async remove(@Param('boardId', CustomUUIDPipe) id: string) {
     return await this.boardService.delete(id);
   }
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
-  @Post(':id/members/add')
+  @Post(':boardId/members/add')
   async addMember(@Req() req: WithBoardRequest, @Body() handleMemberDTO: HandleBoardMemberDTO) {
     const board = req.board;
     const user = req.user;
@@ -113,7 +113,7 @@ export class BoardController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(BoardMemberGuard, BoardAdminGuard)
-  @Delete(':id/members/delete')
+  @Delete(':boardId/members/delete')
   async deleteMember(@Req() req: WithBoardRequest, @Body() handleMemberDTO: HandleBoardMemberDTO) {
     const user = req.user;
     const board = req.board;
