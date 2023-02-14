@@ -11,7 +11,7 @@ export const databaseConfig: TypeOrmModuleOptions & DataSourceOptions = {
   url: process.env.DATABASE_URL,
   migrations: [path.join(__dirname, '/../migrations/*.ts')],
   entities: [path.join(__dirname, '/../**/*.entity{.js,.ts}')],
-  synchronize: process.env.NODE_ENV === NODE_ENV.DEVELOPMENT,
+  synchronize: false,
   migrationsRun: true,
   logging: false,
   ssl: process.env.NODE_ENV === NODE_ENV.PRODUCTION,
