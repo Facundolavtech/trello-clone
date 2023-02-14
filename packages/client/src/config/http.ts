@@ -17,16 +17,16 @@ export default http;
 
 let isHandlingError = false;
 
-http.api.interceptors.request.use((config) => {
-  const token = getCookie('thullo:sid');
+http.api.interceptors.request.use((cfg) => {
+  const token = getCookie(config.Auth.CookieName);
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+    cfg.headers['Authorization'] = `Bearer ${token}`;
   } else {
     if (typeof window !== 'undefined') {
       window.location.href = AppRoutes.LOGIN;
     }
   }
-  return config;
+  return cfg;
 });
 
 http.api.interceptors.response.use(

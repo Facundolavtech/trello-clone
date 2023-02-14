@@ -1,8 +1,9 @@
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
+import config from '../../config';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  setCookies('thullo:sid', '', {
+  setCookies(config.Auth.CookieName, '', {
     req,
     res,
     maxAge: 0,
