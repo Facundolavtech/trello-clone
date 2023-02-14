@@ -1,1 +1,1 @@
-export interface BoardCard {}
+export interface IBoardCard {}

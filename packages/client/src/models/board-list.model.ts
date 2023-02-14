@@ -1,4 +1,4 @@
-export interface BoardListCard {
+export interface IBoardListCard {
   id: string;
   createdAt: number;
   updatedAt: number;
@@ -7,13 +7,13 @@ export interface BoardListCard {
   cover: any;
   boardId: string;
   listId: string;
-  members: BoardListCardMember[];
-  attachments: BoardListCardAttachment[];
-  labels: BoardListCardLabel[];
-  comments: BoardListCardComment[];
+  members: IBoardListCardMember[];
+  attachments: IBoardListCardAttachment[];
+  labels: IBoardListCardLabel[];
+  comments: IBoardListCardComment[];
 }
 
-interface BoardListCardLabel {
+interface IBoardListCardLabel {
   id: string;
   createdAt: number;
   updatedAt: number;
@@ -22,18 +22,18 @@ interface BoardListCardLabel {
   cardId: string;
 }
 
-interface BoardListCardComment {}
+interface IBoardListCardComment {}
 
-interface BoardListCardAttachment {}
+interface IBoardListCardAttachment {}
 
-interface BoardListCardMember {
+interface IBoardListCardMember {
   id: string;
   createdAt: number;
   updatedAt: number;
-  user: BoardListCardMemberUser;
+  user: IBoardListCardMemberUser;
 }
 
-interface BoardListCardMemberUser {
+interface IBoardListCardMemberUser {
   id: string;
   createdAt: number;
   updatedAt: number;
@@ -45,10 +45,10 @@ interface BoardListCardMemberUser {
   picture: any;
 }
 
-export interface BoardList {
+export interface IBoardList {
   id: string;
   createdAt: number;
   updatedAt: number;
   name: string;
-  cards: BoardListCard[];
+  cards: IBoardListCard[];
 }
