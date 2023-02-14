@@ -1,17 +1,22 @@
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { BoardList } from '../../../../models/board-list.model';
+import { IBoardList } from '../../../../models/board-list.model';
 import { IUpdateListParams, updateList } from '../../services/board-list.service';
 
-const useUpdateList = ({ boardId, listId }: { boardId: string; listId: string }) => {
+type Props = {
+  boardId: string;
+  listId: string;
+};
+
+const useUpdateList = ({ boardId, listId }: Props) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  const updateListMutation = useMutation((params: IUpdateListParams) => updateList(params), {
+  return useMutation((params: IUpdateListParams) => updateList(params), {
     mutationKey: [`board/${boardId}/lists/update/${listId}`],
-    onSuccess: async (list: BoardList) => {
-      const currentLists: BoardList[] | undefined = queryClient.getQueryData([`board/${boardId}/lists`]);
+    onSuccess: async (list: IBoardList) => {
+      const currentLists: IBoardList[] | undefined = queryClient.getQueryData([`board/${boardId}/lists`]);
 
       const updatedList = Object.assign(
         {},
@@ -26,7 +31,7 @@ const useUpdateList = ({ boardId, listId }: { boardId: string; listId: string })
         return item;
       });
 
-      queryClient.setQueryData([`board/${boardId}/lists`], (oldData: BoardList[] | undefined) => {
+      queryClient.setQueryData([`board/${boardId}/lists`], (oldData: IBoardList[] | undefined) => {
         return oldData ? updatedListArray : oldData;
       });
     },
@@ -43,8 +48,6 @@ const useUpdateList = ({ boardId, listId }: { boardId: string; listId: string })
       }
     },
   });
-
-  return { updateListMutation };
 };
 
 export default useUpdateList;

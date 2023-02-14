@@ -1,17 +1,21 @@
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { BoardList } from '../../../../models/board-list.model';
-import { createBoardList, ICreateListParams } from '../../services/board-list.service';
+import { IBoardList } from '../../../../models/board-list.model';
+import { createList, ICreateListParams } from '../../services/board-list.service';
 
-const useCreateBoardList = ({ boardId }: { boardId: string }) => {
+type Props = {
+  boardId: string;
+};
+
+const useCreateBoardList = ({ boardId }: Props) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  const createBoardListMutation = useMutation((params: ICreateListParams) => createBoardList(params), {
+  return useMutation((params: ICreateListParams) => createList(params), {
     mutationKey: [`board/${boardId}/lists/create`],
-    onSuccess: async (data: BoardList) => {
-      queryClient.setQueryData([`board/${boardId}/lists`], (oldData: BoardList[] | undefined) => {
+    onSuccess: async (data: IBoardList) => {
+      queryClient.setQueryData([`board/${boardId}/lists`], (oldData?: IBoardList[]) => {
         return oldData ? [...oldData, data] : oldData;
       });
     },
@@ -28,8 +32,6 @@ const useCreateBoardList = ({ boardId }: { boardId: string }) => {
       }
     },
   });
-
-  return { createBoardListMutation };
 };
 
 export default useCreateBoardList;
