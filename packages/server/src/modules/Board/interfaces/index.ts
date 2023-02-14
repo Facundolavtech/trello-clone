@@ -1,6 +1,6 @@
 import { AuthenticatedRequest } from '../../../common/types';
-import { Board } from '../entities/Board.entity';
+import { BoardMember } from '../entities/BoardMember.entity';
 
-export interface WithBoardRequest extends AuthenticatedRequest {
-  board: Board;
+export interface IWithBoardMemberRequest extends AuthenticatedRequest {
+  member: BoardMember;
 }
