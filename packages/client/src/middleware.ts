@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import config from './config';
-import { AppRoutes } from './config/routes';
+import { AppRoutes, privateRoutes, publicRoutes } from './config/routes';
 
 export async function middleware(req: NextRequest) {
   const response = NextResponse.next();
@@ -8,14 +8,26 @@ export async function middleware(req: NextRequest) {
 
   const token = req.cookies.get(config.Auth.CookieName);
 
+  const urlIsPrivate = privateRoutes.find((r) => {
+    if (req.url.includes(r)) {
+      return true;
+    }
+  });
+
+  const urlIsPublic = publicRoutes.find((r) => {
+    if (req.url.includes(r)) {
+      return true;
+    }
+  });
+
   if (token) {
-    if (req.url.endsWith(AppRoutes.LOGIN) || req.url.endsWith(AppRoutes.REGISTER) || req.url === `${origin}/`) {
+    if (urlIsPublic) {
       return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
     }
 
     return response;
   } else {
-    if (req.url.includes(AppRoutes.DASHBOARD) || req.url === `${origin}/`) {
+    if (urlIsPrivate) {
       return NextResponse.redirect(`${origin}${AppRoutes.LOGIN}`);
     }
   }
