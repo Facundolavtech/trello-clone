@@ -14,7 +14,7 @@ const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
   const router = useRouter();
   const boardId = router.query.id as string;
 
-  const { deleteListMutation } = useDeleteList({ boardId, listId });
+  const deleteListMutation = useDeleteList({ boardId, listId });
 
   const handleDeleteList = async () => {
     try {

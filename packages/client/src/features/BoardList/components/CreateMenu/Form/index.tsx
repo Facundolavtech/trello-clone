@@ -6,7 +6,7 @@ import React from 'react';
 import Button from '../../../../../components/Button';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
 import { FontFamily } from '../../../../../theme/constants';
-import useCreateBoardList from '../../../hooks/useCreateBoardList';
+import useCreateBoardList from '../../../hooks/useCreateList';
 import { CreateListSchema } from '../../../validations';
 
 interface ICreateListFormValues {
@@ -21,7 +21,7 @@ const CreateListForm: FC<Props> = ({ onClose }) => {
   const router = useRouter();
   const boardId = router.query.id as string;
 
-  const { createBoardListMutation } = useCreateBoardList({ boardId });
+  const createBoardListMutation = useCreateBoardList({ boardId });
 
   const formik = useFormik<ICreateListFormValues>({
     initialValues: {

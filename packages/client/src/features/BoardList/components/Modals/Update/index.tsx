@@ -1,6 +1,6 @@
 import { CloseButton, Heading, HStack, Input, Modal, ModalContent, ModalHeader, ModalOverlay, Text, VStack } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import { Form, Formik, useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import Button from '../../../../../components/Button';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
@@ -18,7 +18,7 @@ const UpdateListModal = NiceModal.create(({ listId, title }: Props) => {
   const router = useRouter();
   const boardId = router.query.id as string;
 
-  const { updateListMutation } = useUpdateList({ boardId, listId });
+  const updateListMutation = useUpdateList({ boardId, listId });
 
   const handleHideModal = () => modal.hide();
 
