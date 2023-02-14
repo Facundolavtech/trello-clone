@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Req, NotFou
 import { CustomUUIDPipe } from '../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
-import { WithBoardRequest } from '../../../interfaces';
-import { BoardService } from '../../../services/board.service';
+import { IWithBoardMemberRequest } from '../../../interfaces';
+import { BoardMemberService } from '../../../services/board-member.service';
 import { BoardListService } from '../../List/services/list.service';
 import { CreateCardDTO, HandleCardMemberDTO, UpdateCardDTO } from '../dto/card.dto';
 import { BoardCardService } from '../services/card.service';
@@ -11,13 +11,12 @@ import { BoardCardService } from '../services/card.service';
 @UseGuards(AuthenticatedGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards')
 export class BoardCardController {
-  constructor(private boardCardService: BoardCardService, private boardService: BoardService, private boardListService: BoardListService) {}
+  constructor(private boardCardService: BoardCardService, private boardListService: BoardListService, private boardMemberService: BoardMemberService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  async create(@Req() req: WithBoardRequest, @Param('boardId', CustomUUIDPipe) boardId: string, @Body() createDTO: CreateCardDTO) {
-    const board = req.board;
-    const user = req.user;
+  async create(@Req() req: IWithBoardMemberRequest, @Param('boardId', CustomUUIDPipe) boardId: string, @Body() createDTO: CreateCardDTO) {
+    const boardMember = req.member;
 
     const listById = await this.boardListService.findById(createDTO.listId);
 
@@ -34,15 +33,7 @@ export class BoardCardController {
       throw new BadRequestException('A card with that title already exists');
     }
 
-    const member = this.boardService.findBoardMember(board, user.id);
-
-    return await this.boardCardService.create(boardId, member, createDTO);
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Get()
-  async getAll(@Param('boardId', CustomUUIDPipe) boardId: string) {
-    return await this.boardCardService.findAll(boardId);
+    return await this.boardCardService.create(boardId, boardMember, createDTO);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -87,53 +78,49 @@ export class BoardCardController {
 
   @HttpCode(HttpStatus.OK)
   @Post(':id/members/add')
-  async addMember(@Req() req: WithBoardRequest, @Param('id', CustomUUIDPipe) id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
-    const board = req.board;
-
+  async addMember(@Param('id', CustomUUIDPipe) id: string, @Param('boardId', CustomUUIDPipe) boardId: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
     const cardById = await this.boardCardService.findById(id);
 
     if (!cardById) {
       throw new NotFoundException('The card does not exists');
     }
 
-    const member = await this.boardService.findBoardMember(board, handleMemberDTO.userId);
+    const boardMember = await this.boardMemberService.findOne(boardId, handleMemberDTO.userId);
 
-    if (!member) {
+    if (!boardMember) {
       throw new BadRequestException('The user is not in the board');
     }
 
-    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, member.id);
+    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, boardMember.id);
 
     if (userIsCardMember) {
       throw new BadRequestException('The user is already in the card');
     }
 
-    return this.boardCardService.updateMembers(cardById, member, 'add');
+    return this.boardCardService.updateMembers(cardById, boardMember, 'add');
   }
 
   @HttpCode(HttpStatus.OK)
   @Delete(':id/members/delete')
-  async removeMember(@Req() req: WithBoardRequest, @Param('id', CustomUUIDPipe) id: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
-    const board = req.board;
-
+  async deleteMember(@Param('id', CustomUUIDPipe) id: string, @Param('boardId', CustomUUIDPipe) boardId: string, @Body() handleMemberDTO: HandleCardMemberDTO) {
     const cardById = await this.boardCardService.findById(id);
 
     if (!cardById) {
       throw new NotFoundException('The card does not exists');
     }
 
-    const member = await this.boardService.findBoardMember(board, handleMemberDTO.userId);
+    const boardMember = await this.boardMemberService.findOne(boardId, handleMemberDTO.userId);
 
-    if (!member) {
+    if (!boardMember) {
       throw new BadRequestException('The user is not in the board');
     }
 
-    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, member.id);
+    const userIsCardMember = await this.boardCardService.userIsCardMember(cardById, boardMember.id);
 
     if (!userIsCardMember) {
       throw new BadRequestException('The user is not in the card');
     }
 
-    return this.boardCardService.updateMembers(cardById, member, 'delete');
+    return this.boardCardService.updateMembers(cardById, boardMember, 'delete');
   }
 }
