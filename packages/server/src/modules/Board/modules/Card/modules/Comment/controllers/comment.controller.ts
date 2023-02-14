@@ -1,9 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Req, NotFoundException } from '@nestjs/common';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
-import { AuthenticatedRequest } from '../../../../../../../common/types';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
-import { WithBoardRequest } from '../../../../../interfaces';
+import { IWithBoardMemberRequest } from '../../../../../interfaces';
 import { BoardService } from '../../../../../services/board.service';
 import { BoardCardService } from '../../../services/card.service';
 import { CreateCardCommentDTO, UpdateCardCommentDTO } from '../dto/comment.dto';
@@ -17,9 +16,8 @@ export class CardCommentController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('create')
-  async create(@Req() req: WithBoardRequest, @Param('cardId', CustomUUIDPipe) cardId: string, @Body() createDTO: CreateCardCommentDTO) {
-    const userId = req.user.id;
-    const board = req.board;
+  async create(@Req() req: IWithBoardMemberRequest, @Param('cardId', CustomUUIDPipe) cardId: string, @Body() createDTO: CreateCardCommentDTO) {
+    const member = req.member;
 
     const cardById = await this.cardService.findById(cardId);
 
@@ -27,21 +25,7 @@ export class CardCommentController {
       throw new NotFoundException('The card does not exists');
     }
 
-    const boardMember = this.boardService.findBoardMember(board, userId);
-
-    return await this.cardCommentService.create(cardId, boardMember.id, createDTO);
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Get()
-  async getAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
-    const cardById = await this.cardService.findById(cardId);
-
-    if (!cardById) {
-      throw new NotFoundException('The card does not exists');
-    }
-
-    return await this.cardCommentService.findAll(cardId);
+    return await this.cardCommentService.create(cardId, member.id, createDTO);
   }
 
   @HttpCode(HttpStatus.OK)

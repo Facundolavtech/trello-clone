@@ -33,18 +33,6 @@ export class CardLabelController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get()
-  async getAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
-    const cardById = await this.boardCardService.findById(cardId);
-
-    if (!cardById) {
-      throw new NotFoundException('The card does not exists');
-    }
-
-    return this.cardLabelService.findAll(cardId);
-  }
-
-  @HttpCode(HttpStatus.OK)
   @Get(':id')
   async getOne(@Param('id', CustomUUIDPipe) id: string) {
     const labelById = await this.cardLabelService.findById(id);

@@ -64,18 +64,6 @@ export class CardAttachmentController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get()
-  async findAll(@Param('cardId', CustomUUIDPipe) cardId: string) {
-    const cardById = await this.boardCardService.findById(cardId);
-
-    if (!cardById) {
-      throw new NotFoundException('The card does not exists');
-    }
-
-    return await this.cardAttachmentService.findAll(cardId);
-  }
-
-  @HttpCode(HttpStatus.OK)
   @Get(':id')
   async findOne(@Param('id', CustomUUIDPipe) id: string) {
     const attachmentById = await this.cardAttachmentService.findById(id);
