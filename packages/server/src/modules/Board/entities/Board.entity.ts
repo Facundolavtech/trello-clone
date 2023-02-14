@@ -21,8 +21,8 @@ export class Board extends BaseEntity {
   @Column({ nullable: true, default: null })
   description: string;
 
-  @Column({ default: false })
-  isPrivate: boolean;
+  @Column({ enum: BoardVisibility, default: BoardVisibility.PUBLIC })
+  visibility: BoardVisibility;
 
   @ManyToOne(() => User, (user) => user.user_board_admins, { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
   @JoinColumn({ name: 'adminId' })
