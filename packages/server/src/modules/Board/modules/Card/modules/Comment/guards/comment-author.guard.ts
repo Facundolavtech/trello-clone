@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common/exceptions';
+import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { CardCommentService } from '../services/comment.service';
 
 @Injectable()
@@ -9,8 +10,8 @@ export class CommentAuthorGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    const userId: string = request.user.id;
-    const commentId: string = request.params.id || request.params.commentId;
+    const userId = request.user.id;
+    const commentId = await new CustomUUIDPipe().transform(request.params.id);
 
     if (!commentId) {
       throw new BadRequestException('Specifies the comment ID');
