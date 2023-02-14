@@ -5,12 +5,12 @@ import { BsPaperclip } from 'react-icons/bs';
 import { MdInsertComment } from 'react-icons/md';
 import Button from '../../../../components/Button';
 import CustomCard from '../../../../components/Card';
-import { BoardListCard } from '../../../../models/board-list.model';
+import { IBoardListCard } from '../../../../models/board-list.model';
 import { FontFamily } from '../../../../theme/constants';
 import capitalizeFirstLetter from '../../../../utils/capitalizeFirstLetter';
 
 type Props = {
-  card: BoardListCard;
+  card: IBoardListCard;
 };
 
 const Card: FC<Props> = ({ card }) => {

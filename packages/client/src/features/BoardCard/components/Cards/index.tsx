@@ -1,10 +1,10 @@
 import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { BoardListCard } from '../../../../models/board-list.model';
+import { IBoardListCard } from '../../../../models/board-list.model';
 import Card from '../Card';
 
 type Props = {
-  cards: BoardListCard[];
+  cards: IBoardListCard[];
 };
 
 const Cards: FC<Props> = ({ cards }) => {

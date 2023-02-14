@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Icon, Heading, VStack, Text, Flex } from '@chakra-ui/react';
-import { BoardList } from '../../../../models/board-list.model';
+import { IBoardList } from '../../../../models/board-list.model';
 import Cards from '../../../BoardCard/components/Cards';
 import Button from '../../../../components/Button';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -8,7 +8,7 @@ import { FontFamily } from '../../../../theme/constants';
 import ListOptionsMenu from '../OptionsMenu';
 
 type Props = {
-  list: BoardList;
+  list: IBoardList;
 };
 
 const List: FC<Props> = ({ list }) => {

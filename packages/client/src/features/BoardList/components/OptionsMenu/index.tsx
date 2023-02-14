@@ -3,12 +3,12 @@ import NiceModal from '@ebay/nice-modal-react';
 import { FC } from 'react';
 import { MdDelete, MdEdit, MdMoreHoriz } from 'react-icons/md';
 import Button from '../../../../components/Button';
-import { BoardList } from '../../../../models/board-list.model';
+import { IBoardList } from '../../../../models/board-list.model';
 import DeleteListDialog from '../DeleteDialog';
 import UpdateListModal from '../Modals/Update';
 
 type Props = {
-  list: BoardList;
+  list: IBoardList;
 };
 
 const ListOptionsMenu: FC<Props> = ({ list }) => {
