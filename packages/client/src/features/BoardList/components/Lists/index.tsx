@@ -1,6 +1,5 @@
-import { VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import useBoardLists from '../../hooks/useBoardLists';
+import useBoardLists from '../../hooks/useLists';
 import List from '../List';
 import Loading from './Loading';
 import CreateListMenu from '../../../BoardList/components/CreateMenu';
