@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, And, ArrayContains, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from '../../User/entities/User.entity';
 import { CreateBoardDTO } from '../dto/create.dto';
 import { UpdateBoardDTO } from '../dto/update.dto';
 import { Board, BoardVisibility } from '../entities/Board.entity';
-import { BoardMember } from '../entities/BoardMember.entity';
 import { BoardMemberService } from './board-member.service';
 
 @Injectable()
 export class BoardService {
   constructor(@InjectRepository(Board) private boardRepository: Repository<Board>, private boardMemberService: BoardMemberService) {}
+
   async create(createDTO: CreateBoardDTO, user: User): Promise<Board> {
     const newBoard = this.boardRepository.create({ ...createDTO, adminId: user.id, members: [user] });
 
