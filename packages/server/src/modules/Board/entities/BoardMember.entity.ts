@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/Base.entity';
 import { User } from '../../User/entities/User.entity';
 import { BoardCard } from '../modules/Card/entities/Card.entity';
