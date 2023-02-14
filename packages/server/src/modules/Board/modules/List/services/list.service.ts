@@ -24,27 +24,19 @@ export class BoardListService {
     return deletedList.raw[0];
   }
 
-  async findById(id: string): Promise<BoardList> {
-    return await this.boardListRepository.findOne({ where: { id } });
-  }
-
-  async findByIdWithRelations(id: string, relations: string[]): Promise<BoardList> {
-    return await this.boardListRepository.findOne({ where: { id }, relations, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
+  async findById(id: string, relations?: string[]): Promise<BoardList> {
+    return await this.boardListRepository.findOne({ where: { id }, relations });
   }
 
   async findByQuery(query: FindOptionsWhere<BoardList>): Promise<BoardList> {
     return await this.boardListRepository.findOne({ where: query });
   }
 
-  async findAll(boardId: string): Promise<BoardList[]> {
-    return await this.boardListRepository.find({ where: { boardId }, select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'] });
-  }
-
-  async findAllWithRelations(boardId: string, relations: string[]): Promise<BoardList[]> {
+  async findAll(boardId: string, relations?: string[]): Promise<BoardList[]> {
     return await this.boardListRepository.find({
       where: { boardId },
-      relations,
       select: ['cards', 'id', 'name', 'createdAt', 'updatedAt'],
+      relations,
       order: { createdAt: 'asc' },
     });
   }

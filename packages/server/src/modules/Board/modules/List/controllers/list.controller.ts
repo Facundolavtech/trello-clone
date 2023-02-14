@@ -29,7 +29,7 @@ export class BoardListController {
 
     const createResult = await this.boardListService.create(boardId, createDTO);
 
-    return await this.boardListService.findByIdWithRelations(createResult.id, ['cards', 'cards.members']);
+    return await this.boardListService.findById(createResult.id, ['cards', 'cards.members']);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -38,7 +38,7 @@ export class BoardListController {
     @Param('boardId', CustomUUIDPipe)
     boardId: string
   ) {
-    return await this.boardListService.findAllWithRelations(boardId, ['cards', 'cards.members']);
+    return await this.boardListService.findAll(boardId, ['cards', 'cards.members']);
   }
 
   @HttpCode(HttpStatus.OK)
