@@ -13,11 +13,21 @@ import { CardAttachmentService } from './modules/Card/modules/Attachment/service
 import { CardCommentService } from './modules/Card/modules/Comment/services/comment.service';
 import { CardLabelService } from './modules/Card/modules/Label/services/label.service';
 import { UserModule } from '../User/user.module';
+import { BoardMemberService } from './services/board-member.service';
+import { BoardMemberController } from './controllers/board-member.controller';
 
 @Module({
   imports: [EntitiesModule, UserModule],
-  controllers: [BoardController, BoardListController, BoardCardController, CardAttachmentController, CardCommentController, CardLabelController],
-  providers: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService],
-  exports: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService],
+  controllers: [
+    BoardController,
+    BoardListController,
+    BoardCardController,
+    CardAttachmentController,
+    CardCommentController,
+    CardLabelController,
+    BoardMemberController,
+  ],
+  providers: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService, BoardMemberService],
+  exports: [BoardService, BoardCardService, BoardListService, CardAttachmentService, CardCommentService, CardLabelService, BoardMemberService],
 })
 export class BoardModule {}
