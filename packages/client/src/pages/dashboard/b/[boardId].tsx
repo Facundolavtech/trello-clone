@@ -1,10 +1,10 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
 import BoardPage from '../../../features/Board/components/BoardPage';
 import BoardContextWrapper from '../../../features/Board/context/board';
 import useBoard from '../../../features/Board/hooks/useBoard';
 
 type Props = {
-  id: string;
+  boardId: string;
 };
 
 declare module 'react' {
@@ -14,30 +14,32 @@ declare module 'react' {
   }
 }
 
-const Board: NextPage<Props> = ({ id }) => {
-  const { data: board } = useBoard({ id });
+const Board: NextPage<Props> = ({ boardId }) => {
+  const { data: board } = useBoard({ id: boardId });
 
   return (
     <BoardContextWrapper>
       <style jsx global>{`
         body {
-          background-image: url(${board && board.cover});
+          background-image: url(${board?.cover});
           background-repeat: no-repeat;
           background-size: cover;
           background-attachment: fixed;
         }
       `}</style>
-      <BoardPage id={id} />
+      <BoardPage />
     </BoardContextWrapper>
   );
 };
 
 export default Board;
 
-export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{}>> => {
+  const boardId = ctx.params?.boardId as string;
+
   return {
     props: {
-      id: ctx.params?.id,
+      boardId,
     },
   };
 };
