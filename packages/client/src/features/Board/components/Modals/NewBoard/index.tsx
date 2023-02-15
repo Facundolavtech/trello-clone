@@ -11,13 +11,13 @@ import Cover from './Cover';
 import PrivacyButton from './Buttons/Privacy';
 import { Form, Formik } from 'formik';
 import NewBoardSchema from './validations';
-import useBoardMethods from '../../../hooks/useBoardMethods';
-import { useRouter } from 'next/router';
+import useCreateBoard from '../../../hooks/useCreateBoard';
+import { BoardVisibility } from '../../../../../models/board.model';
 
 export interface INewBoardValues {
   title: string;
   cover: INewBoardValuesCover;
-  isPrivate: boolean;
+  visibility: BoardVisibility;
 }
 
 interface INewBoardValuesCover {
@@ -31,15 +31,13 @@ const getRandomCover = (covers: INewBoardValuesCover[]) => {
 
 const NewBoardModal = NiceModal.create(() => {
   const modal = useModal();
-  const router = useRouter();
-  const boardId = router.query.id as string;
 
-  const { createBoardMutation } = useBoardMethods({ id: boardId });
+  const createBoardMutation = useCreateBoard();
 
   const initialNewBoardValues: INewBoardValues = {
     cover: getRandomCover(boardCovers),
     title: '',
-    isPrivate: true,
+    visibility: 'public',
   };
 
   useEffect(() => {
@@ -68,7 +66,7 @@ const NewBoardModal = NiceModal.create(() => {
               <Title onChange={handleChange} value={values.title} error={errors.title} />
               <Flex width="full" justifyContent="space-between" mb="22px">
                 <CoverMenu setFieldValue={setFieldValue} />
-                <PrivacyButton setFieldValue={setFieldValue} value={values.isPrivate} />
+                <PrivacyButton setFieldValue={setFieldValue} value={values.visibility} />
               </Flex>
               <HStack width="full" justifyContent="flex-end" spacing="17px">
                 <CancelButton onClick={handleHideModal} />
