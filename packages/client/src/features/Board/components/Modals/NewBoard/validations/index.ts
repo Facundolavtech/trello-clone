@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
+import { BoardVisibility } from '../../../../../../models/board.model';
 
 const NewBoardSchema = Yup.object().shape({
-  isPrivate: Yup.boolean().required(),
+  visibility: Yup.mixed<BoardVisibility>().oneOf(['public', 'private']).required(),
   cover: Yup.object().shape({
     name: Yup.string().required(),
     src: Yup.string().required(),
