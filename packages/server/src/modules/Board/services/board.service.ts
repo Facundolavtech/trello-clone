@@ -63,4 +63,11 @@ export class BoardService {
   async findByTitle(title: string, relations?: string[]): Promise<Board> {
     return await this.boardRepository.findOne({ where: { title }, relations });
   }
+
+  async exist(id: string): Promise<boolean> {
+    return await this.boardRepository.exist({
+      where: { id },
+      cache: true,
+    });
+  }
 }
