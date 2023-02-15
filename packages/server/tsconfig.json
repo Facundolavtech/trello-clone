@@ -18,8 +18,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "types": ["node", "multer"]
-  },
-  "exclude": ["jest.config.ts", "dist", "**/*.spec.ts", "**/*.test.ts", "**/*.e2e-spec.ts", "**/*jest-e2e.json"],
-  "include": ["**/*.ts"]
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "multer", "jest"]
+  }
 }
