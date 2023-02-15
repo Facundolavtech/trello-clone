@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, Req, NotFoundException } from '@nestjs/common';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
+import { BoardExistGuard } from '../../../../../guards/board-exist.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
 import { IWithBoardMemberRequest } from '../../../../../interfaces';
 import { BoardService } from '../../../../../services/board.service';
@@ -9,7 +10,7 @@ import { CreateCardCommentDTO, UpdateCardCommentDTO } from '../dto/comment.dto';
 import { CommentAuthorGuard } from '../guards/comment-author.guard';
 import { CardCommentService } from '../services/comment.service';
 
-@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/comments')
 export class CardCommentController {
   constructor(private readonly cardCommentService: CardCommentService, private cardService: BoardCardService, private boardService: BoardService) {}

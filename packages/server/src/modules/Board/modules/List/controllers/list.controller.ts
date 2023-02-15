@@ -2,11 +2,12 @@ import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, H
 import { NotFoundException } from '@nestjs/common/exceptions/not-found.exception';
 import { CustomUUIDPipe } from '../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
+import { BoardExistGuard } from '../../../guards/board-exist.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
 import { CreateListDTO, UpdateListDTO } from '../dto/list.dto';
 import { BoardListService } from '../services/list.service';
 
-@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/lists')
 export class BoardListController {
   constructor(private boardListService: BoardListService) {}

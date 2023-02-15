@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Req, NotFoundException, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
 import { CustomUUIDPipe } from '../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../Auth/guards/auth.guard';
+import { BoardExistGuard } from '../../../guards/board-exist.guard';
 import { BoardMemberGuard } from '../../../guards/board-member.guard';
 import { IWithBoardMemberRequest } from '../../../interfaces';
 import { BoardMemberService } from '../../../services/board-member.service';
@@ -8,7 +9,7 @@ import { BoardListService } from '../../List/services/list.service';
 import { CreateCardDTO, HandleCardMemberDTO, UpdateCardDTO } from '../dto/card.dto';
 import { BoardCardService } from '../services/card.service';
 
-@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards')
 export class BoardCardController {
   constructor(private boardCardService: BoardCardService, private boardListService: BoardListService, private boardMemberService: BoardMemberService) {}

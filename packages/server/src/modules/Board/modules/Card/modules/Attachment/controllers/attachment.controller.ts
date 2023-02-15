@@ -19,11 +19,12 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { EmptyBodyInterceptor } from '../../../../../../../common/interceptors/empty-body.interceptor';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
+import { BoardExistGuard } from '../../../../../guards/board-exist.guard';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
 import { BoardCardService } from '../../../services/card.service';
 import { CardAttachmentService } from '../services/attachments.service';
 
-@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/attachments')
 export class CardAttachmentController {
   constructor(private readonly cardAttachmentService: CardAttachmentService, private boardCardService: BoardCardService) {}

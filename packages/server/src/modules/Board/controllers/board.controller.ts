@@ -7,6 +7,7 @@ import { UpdateBoardDTO } from '../dto/update.dto';
 import { BoardAdminGuard } from '../guards/board-admin.guard';
 import { BoardMemberGuard } from '../guards/board-member.guard';
 import { CustomUUIDPipe } from '../../../common/pipes/uuid.pipe';
+import { BoardExistGuard } from '../guards/board-exist.guard';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('boards')
@@ -36,29 +37,17 @@ export class BoardController {
     return await this.boardService.findAll(userId);
   }
 
-  @UseGuards(BoardMemberGuard)
+  @UseGuards(BoardExistGuard, BoardMemberGuard)
   @HttpCode(HttpStatus.OK)
   @Get(':boardId')
   async findOne(@Param('boardId', CustomUUIDPipe) id: string) {
-    const boardById = await this.boardService.findById(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
-
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
-    }
-
-    return boardById;
+    return await this.boardService.findById(id, ['members', 'cards', 'cards.labels', 'cards.attachments', 'cards.members', 'cards.comments']);
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(BoardMemberGuard, BoardAdminGuard)
+  @UseGuards(BoardExistGuard, BoardMemberGuard, BoardAdminGuard)
   @Put('update/:boardId')
   async update(@Param('boardId', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateBoardDTO) {
-    const boardById = await this.boardService.findById(id);
-
-    if (!boardById) {
-      throw new NotFoundException('The board does not exists');
-    }
-
     return await this.boardService.update(id, updateDTO);
   }
 }

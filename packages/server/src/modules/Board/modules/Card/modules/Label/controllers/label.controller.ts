@@ -5,8 +5,9 @@ import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardCardService } from '../../../services/card.service';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
+import { BoardExistGuard } from '../../../../../guards/board-exist.guard';
 
-@UseGuards(AuthenticatedGuard, BoardMemberGuard)
+@UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/labels')
 export class CardLabelController {
   constructor(private cardLabelService: CardLabelService, private boardCardService: BoardCardService) {}
