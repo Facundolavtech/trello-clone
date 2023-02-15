@@ -1,11 +1,21 @@
 {
   "name": "thullo",
+  "version": "1.0.0",
   "private": true,
   "author": "@Facundolavtech",
+  "license": "MIT",
+  "scripts": {
+    "test": "lerna run test --stream",
+    "build": "lerna run build",
+    "start:dev": "lerna run start:dev --stream",
+    "start:prod": "lerna run start:prod --stream",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "pretty": "prettier --write \"packages/**/*.{js,jsx,ts,tsx,json}\""
+  },
   "dependencies": {
     "@nestjs/mapped-types": "*"
   },
-  "version": "1.0.0",
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
@@ -18,15 +28,6 @@
     "lerna-cli": "^5.1.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.8.3"
-  },
-  "scripts": {
-    "test": "lerna run test --stream",
-    "build": "lerna run build",
-    "start:dev": "lerna run start:dev --stream",
-    "start:prod": "lerna run start:prod --stream",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged",
-    "pretty": "prettier --write \"packages/**/*.{js,jsx,ts,tsx,json}\""
   },
   "config": {
     "commitizen": {
