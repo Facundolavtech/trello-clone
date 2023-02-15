@@ -12,7 +12,7 @@ export const databaseConfig: TypeOrmModuleOptions & DataSourceOptions = {
   migrations: [path.join(__dirname, '/../migrations/*.ts')],
   entities: [path.join(__dirname, '/../**/*.entity{.js,.ts}')],
   synchronize: false,
-  migrationsRun: true,
+  migrationsRun: false,
   logging: false,
   ssl: process.env.NODE_ENV === NODE_ENV.PRODUCTION,
   migrationsTableName: 'migrations',
