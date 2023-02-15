@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Input, Text, VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
 import React from 'react';
 import Button from '../../../../../components/Button';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
 import { FontFamily } from '../../../../../theme/constants';
 import useCreateBoardList from '../../../hooks/useCreateList';
 import { CreateListSchema } from '../../../validations';
+import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 
 interface ICreateListFormValues {
   name: string;
@@ -18,8 +18,7 @@ type Props = {
 };
 
 const CreateListForm: FC<Props> = ({ onClose }) => {
-  const router = useRouter();
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const createBoardListMutation = useCreateBoardList({ boardId });
 

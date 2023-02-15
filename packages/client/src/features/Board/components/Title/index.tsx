@@ -1,13 +1,12 @@
 import { Heading } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import useQueryState from '../../../../hooks/useQueryState';
-import { IBoard } from '../../../../models/board.model';
+import useBoard from '../../hooks/useBoard';
+import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import Loading from './Loading';
 
 const BoardTitle = () => {
-  const { query } = useRouter();
+  const boardId = useBoardIdFromRoute();
 
-  const state = useQueryState<IBoard>(`board/${query.id}`);
+  const state = useBoard({ id: boardId });
 
   if (state.status === 'loading') {
     return <Loading />;

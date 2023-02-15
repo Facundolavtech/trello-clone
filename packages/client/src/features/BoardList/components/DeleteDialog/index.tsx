@@ -1,8 +1,8 @@
-import { Text, UseDisclosureReturn } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import React, { FC } from 'react';
+import { Text, UseDisclosureReturn } from '@chakra-ui/react';
 import AlertDialog from '../../../../components/AlertDialog';
 import Button from '../../../../components/Button';
+import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 import useDeleteList from '../../hooks/useDeleteList';
 
 type Props = {
@@ -11,8 +11,7 @@ type Props = {
 };
 
 const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
-  const router = useRouter();
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const deleteListMutation = useDeleteList({ boardId, listId });
 

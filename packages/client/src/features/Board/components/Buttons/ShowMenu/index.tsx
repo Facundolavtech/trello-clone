@@ -1,16 +1,15 @@
 import { Icon, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { MdMoreHoriz } from 'react-icons/md';
 import Button from '../../../../../components/Button';
 import { useBoardContext } from '../../../context/board';
 import useBoard from '../../../hooks/useBoard';
+import useBoardIdFromRoute from '../../../hooks/useBoardIdFromRoute';
 import Loading from './Loading';
 
 const ShowBoardMenuButton = () => {
-  const router = useRouter();
   const { onOpen: onOpenBoardMenu } = useBoardContext();
 
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const { isLoading } = useBoard({ id: boardId });
 

@@ -8,13 +8,14 @@ import ShowBoardMenuButton from '../Buttons/ShowMenu';
 import Lists from '../../../BoardList/components/Lists';
 import Error from './Error';
 import BoardMenu from '../Menu';
+import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 
-type Props = {
-  id: string;
-};
+type Props = {};
 
-const BoardPage: FC<Props> = ({ id }) => {
-  const { data, error } = useBoard({ id });
+const BoardPage: FC<Props> = () => {
+  const boardId = useBoardIdFromRoute();
+
+  const { data, error } = useBoard({ id: boardId });
 
   if (error) {
     return (

@@ -1,16 +1,14 @@
 import { Avatar, Box, HStack, Text, Tooltip } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import useUserProfile from '../../../../hooks/useUserProfile';
 import { FontFamily } from '../../../../theme/constants';
 import useBoard from '../../hooks/useBoard';
+import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
 import AddBoardMemberButton from '../Buttons/AddMember';
 import Loading from './Loading';
 
 const BoardMembers = () => {
-  const router = useRouter();
-
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const { data: board, isLoading } = useBoard({ id: boardId });
   const { data: user } = useUserProfile();

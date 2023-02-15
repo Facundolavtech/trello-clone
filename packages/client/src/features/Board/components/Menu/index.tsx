@@ -4,18 +4,17 @@ import { FaUserCircle } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
 import { useBoardContext } from '../../context/board';
 import useBoard from '../../hooks/useBoard';
-import { useRouter } from 'next/router';
 import { FontFamily, HeaderStyles } from '../../../../theme/constants';
 import { format, fromUnixTime } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import Button from '../../../../components/Button';
 import useUserProfile from '../../../../hooks/useUserProfile';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
+import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 
 const BoardMenu = () => {
   const { isOpen, onClose } = useBoardContext();
-  const router = useRouter();
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const { data: board } = useBoard({ id: boardId });
   const { data: user } = useUserProfile();

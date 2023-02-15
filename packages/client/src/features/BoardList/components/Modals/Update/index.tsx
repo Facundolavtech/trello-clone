@@ -1,10 +1,10 @@
-import { CloseButton, Heading, HStack, Input, Modal, ModalContent, ModalHeader, ModalOverlay, Text, VStack } from '@chakra-ui/react';
+import { CloseButton, Heading, HStack, Input, Modal, ModalContent, ModalOverlay, Text, VStack } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Form, Formik } from 'formik';
-import { useRouter } from 'next/router';
 import Button from '../../../../../components/Button';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
 import { FontFamily } from '../../../../../theme/constants';
+import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 import useUpdateList from '../../../hooks/useUpdateList';
 import { UpdateListSchema } from '../../../validations';
 
@@ -15,8 +15,7 @@ type Props = {
 
 const UpdateListModal = NiceModal.create(({ listId, title }: Props) => {
   const modal = useModal();
-  const router = useRouter();
-  const boardId = router.query.id as string;
+  const boardId = useBoardIdFromRoute();
 
   const updateListMutation = useUpdateList({ boardId, listId });
 
