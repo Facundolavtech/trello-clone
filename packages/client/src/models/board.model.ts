@@ -5,12 +5,14 @@ export interface IBoard {
   title: string;
   cover: string;
   description: string;
-  isPrivate: boolean;
+  visibility: BoardVisibility;
   admin: IBoardAdmin;
   members: IBoardMember[];
   createdAt: number;
   updatedAt: number;
 }
+
+export type BoardVisibility = 'public' | 'private';
 
 export interface IBoardAdmin {
   id: string;
