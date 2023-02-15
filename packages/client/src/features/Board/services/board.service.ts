@@ -1,19 +1,21 @@
 import { AxiosResponse } from 'axios';
 import http from '../../../config/http';
 import { ApiRoutes } from '../../../config/routes';
-import { IBoard } from '../../../models/board.model';
+import { BoardVisibility, IBoard } from '../../../models/board.model';
 
 export type BoardPrivacyType = 'private' | 'public';
 
-export interface IHandleBoardPrivacyParams {
-  type: BoardPrivacyType;
+export interface IUpdateBoardParams {
   id: string;
+  title?: string;
+  cover?: string;
+  visibility?: BoardVisibility;
 }
 
 export interface ICreateBoardParams {
   title: string;
   cover: string;
-  isPrivate: boolean;
+  visibility: BoardVisibility;
 }
 
 export async function createBoard(params: ICreateBoardParams): Promise<IBoard> {
@@ -31,9 +33,9 @@ export async function getBoards() {
   return response.data;
 }
 
-export async function handleBoardPrivacy({ type, id }: IHandleBoardPrivacyParams): Promise<IBoard> {
-  const formattedPrivacyType = type === 'private' ? true : false;
+export async function updateBoard(params: IUpdateBoardParams): Promise<IBoard> {
+  const { id, ...rest } = params;
 
-  const response: AxiosResponse<IBoard> = await http.api.put(`${ApiRoutes.BOARD}/update/${id}`, { isPrivate: formattedPrivacyType });
+  const response: AxiosResponse<IBoard> = await http.api.put(`${ApiRoutes.BOARD}/update/${id}`, { ...rest });
   return response.data;
 }
