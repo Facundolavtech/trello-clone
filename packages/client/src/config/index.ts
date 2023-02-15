@@ -10,7 +10,7 @@ export default {
         clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
       },
     },
-    CookieName: 'thullo:sid',
+    CookieName: 'token',
     Cookie: {
       httpOnly: false,
       maxAge: 7 * 24 * 3600 * 1000,
