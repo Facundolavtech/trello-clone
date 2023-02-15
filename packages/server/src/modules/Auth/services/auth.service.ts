@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../User/entities/User.entity';
@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     if (userByEmail.provider !== userData.provider) {
-      throw new UnauthorizedException(`You registered with ${formatUserProvider(userByEmail.provider)}, login with that provider`);
+      throw new BadRequestException(`You registered with ${formatUserProvider(userByEmail.provider)}, login with that provider`);
     }
 
     return userByEmail;
