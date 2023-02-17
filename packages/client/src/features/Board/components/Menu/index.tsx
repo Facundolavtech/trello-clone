@@ -1,4 +1,5 @@
-import { Drawer, Icon, DrawerContent, Heading, HStack, Box, Divider, VStack, Text, Avatar } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Drawer, Icon, DrawerContent, Heading, HStack, Box, Divider, VStack, Text, Avatar, useDisclosure } from '@chakra-ui/react';
 import { MdClose, MdEdit } from 'react-icons/md';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
@@ -11,6 +12,7 @@ import Button from '../../../../components/Button';
 import useUserProfile from '../../../../hooks/useUserProfile';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
+import DeleteBoardMemberDialog from '../DeleteMemberDialog';
 
 const BoardMenu = () => {
   const { isOpen, onClose } = useBoardContext();
@@ -18,6 +20,11 @@ const BoardMenu = () => {
 
   const { data: board } = useBoard({ id: boardId });
   const { data: user } = useUserProfile();
+
+  const deleteMemberDisclosure = useDisclosure();
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
+
+  if (!board || !user) return null;
 
   return (
     <>
@@ -56,9 +63,9 @@ const BoardMenu = () => {
                 <HStack spacing="13px">
                   <Avatar
                     size="sm"
-                    name={board?.admin.name}
-                    src={board?.admin.picture || ''}
-                    bg={board?.admin.picture ? 'transparent' : '#C4C4C4'}
+                    name={board.admin.name}
+                    src={board.admin.picture || ''}
+                    bg={board.admin.picture ? 'transparent' : '#C4C4C4'}
                     color="white"
                     width="32px"
                     height="32px"
@@ -66,10 +73,10 @@ const BoardMenu = () => {
                   />
                   <VStack spacing="2px" alignItems="flex-start">
                     <Text color="gray.1" fontWeight={600} fontSize={12}>
-                      {board?.admin.name}
+                      {board.admin.name}
                     </Text>
                     <Text fontSize={10} fontWeight={600} fontFamily={FontFamily.NotoSans} color="gray.4">
-                      on {format(fromUnixTime(board?.createdAt || 0), 'dd/MM/yyyy', { locale: enUS })}
+                      on {format(fromUnixTime(board.createdAt || 0), 'dd/MM/yyyy', { locale: enUS })}
                     </Text>
                   </VStack>
                 </HStack>
@@ -83,7 +90,7 @@ const BoardMenu = () => {
                     Description
                   </Text>
                 </HStack>
-                {userIsBoardAdmin(board?.admin.id, user?.id) && (
+                {userIsBoardAdmin(board?.admin.id, user.id) && (
                   <Button height="24px" width="62px" variant="outline" gap="10px">
                     <Icon as={MdEdit} fontSize={9} color="gray.3" />
                     <Text color="gray.3" fontWeight={500} fontSize={10}>
@@ -114,16 +121,16 @@ const BoardMenu = () => {
                   <HStack spacing="17px">
                     <Avatar
                       size="sm"
-                      src={board?.admin.picture || ''}
-                      bg={board?.admin.picture ? 'transparent' : '#C4C4C4'}
-                      name={board?.admin.name}
+                      src={board.admin.picture || ''}
+                      bg={board.admin.picture ? 'transparent' : '#C4C4C4'}
+                      name={board.admin.name}
                       color="white"
                       width="32px"
                       height="32px"
                       borderRadius="8px"
                     />
                     <Text color="gray.1" fontWeight={600} fontSize={12}>
-                      {board?.admin.name}
+                      {board.admin.name}
                     </Text>
                   </HStack>
                   <Box width="63px">
@@ -132,11 +139,12 @@ const BoardMenu = () => {
                     </Text>
                   </Box>
                 </HStack>
-                {board?.members
+                {board.members
                   .filter((member) => member.user.id !== board.admin.id)
                   .map((member) => {
                     return (
                       <HStack width="full" justifyContent="space-between" key={member.id}>
+                        <DeleteBoardMemberDialog userId={selectedMemberId} disclosure={deleteMemberDisclosure} />
                         <HStack spacing="17px">
                           <Avatar
                             size="sm"
@@ -152,8 +160,17 @@ const BoardMenu = () => {
                             {member.user.name}
                           </Text>
                         </HStack>
-                        {userIsBoardAdmin(board?.admin.id, user?.id) && (
-                          <Button width="63px" height="24px" variant="outline" style={{ border: '1px solid #EB5757' }}>
+                        {userIsBoardAdmin(board.admin.id, user.id) && (
+                          <Button
+                            width="63px"
+                            height="24px"
+                            variant="outline"
+                            style={{ border: '1px solid #EB5757' }}
+                            onClick={() => {
+                              setSelectedMemberId(member.user.id);
+                              deleteMemberDisclosure.onOpen();
+                            }}
+                          >
                             <Text fontWeight={500} fontSize={10} color="#EB5757">
                               Remove
                             </Text>
