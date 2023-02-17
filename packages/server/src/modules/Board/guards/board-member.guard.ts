@@ -22,7 +22,7 @@ export class BoardMemberGuard implements CanActivate {
     const userId = request.user.id;
     const boardId = await new CustomUUIDPipe().transform(request.params.boardId);
 
-    const member = await this.boardMemberService.findOne(boardId, userId, ['board']);
+    const member = await this.boardMemberService.findOne(boardId, userId, ['board', 'user']);
 
     if (!member) {
       throw new UnauthorizedException('You need to be a board member to perform this action');
