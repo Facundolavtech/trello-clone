@@ -2,7 +2,7 @@ import { Menu as ChakraMenu, MenuList } from '@chakra-ui/react';
 import CreateListForm from './Form';
 import CreateListMenuButton from './OpenButton';
 
-const CreateMenu = () => {
+const CreateListMenu = () => {
   return (
     <ChakraMenu>
       {({ onClose }) => (
@@ -26,4 +26,4 @@ const CreateMenu = () => {
   );
 };
 
-export default CreateMenu;
+export default CreateListMenu;
