@@ -50,7 +50,7 @@ const BoardPage: FC<Props> = () => {
               backdropFilter="blur(10px)"
               borderRadius="12px"
               padding={8}
-              backgroundColor={data ? 'rgba(248, 248, 248, 0.5)' : 'none'}
+              backgroundColor={data ? 'rgba(248, 248, 248, 0.7)' : 'none'}
               className="custom__scrollbar"
             >
               <Lists />
