@@ -55,7 +55,7 @@ const NewBoardModal = NiceModal.create(() => {
   };
 
   return (
-    <Modal isOpen={modal.visible} onClose={handleHideModal}>
+    <Modal isOpen={modal.visible} onClose={handleHideModal} preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent py="27px" px="24px" borderRadius="8px" maxW="90%" width="307px" position="relative">
         <Formik initialValues={initialNewBoardValues} validationSchema={NewBoardSchema} onSubmit={handleSubmit}>
