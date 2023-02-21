@@ -6,9 +6,9 @@ services:
     container_name: 'db'
     restart: always
     environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=thullo
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=postgres
     mem_reservation: '10M'
     mem_limit: '250M'
     ports:
