@@ -1,4 +1,4 @@
-import useBoardLists from '../../hooks/useLists';
+import useLists from '../../hooks/useLists';
 import List from '../List';
 import Loading from './Loading';
 import CreateListMenu from '../../../BoardList/components/CreateMenu';
@@ -7,18 +7,18 @@ import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 const Lists = () => {
   const boardId = useBoardIdFromRoute();
 
-  const { data: lists, isLoading } = useBoardLists({ boardId });
+  const { data: lists, isLoading } = useLists({ boardId });
 
-  if (isLoading) {
+  if (isLoading || !lists) {
     return <Loading />;
   }
 
   return (
     <>
-      {lists?.map((list) => (
+      {lists.map((list) => (
         <List list={list} key={list.id} />
       ))}
-      {lists && <CreateListMenu />}
+      <CreateListMenu />
     </>
   );
 };
