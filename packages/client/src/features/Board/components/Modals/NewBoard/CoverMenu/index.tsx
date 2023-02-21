@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Menu as ChakraMenu, MenuButton as ChakraMenuButton, Button, Text, MenuList, Wrap, Icon, WrapItem } from '@chakra-ui/react';
+import { Menu as ChakraMenu, MenuButton as ChakraMenuButton, Button, Text, MenuList, Wrap, Icon, WrapItem, SimpleGrid } from '@chakra-ui/react';
 import { AiFillPicture } from 'react-icons/ai';
 import boardCovers from '../../../../helpers/covers';
 
@@ -30,8 +30,9 @@ const CoverMenu: FC<Props> = ({ setFieldValue }) => {
             borderRadius="12px"
             boxShadow="0px 2px 4px rgba(0, 0, 0, 0.05)"
           >
-            <Wrap
-              spacing={4}
+            <SimpleGrid
+              columns={3}
+              gap={4}
               width="full"
               height="full"
               overflowY="auto"
@@ -48,11 +49,10 @@ const CoverMenu: FC<Props> = ({ setFieldValue }) => {
                 <WrapItem
                   _hover={{ cursor: 'pointer' }}
                   key={cover.name}
-                  id="cover"
+                  id={cover.name}
                   onClick={() => {
                     setFieldValue('cover', cover), onClose();
                   }}
-                  width="100%"
                   height="48px"
                   borderRadius="8px"
                   backgroundImage={cover.src}
@@ -61,7 +61,7 @@ const CoverMenu: FC<Props> = ({ setFieldValue }) => {
                   backgroundRepeat="no-repeat"
                 />
               ))}
-            </Wrap>
+            </SimpleGrid>
           </MenuList>
         </>
       )}
