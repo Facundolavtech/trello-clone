@@ -10,9 +10,11 @@ type Props = {
 const Cards: FC<Props> = ({ cards }) => {
   return (
     <VStack width="full" spacing="24px">
-      {cards.map((card) => {
-        return <Card key={card.id} card={card} />;
-      })}
+      {cards
+        .sort((a, b) => a.createdAt - b.createdAt)
+        .map((card) => {
+          return <Card key={card.id} card={card} />;
+        })}
     </VStack>
   );
 };
