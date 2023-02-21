@@ -29,7 +29,7 @@ const getRandomCover = (covers: INewBoardValuesCover[]) => {
   return covers[Math.floor(Math.random() * boardCovers.length)];
 };
 
-const NewBoardModal = NiceModal.create(() => {
+const CreateBoardModal = NiceModal.create(() => {
   const modal = useModal();
 
   const createBoardMutation = useCreateBoard();
@@ -80,4 +80,4 @@ const NewBoardModal = NiceModal.create(() => {
   );
 });
 
-export default NewBoardModal;
+export default CreateBoardModal;
