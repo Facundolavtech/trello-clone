@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { IBoardList } from '../../../../models/board-list.model';
-import { createList, ICreateListParams } from '../../services/board-list.service';
+import { createList, ICreateListParams } from '../../services/list.service';
 
 type Props = {
   boardId: string;
