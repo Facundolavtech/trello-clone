@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import BoardPage from '../../../features/Board/components/BoardPage';
-import BoardContextWrapper from '../../../features/Board/context/board';
-import useBoard from '../../../features/Board/hooks/useBoard';
+import BoardPage from '../../../../features/Board/components/BoardPage';
+import BoardContextWrapper from '../../../../features/Board/context/board';
+import useBoard from '../../../../features/Board/hooks/useBoard';
 
 type Props = {
   boardId: string;
