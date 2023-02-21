@@ -3,15 +3,26 @@ import { PartialType } from '@nestjs/swagger';
 import { UserProviders } from '../../User/constants';
 
 export class LoginDTO {
+  @IsNotEmpty({ message: 'Error: Email is required' })
   @IsEmail({}, { message: 'Error: Email format is not valid' })
   email: string;
 
+  @IsNotEmpty({ message: 'Error: Password is required' })
   @Length(6, 32, { message: 'Error: Password must be between 6 and 32 characters' })
   @IsString({ message: 'Error: Password is not valid' })
   password: string;
 }
 
-export class RegisterLocalDTO extends PartialType(LoginDTO) {
+export class RegisterLocalDTO {
+  @IsNotEmpty({ message: 'Error: Email is required' })
+  @IsEmail({}, { message: 'Error: Email format is not valid' })
+  email: string;
+
+  @IsNotEmpty({ message: 'Error: Password is required' })
+  @Length(6, 32, { message: 'Error: Password must be between 6 and 32 characters' })
+  @IsString({ message: 'Error: Password is not valid' })
+  password: string;
+
   @IsNotEmpty({ message: 'Error: User provider is required' })
   @IsEnum(UserProviders)
   @IsString({ message: 'Error: User provider is not valid' })
