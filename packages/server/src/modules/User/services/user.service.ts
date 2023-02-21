@@ -33,6 +33,10 @@ export class UserService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
+  async validateEmailAndUsername(email: string, username: string): Promise<User> {
+    return await this.userRepository.createQueryBuilder('user').where('user.email = :email OR user.username = :username', { email, username }).getOne();
+  }
+
   async changePassword(id: string, newPassword: string): Promise<User> {
     return await this.update(id, { password: newPassword });
   }
