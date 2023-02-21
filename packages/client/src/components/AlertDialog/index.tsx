@@ -23,7 +23,7 @@ const AlertDialog: FC<Props> = ({ isOpen, onClose, title, subtitle, actionButton
   const cancelRef = useRef(null);
 
   return (
-    <ChakraAlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+    <ChakraAlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose} preserveScrollBarGap>
       <AlertDialogOverlay backgroundColor="rgba(0,0,0,0.4)" />
       <AlertDialogContent>
         <AlertDialogHeader color="gray.1" fontSize={16} fontWeight={500}>

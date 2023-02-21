@@ -28,7 +28,7 @@ const BoardMenu = () => {
 
   return (
     <>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} preserveScrollBarGap>
         <DrawerContent
           className="hide__scroll"
           boxShadow="none"

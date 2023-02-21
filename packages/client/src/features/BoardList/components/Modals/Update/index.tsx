@@ -32,7 +32,7 @@ const UpdateListModal = NiceModal.create(({ listId, title }: Props) => {
   };
 
   return (
-    <Modal isOpen={modal.visible} onClose={handleHideModal}>
+    <Modal isOpen={modal.visible} onClose={handleHideModal} preserveScrollBarGap>
       <ModalOverlay />
       <ModalContent gap={4} padding={4} borderRadius="8px" maxW="90%" width="307px" position="relative">
         <HStack width="full" justifyContent="space-between">
