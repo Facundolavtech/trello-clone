@@ -17,8 +17,8 @@ export interface IBoardCard {
 
 export interface IBoardCardAttachment {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
   name: string;
   url: string;
   type: string;
@@ -27,8 +27,8 @@ export interface IBoardCardAttachment {
 
 export interface IBoardCardLabel {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
   name: string;
   color: string;
   cardId: string;
@@ -36,9 +36,10 @@ export interface IBoardCardLabel {
 
 export interface IBoardCardComment {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
   content: string;
   authorId: string;
   cardId: string;
+  author: IBoardMember;
 }
