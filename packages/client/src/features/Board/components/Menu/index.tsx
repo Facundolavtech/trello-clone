@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Drawer, Icon, DrawerContent, Heading, HStack, Box, Divider, VStack, Text, Avatar, useDisclosure } from '@chakra-ui/react';
+import { Drawer, Icon, DrawerContent, Heading, HStack, Box, Divider, VStack, Text, useDisclosure } from '@chakra-ui/react';
 import { MdClose, MdEdit } from 'react-icons/md';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDocumentText } from 'react-icons/hi';
@@ -13,6 +13,7 @@ import useUserProfile from '../../../../hooks/useUserProfile';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import DeleteBoardMemberDialog from '../DeleteMemberDialog';
+import Avatar from '../../../../components/Avatar';
 
 const BoardMenu = () => {
   const { isOpen, onClose } = useBoardContext();
@@ -61,16 +62,7 @@ const BoardMenu = () => {
                   </Text>
                 </HStack>
                 <HStack spacing="13px">
-                  <Avatar
-                    size="sm"
-                    name={board.admin.name}
-                    src={board.admin.picture || ''}
-                    bg={board.admin.picture ? 'transparent' : '#C4C4C4'}
-                    color="white"
-                    width="32px"
-                    height="32px"
-                    borderRadius="8px"
-                  />
+                  <Avatar name={board.admin.name} src={board.admin.picture} style={{ background: board.admin.picture ? 'transparent' : '#C4C4C4' }} />
                   <VStack spacing="2px" alignItems="flex-start">
                     <Text color="gray.1" fontWeight={600} fontSize={12}>
                       {board.admin.name}
@@ -119,16 +111,7 @@ const BoardMenu = () => {
               <VStack width="full" spacing="20px">
                 <HStack width="full" justifyContent="space-between">
                   <HStack spacing="17px">
-                    <Avatar
-                      size="sm"
-                      src={board.admin.picture || ''}
-                      bg={board.admin.picture ? 'transparent' : '#C4C4C4'}
-                      name={board.admin.name}
-                      color="white"
-                      width="32px"
-                      height="32px"
-                      borderRadius="8px"
-                    />
+                    <Avatar src={board.admin.picture} style={{ background: board.admin.picture ? 'transparent' : '#C4C4C4' }} name={board.admin.name} />
                     <Text color="gray.1" fontWeight={600} fontSize={12}>
                       {board.admin.name}
                     </Text>
@@ -146,16 +129,7 @@ const BoardMenu = () => {
                       <HStack width="full" justifyContent="space-between" key={member.id}>
                         <DeleteBoardMemberDialog userId={selectedMemberId} disclosure={deleteMemberDisclosure} />
                         <HStack spacing="17px">
-                          <Avatar
-                            size="sm"
-                            src={member.user.picture || ''}
-                            bg={member.user.picture ? 'transparent' : '#C4C4C4'}
-                            color="white"
-                            name={member.user.name}
-                            width="32px"
-                            height="32px"
-                            borderRadius="8px"
-                          />
+                          <Avatar src={member.user.picture} style={{ background: board.admin.picture ? 'transparent' : '#C4C4C4' }} name={member.user.name} />
                           <Text color="gray.1" fontWeight={600} fontSize={12}>
                             {member.user.name}
                           </Text>
