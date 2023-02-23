@@ -1,7 +1,8 @@
-import { Avatar, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Heading, HStack, Image, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import Card from '../../../../../components/Card';
+import MemberList from '../../../../../components/Members';
 import { AppRoutes } from '../../../../../config/routes';
 import { IBoard } from '../../../../../models/board.model';
 import { FontFamily } from '../../../../../theme/constants';
@@ -23,24 +24,13 @@ const BoardCard: FC<Props> = ({ board }) => {
           </Heading>
         </VStack>
         <HStack spacing="12px" width="full" alignItems="center">
-          {board.members.slice(0, 3).map((member) => (
-            <Avatar
-              size="sm"
-              borderRadius={8}
-              width="28px"
-              height="28px"
-              color="white"
-              bg={member.user.picture ? 'transparent' : 'gray.4'}
-              name={member.user.name}
-              key={member.user.id}
-              src={member.user.picture ?? ''}
-            />
-          ))}
-          {board.members.length > 3 && (
-            <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
-              +{board.members.length - 3} others
-            </Text>
-          )}
+          <MemberList
+            members={board.members}
+            avatarStyles={{ width: '28px', height: '28px' }}
+            lastBoxStyles={{ width: '28px', height: '28px' }}
+            useTooltip={false}
+            maxMembers={3}
+          />
         </HStack>
       </VStack>
     </Card>
