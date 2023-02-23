@@ -12,8 +12,6 @@ type Props = {
 };
 
 const List: FC<Props> = ({ list }) => {
-  if (!list) return null;
-
   return (
     <VStack
       px="8px"
