@@ -1,6 +1,7 @@
-import { Avatar, Box, HStack, Text, Tooltip } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
+import MemberList from '../../../../components/Members';
 import useUserProfile from '../../../../hooks/useUserProfile';
-import { FontFamily } from '../../../../theme/constants';
+import sortArr from '../../../../utils/sortArr';
 import useBoard from '../../hooks/useBoard';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
@@ -21,30 +22,7 @@ const BoardMembers = () => {
 
   return (
     <HStack spacing="16px">
-      {board.members
-        .sort((a, b) => a.createdAt - b.createdAt)
-        .slice(0, 4)
-        .map((member) => (
-          <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
-            <Avatar
-              size="sm"
-              src={member.user.picture ?? ''}
-              name={member.user.name}
-              width="32px"
-              height="32px"
-              borderRadius="8px"
-              bg={member.user.picture ? 'transparent' : 'gray.4'}
-              color="white"
-            />
-          </Tooltip>
-        ))}
-      {board.members.length > 4 && (
-        <Box display="flex" alignItems="center" justifyContent="center" width="32px" height="32px" borderRadius="8px" bg="lightgray.1">
-          <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
-            +{board.members.length - 4}
-          </Text>
-        </Box>
-      )}
+      <MemberList members={sortArr(board.members, 'createdAt')} maxMembers={4} useTooltip={true} />
       {userIsBoardAdmin(board.admin.id, user.id) && <AddBoardMemberButton />}
     </HStack>
   );
