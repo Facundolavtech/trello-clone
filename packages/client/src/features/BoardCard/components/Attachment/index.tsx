@@ -1,7 +1,8 @@
-import { Avatar, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { format, fromUnixTime } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import { FC } from 'react';
+import Avatar from '../../../../components/Avatar';
 import Button from '../../../../components/Button';
 import { IBoardCardAttachment } from '../../../../models/board-card.model';
 import downloadAttachment from './download.service';
@@ -15,15 +16,11 @@ const CardAttachment: FC<Props> = ({ attachment }) => {
     <HStack width="full" justifyContent="flex-start" spacing="13px">
       <Avatar
         src={attachment.url || ''}
-        bg={attachment.type.startsWith('image') ? 'transparent' : 'gray.5'}
+        style={{ background: attachment.type.startsWith('image') ? 'transparent' : 'gray.5', objectFit: 'cover', color: 'gray.2' }}
         name={attachment.name}
         getInitials={(name) => name.slice(0, 2)}
-        size="sm"
-        objectFit="cover"
-        color="gray.2"
         width="80px"
         height="53px"
-        borderRadius="8px"
       />
       <VStack spacing="6px" width="full" alignItems="flex-start">
         <VStack alignItems="flex-start">
