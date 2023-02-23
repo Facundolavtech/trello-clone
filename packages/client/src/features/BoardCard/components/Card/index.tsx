@@ -1,15 +1,17 @@
-import { Avatar, Heading, HStack, Icon, Image, Text, Tooltip, VStack, Wrap, WrapItem } from '@chakra-ui/react';
+import { Heading, HStack, Icon, Image, Text, Tooltip, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
 import { FC } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BsPaperclip } from 'react-icons/bs';
 import { MdInsertComment } from 'react-icons/md';
+import Avatar from '../../../../components/Avatar';
 import Button from '../../../../components/Button';
 import CustomCard from '../../../../components/Card';
 import { AppRoutes } from '../../../../config/routes';
 import { IBoardListCard } from '../../../../models/board-list.model';
 import { FontFamily } from '../../../../theme/constants';
 import capitalizeFirstLetter from '../../../../utils/capitalizeFirstLetter';
+import sortArr from '../../../../utils/sortArr';
 import CardPage from '../Page';
 
 type Props = {
@@ -54,21 +56,11 @@ const Card: FC<Props> = ({ card }) => {
           <HStack spacing="12px">
             {card.members.length > 0 && (
               <HStack spacing="8px">
-                {card.members
-                  .sort((a, b) => a.createdAt - b.createdAt)
+                {sortArr(card.members, 'createdAt')
                   .slice(0, 2)
                   .map((member) => (
                     <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
-                      <Avatar
-                        size="sm"
-                        src={member.user.picture ?? ''}
-                        name={member.user.name}
-                        width="28px"
-                        height="28px"
-                        borderRadius="8px"
-                        bg={member.user.picture ? 'transparent' : 'gray.4'}
-                        color="white"
-                      />
+                      <Avatar src={member.user.picture} name={member.user.name} width="28px" height="28px" />
                     </Tooltip>
                   ))}
                 {card.members.length > 2 && (
