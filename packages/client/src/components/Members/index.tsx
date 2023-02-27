@@ -1,7 +1,7 @@
 import { CSSProperties, FC } from 'react';
 import { Box, Tooltip, Text } from '@chakra-ui/react';
 import { FontFamily } from '../../theme/constants';
-import Avatar from '../Avatar';
+import Avatar, { AvatarWithRef } from '../Avatar';
 import { IBoardMember } from '../../models/board.model';
 
 type Props = {
@@ -18,7 +18,9 @@ const MemberList: FC<Props> = ({ members, maxMembers = 4, avatarStyles = {}, las
       {members.slice(0, maxMembers).map((member) =>
         useTooltip ? (
           <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
-            <Avatar src={member.user.picture} name={member.user.name} style={avatarStyles} />
+            <Box>
+              <AvatarWithRef src={member.user.picture} name={member.user.name} style={avatarStyles} />
+            </Box>
           </Tooltip>
         ) : (
           <Avatar key={member.id} src={member.user.picture} name={member.user.name} style={avatarStyles} />
