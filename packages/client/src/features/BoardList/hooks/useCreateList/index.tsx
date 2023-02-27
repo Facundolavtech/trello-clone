@@ -8,7 +8,7 @@ type Props = {
   boardId: string;
 };
 
-const useCreateBoardList = ({ boardId }: Props) => {
+const useCreateList = ({ boardId }: Props) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
@@ -34,4 +34,4 @@ const useCreateBoardList = ({ boardId }: Props) => {
   });
 };
 
-export default useCreateBoardList;
+export default useCreateList;
