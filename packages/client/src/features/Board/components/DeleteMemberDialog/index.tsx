@@ -43,7 +43,7 @@ const DeleteBoardMemberDialog: FC<Props> = ({ userId, disclosure }) => {
           </Text>
         </Button>
       }
-      title="Delete list"
+      title="Delete member"
       loading={deleteBoardMemberMutation.isLoading}
       subtitle="Are you sure to want to delete this member? This action is irreversible"
     />
