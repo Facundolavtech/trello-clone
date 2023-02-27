@@ -9,7 +9,9 @@ export class BoardListService {
   constructor(@InjectRepository(BoardList) private boardListRepository: Repository<BoardList>) {}
 
   async create(boardId: string, createDTO: CreateListDTO): Promise<BoardList> {
-    return await this.boardListRepository.save(this.boardListRepository.create({ ...createDTO, boardId }));
+    const { id } = await this.boardListRepository.save(this.boardListRepository.create({ ...createDTO, boardId }));
+
+    return await this.findById(id, ['cards', 'cards.members']);
   }
 
   async update(id: string, updateDTO: UpdateListDTO): Promise<BoardList> {
