@@ -7,7 +7,7 @@ type Props = {
   error: AxiosError<any>;
 };
 
-const Error: FC<Props> = ({ error }) => {
+const BoardPageError: FC<Props> = ({ error }) => {
   return (
     <Center width="full" mt="35px" gap={2}>
       <Icon as={MdError} fontSize={18} color="error" />
@@ -18,4 +18,4 @@ const Error: FC<Props> = ({ error }) => {
   );
 };
 
-export default Error;
+export default BoardPageError;
