@@ -1,33 +1,18 @@
 import { FC } from 'react';
 import { Flex, HStack, Stack, VStack } from '@chakra-ui/react';
-import useBoard from '../../hooks/useBoard';
 import BoardLayout from '../../layouts/BoardLayout';
 import BoardMembers from '../Members';
 import BoardPrivacy from '../BoardPrivacy';
 import ShowBoardMenuButton from '../Buttons/ShowMenu';
 import Lists from '../../../BoardList/components/Lists';
-import Error from './Error';
 import BoardMenu from '../Menu';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import BoardCanvas from '../Canvas';
 
 type Props = {};
 
 const BoardPage: FC<Props> = () => {
-  const boardId = useBoardIdFromRoute();
-
-  const { data: board, error } = useBoard({ id: boardId });
-
-  if (error) {
-    return (
-      <BoardLayout>
-        <Error error={error} />
-      </BoardLayout>
-    );
-  }
-
   return (
-    <BoardLayout title={board?.title}>
+    <BoardLayout>
       <BoardMenu />
       <Stack width="full" mt="35px">
         <Stack width="full" direction={{ base: 'column', md: 'row' }} mb={10}>
