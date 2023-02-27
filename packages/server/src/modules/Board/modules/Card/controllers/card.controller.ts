@@ -14,8 +14,8 @@ import { BoardCardService } from '../services/card.service';
 export class BoardCardController {
   constructor(private boardCardService: BoardCardService, private boardListService: BoardListService, private boardMemberService: BoardMemberService) {}
 
-  async findCardOrThrow(id: string) {
-    const card = await this.boardCardService.findById(id);
+  async findCardOrThrow(id: string, relations?: string[]) {
+    const card = await this.boardCardService.findById(id, relations);
 
     if (!card) {
       throw new NotFoundException('The card does not exists');
@@ -50,7 +50,7 @@ export class BoardCardController {
   @HttpCode(HttpStatus.OK)
   @Get(':id')
   async getOne(@Param('id', CustomUUIDPipe) id: string) {
-    return await this.findCardOrThrow(id);
+    return await this.findCardOrThrow(id, ['members', 'labels', 'comments', 'attachments']);
   }
 
   @HttpCode(HttpStatus.OK)
