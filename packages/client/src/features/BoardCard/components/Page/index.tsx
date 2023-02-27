@@ -1,14 +1,14 @@
 import { Box, Heading, HStack, Icon, Modal, ModalContent, ModalOverlay, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import { useMemo } from 'react';
 import { IoMdDocument } from 'react-icons/io';
-import { MdEdit, MdOutlineClose } from 'react-icons/md';
+import { MdOutlineClose } from 'react-icons/md';
 import Button from '../../../../components/Button';
+import EditButton from '../../../../components/Buttons/Edit';
 import { AppRoutes } from '../../../../config/routes';
 import { FontFamily } from '../../../../theme/constants';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import useLists from '../../../BoardList/hooks/useLists';
 import useCard from '../../hooks/useCard';
+import useCardList from '../../hooks/useCardList';
 import CardAttachment from '../Attachment';
 
 type Props = {
@@ -16,12 +16,9 @@ type Props = {
 };
 
 const CardPage = NiceModal.create(({ cardId }: Props) => {
-  const boardId = useBoardIdFromRoute();
-
-  const { data: card } = useCard({ id: cardId });
-  const { data: lists } = useLists({ boardId });
-
   const modal = useModal();
+  const boardId = useBoardIdFromRoute();
+  const { data: card } = useCard({ id: cardId });
 
   const handleCloseModal = () => {
     if (typeof window === 'undefined') return;
@@ -29,13 +26,9 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
     window.history.pushState(null, boardId, `${AppRoutes.BOARD}/${boardId}`);
   };
 
-  const list = useMemo(() => {
-    if (!lists || !card) return null;
+  const list = useCardList({ cardId, boardId });
 
-    return lists.find((l) => l.id === card.listId);
-  }, [card]);
-
-  if (!card) return null;
+  if (!card || !list) return null;
 
   return (
     <Modal isOpen={true} onClose={handleCloseModal} preserveScrollBarGap>
@@ -73,7 +66,7 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
                     <Text fontSize={10} fontWeight={600} color="gray.4">
                       In list{' '}
                       <Text as="strong" color="gray.1">
-                        {list?.name}
+                        {list.name}
                       </Text>
                     </Text>
                   </VStack>
@@ -84,12 +77,7 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
                         Description
                       </Text>
                     </HStack>
-                    <Button height="24px" width="62px" variant="outline" gap="10px">
-                      <Icon as={MdEdit} fontSize={9} color="gray.3" />
-                      <Text color="gray.3" fontWeight={500} fontSize={10}>
-                        Edit
-                      </Text>
-                    </Button>
+                    <EditButton styles={{ gap: 10 }} label="Edit" onClick={() => null} />
                   </HStack>
                 </VStack>
                 {card.description && (
@@ -106,9 +94,9 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
                       Attachments
                     </Text>
                   </HStack>
-                  {card.attachments.map((attachment) => {
-                    return <CardAttachment attachment={attachment} key={attachment.id} />;
-                  })}
+                  {card.attachments.map((attachment) => (
+                    <CardAttachment attachment={attachment} key={attachment.id} />
+                  ))}
                 </VStack>
               )}
             </VStack>
