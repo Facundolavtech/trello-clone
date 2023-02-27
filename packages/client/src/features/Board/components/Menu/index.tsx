@@ -14,6 +14,7 @@ import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import DeleteBoardMemberDialog from '../DeleteMemberDialog';
 import Avatar from '../../../../components/Avatar';
+import EditButton from '../../../../components/Buttons/Edit';
 
 const BoardMenu = () => {
   const { isOpen, onClose } = useBoardContext();
@@ -82,14 +83,7 @@ const BoardMenu = () => {
                     Description
                   </Text>
                 </HStack>
-                {userIsBoardAdmin(board?.admin.id, user.id) && (
-                  <Button height="24px" width="62px" variant="outline" gap="10px">
-                    <Icon as={MdEdit} fontSize={9} color="gray.3" />
-                    <Text color="gray.3" fontWeight={500} fontSize={10}>
-                      Edit
-                    </Text>
-                  </Button>
-                )}
+                {userIsBoardAdmin(board?.admin.id, user.id) && <EditButton styles={{ gap: 10 }} label="Edit" onClick={() => null} />}
               </HStack>
               <Box>
                 <Text color="black" fontFamily={FontFamily.NotoSans} fontSize={14}>
