@@ -11,21 +11,19 @@ import Loading from './Loading';
 const BoardMembers = () => {
   const boardId = useBoardIdFromRoute();
 
-  const { data: board, isLoading } = useBoard({ id: boardId });
+  const { data: board } = useBoard({ id: boardId });
   const { data: user } = useUserProfile();
 
-  if (isLoading) {
-    return <Loading />;
+  if (board && user) {
+    return (
+      <HStack spacing="16px">
+        <MemberList members={sortArr(board.members, 'createdAt')} maxMembers={4} />
+        {userIsBoardAdmin(board.admin.id, user.id) && <AddButton onClick={() => null} />}
+      </HStack>
+    );
   }
 
-  if (!board || !user) return null;
-
-  return (
-    <HStack spacing="16px">
-      <MemberList members={sortArr(board.members, 'createdAt')} maxMembers={4} />
-      {userIsBoardAdmin(board.admin.id, user.id) && <AddButton onClick={() => null} />}
-    </HStack>
-  );
+  return <Loading />;
 };
 
 export default BoardMembers;
