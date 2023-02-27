@@ -16,8 +16,8 @@ html {
 }
 
 .custom__scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 .custom__scrollbar::-webkit-scrollbar-track {
@@ -26,10 +26,16 @@ html {
 
 .custom__scrollbar::-webkit-scrollbar-thumb {
   background: #2f80ed;
-  border-radius: 9999px;
   background-clip: padding-box;
+  border-radius: 9999px;
 }
 
 .custom__scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(46, 129, 237, 0.8);
+}
+
+.preventTextOverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
