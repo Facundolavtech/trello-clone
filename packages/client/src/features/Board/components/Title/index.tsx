@@ -7,24 +7,24 @@ import Loading from './Loading';
 const BoardTitle = () => {
   const boardId = useBoardIdFromRoute();
 
-  const { error, isLoading, data: board } = useBoard({ id: boardId });
+  const { error, data: board } = useBoard({ id: boardId });
 
   if (error) {
     return <Box width="60px" />;
   }
 
-  if (isLoading || !board) {
-    return <Loading />;
+  if (board) {
+    return (
+      <>
+        <Heading maxWidth="120px" className="preventTextOverflow" color="gray.1" fontSize={18} fontWeight={500}>
+          {board.title}
+        </Heading>
+        <Divider orientation="vertical" height={(HeaderStyles.height * 50) / 100} color="#df4d4d" />
+      </>
+    );
   }
 
-  return (
-    <>
-      <Heading color="gray.1" fontSize={18} fontWeight={500}>
-        {board.title}
-      </Heading>
-      <Divider orientation="vertical" height={(HeaderStyles.height * 50) / 100} color="#df4d4d" />
-    </>
-  );
+  return <Loading />;
 };
 
 export default BoardTitle;
