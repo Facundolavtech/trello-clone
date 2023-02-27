@@ -1,5 +1,5 @@
 import { FC, CSSProperties } from 'react';
-import { Avatar as ChakraAvatar, ResponsiveValue } from '@chakra-ui/react';
+import { Avatar as ChakraAvatar, forwardRef, ResponsiveValue } from '@chakra-ui/react';
 
 type Props = {
   size?: ResponsiveValue<(string & {}) | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full' | '2xs' | 'xs'>;
@@ -10,6 +10,7 @@ type Props = {
   width?: string | number;
   height?: string | number;
   style?: CSSProperties;
+  ref?: any;
 };
 
 const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', getInitials, style }) => {
@@ -28,5 +29,23 @@ const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '3
     />
   );
 };
+
+export const AvatarWithRef: FC<Props> = forwardRef(({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', getInitials, style }, ref) => {
+  return (
+    <ChakraAvatar
+      ref={ref}
+      size={size}
+      src={src || ''}
+      bg={src ? 'transparent' : 'gray.4'}
+      color={color}
+      name={name}
+      width={width}
+      getInitials={getInitials}
+      height={height}
+      borderRadius="8px"
+      style={style}
+    />
+  );
+});
 
 export default Avatar;
