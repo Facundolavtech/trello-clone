@@ -16,7 +16,9 @@ export class BoardCardService {
       members: [member],
     });
 
-    return await this.cardRepository.save(newCard);
+    const { id } = await this.cardRepository.save(newCard);
+
+    return await this.findById(id, ['members', 'labels', 'comments', 'attachments']);
   }
 
   async update(id: string, updateDTO: UpdateCardDTO): Promise<BoardCard> {
@@ -31,19 +33,19 @@ export class BoardCardService {
     return updatedCard.raw[0];
   }
 
-  async findAll(boardId: string): Promise<BoardCard[]> {
+  async findAll(boardId: string, relations?: string[]): Promise<BoardCard[]> {
     return await this.cardRepository.find({
       where: { board: { id: boardId } },
-      relations: ['members', 'attachments', 'labels', 'comments'],
+      relations,
     });
   }
 
-  async findById(id: string): Promise<BoardCard> {
-    return await this.cardRepository.findOne({ where: { id } });
+  async findById(id: string, relations?: string[]): Promise<BoardCard> {
+    return await this.cardRepository.findOne({ where: { id }, relations });
   }
 
-  async findByQuery(query: FindOptionsWhere<BoardCard>): Promise<BoardCard> {
-    return await this.cardRepository.findOne({ where: query });
+  async findByQuery(query: FindOptionsWhere<BoardCard>, relations?: string[]): Promise<BoardCard> {
+    return await this.cardRepository.findOne({ where: query, relations });
   }
 
   async updateMembers(card: BoardCard, boardMember: BoardMember, action: 'add' | 'delete'): Promise<BoardCard> {
