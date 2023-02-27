@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import http from '../../../config/http';
 import { ApiRoutes } from '../../../config/routes';
 import { BoardVisibility, IBoard } from '../../../models/board.model';
