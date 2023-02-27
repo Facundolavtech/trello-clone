@@ -1,6 +1,7 @@
 import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { IBoardListCard } from '../../../../models/board-list.model';
+import sortArr from '../../../../utils/sortArr';
 import Card from '../Card';
 
 type Props = {
@@ -10,11 +11,9 @@ type Props = {
 const Cards: FC<Props> = ({ cards }) => {
   return (
     <VStack width="full" spacing="24px">
-      {cards
-        .sort((a, b) => a.createdAt - b.createdAt)
-        .map((card) => {
-          return <Card key={card.id} card={card} />;
-        })}
+      {sortArr(cards, 'createdAt').map((card) => (
+        <Card key={card.id} card={card} />
+      ))}
     </VStack>
   );
 };
