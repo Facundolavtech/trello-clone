@@ -12,11 +12,10 @@ const BoardPrivacyMenuItem: FC<Props> = ({ onClick, children, disabled }) => {
     <MenuItem
       width="full"
       height="58px"
-      isDisabled={disabled}
       padding="12px"
       borderRadius="8px"
-      _active={{}}
-      _hover={!disabled ? { cursor: 'pointer', backgroundColor: 'lightgray.1' } : {}}
+      isDisabled={disabled}
+      _hover={!disabled ? { cursor: 'pointer', backgroundColor: 'lightgray.1' } : undefined}
       onClick={onClick}
     >
       {children}
