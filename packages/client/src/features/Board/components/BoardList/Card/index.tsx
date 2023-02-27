@@ -19,7 +19,7 @@ const BoardCard: FC<Props> = ({ board }) => {
       <VStack spacing="21px">
         <VStack spacing="12px" width="full" alignItems="flex-start">
           <Image width="full" height="130px" objectFit="cover" borderRadius={8} src={board.cover} alt={`${board.title} board image`} />
-          <Heading fontWeight={500} color="black" fontFamily={FontFamily.NotoSans} fontSize={16}>
+          <Heading width="full" className="preventTextOverflow" fontWeight={500} color="black" fontFamily={FontFamily.NotoSans} fontSize={16}>
             {board.title}
           </Heading>
         </VStack>
