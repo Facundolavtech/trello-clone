@@ -29,28 +29,26 @@ const Card: FC<Props> = ({ card }) => {
     <CustomCard variant="board-card" width="full" onClick={onCardClick}>
       <VStack spacing="12px" alignItems="flex-start">
         {card.cover && <Image src={card.cover} alt={`${card.title} cover`} width="full" height="130px" borderRadius="12px" objectFit="cover" />}
-        <Heading fontSize={16} fontWeight={400} fontFamily={FontFamily.NotoSans}>
+        <Heading fontSize={16} fontWeight={400} fontFamily={FontFamily.NotoSans} width="full" className="preventTextOverflow">
           {card.title}
         </Heading>
         <Wrap>
-          {card.labels.map((label) => {
-            return (
-              <WrapItem
-                key={label.id}
-                height="18px"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                px={2}
-                borderRadius="8px"
-                backgroundColor={`${label.color}40`}
-              >
-                <Text fontSize={10} fontWeight={500} textTransform="capitalize" fontFamily={FontFamily.NotoSans} color={label.color}>
-                  {capitalizeFirstLetter(label.name)}
-                </Text>
-              </WrapItem>
-            );
-          })}
+          {card.labels.map((label) => (
+            <WrapItem
+              key={label.id}
+              height="18px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              px={2}
+              borderRadius="8px"
+              backgroundColor={`${label.color}40`}
+            >
+              <Text fontSize={10} fontWeight={500} textTransform="capitalize" fontFamily={FontFamily.NotoSans} color={label.color}>
+                {capitalizeFirstLetter(label.name)}
+              </Text>
+            </WrapItem>
+          ))}
         </Wrap>
         <HStack width="full" justifyContent="space-between">
           <HStack spacing="12px">
@@ -59,9 +57,7 @@ const Card: FC<Props> = ({ card }) => {
                 {sortArr(card.members, 'createdAt')
                   .slice(0, 2)
                   .map((member) => (
-                    <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
-                      <Avatar src={member.user.picture} name={member.user.name} width="28px" height="28px" />
-                    </Tooltip>
+                    <Avatar key={member.id} src={member.user.picture} name={member.user.name} width="28px" height="28px" />
                   ))}
                 {card.members.length > 2 && (
                   <Text fontWeight={500} fontFamily={FontFamily.NotoSans} color="gray.4" fontSize={12}>
