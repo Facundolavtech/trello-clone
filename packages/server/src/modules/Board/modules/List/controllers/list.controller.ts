@@ -28,9 +28,7 @@ export class BoardListController {
       throw new BadRequestException('A list already exists with this name');
     }
 
-    const createResult = await this.boardListService.create(boardId, createDTO);
-
-    return await this.boardListService.findById(createResult.id, ['cards', 'cards.members']);
+    return await this.boardListService.create(boardId, createDTO);
   }
 
   @HttpCode(HttpStatus.OK)
