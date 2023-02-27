@@ -9,7 +9,7 @@ import { BoardCardLabel } from '../modules/Label/entities/Label.entity';
 
 @Entity('BoardCard')
 export class BoardCard extends BaseEntity {
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   title: string;
 
   @Column({ nullable: true, default: null })
