@@ -15,7 +15,7 @@ const CardAttachment: FC<Props> = ({ attachment }) => {
   return (
     <HStack width="full" justifyContent="flex-start" spacing="13px">
       <Avatar
-        src={attachment.url || ''}
+        src={attachment.url}
         style={{ background: attachment.type.startsWith('image') ? 'transparent' : 'gray.5', objectFit: 'cover', color: 'gray.2' }}
         name={attachment.name}
         getInitials={(name) => name.slice(0, 2)}
