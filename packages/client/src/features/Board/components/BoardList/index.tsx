@@ -5,23 +5,23 @@ import Error from './Error';
 import useBoards from '../../hooks/useBoards';
 
 const BoardList = () => {
-  const { isLoading, error, data: boards } = useBoards();
+  const { data: boards, error } = useBoards();
 
   if (error) {
     return <Error />;
   }
 
-  if (isLoading || !boards) {
-    return <Loading />;
+  if (boards) {
+    return (
+      <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
+        {boards.map((board) => (
+          <BoardCard key={board.id} board={board} />
+        ))}
+      </SimpleGrid>
+    );
   }
 
-  return (
-    <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
-      {boards.map((board) => (
-        <BoardCard key={board.id} board={board} />
-      ))}
-    </SimpleGrid>
-  );
+  return <Loading />;
 };
 
 export default BoardList;
