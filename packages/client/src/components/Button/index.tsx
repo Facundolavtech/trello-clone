@@ -10,7 +10,7 @@ type Props = {
   type?: 'button' | 'submit';
   px?: number;
   py?: number;
-  variant: 'primary' | 'lightgray' | 'outline' | 'link' | 'submit' | 'delete';
+  variant: ButtonVariant;
   fontFamily?: FontFamily;
   fontWeight?: number;
   disabled?: boolean;
@@ -19,6 +19,8 @@ type Props = {
   onClick?: (params: any) => any;
   [x: string]: any;
 };
+
+export type ButtonVariant = 'primary' | 'lightgray' | 'outline' | 'link' | 'submit' | 'delete';
 
 const Button: FC<Props> = forwardRef(
   (
