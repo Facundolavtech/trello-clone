@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Heading, VStack, Flex, Box } from '@chakra-ui/react';
+import { VStack, Flex, Box } from '@chakra-ui/react';
 import { IBoardList } from '../../../../models/board-list.model';
 import Cards from '../../../BoardCard/components/Cards';
-import ListOptionsMenu from '../OptionsMenu';
+import OptionsMenu from '../OptionsMenu';
 import CreateCardMenu from '../../../BoardCard/components/CreateMenu';
+import Title from './Title';
 
 type Props = {
   list: IBoardList;
@@ -36,10 +37,8 @@ const List: FC<Props> = ({ list }) => {
       <VStack spacing="28px" alignItems="flex-start" width="full" px="6px">
         <VStack spacing="17px" alignItems="flex-start" width="full">
           <Flex width="full" justifyContent="space-between" alignItems="center">
-            <Heading color="gray.1" fontWeight={500} fontSize={14}>
-              {list.name}
-            </Heading>
-            <ListOptionsMenu list={list} />
+            <Title title={list.name} />
+            <OptionsMenu list={list} />
           </Flex>
           <Cards cards={list.cards} />
         </VStack>
