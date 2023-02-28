@@ -11,20 +11,9 @@ const useCreateBoard = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  return useMutation((params: ICreateBoardParams) => createBoard(params), {
+  const mutation = useMutation((params: ICreateBoardParams) => createBoard(params), {
     mutationKey: ['board/create'],
-    onSuccess: async (data: IBoard) => {
-      const boardById = await queryClient.fetchQuery({
-        queryKey: [`board/${data.id}`],
-        queryFn: () => getBoardById(data.id),
-      });
-
-      queryClient.setQueryData(['boards/all'], (oldData: IBoard[] | undefined) => {
-        return oldData ? [...oldData, boardById] : oldData;
-      });
-
-      router.push(`${AppRoutes.BOARD}/${boardById.id}`);
-    },
+    onSuccess: async (data: IBoard) => await onSuccess(data),
     onError: (err: AxiosError<any>) => {
       if (err.response?.data.code !== 'TokenExpiredError') {
         toast({
@@ -38,6 +27,21 @@ const useCreateBoard = () => {
       }
     },
   });
+
+  const onSuccess = async (board: IBoard) => {
+    const boardById = await queryClient.fetchQuery({
+      queryKey: [`board/${board.id}`],
+      queryFn: () => getBoardById(board.id),
+    });
+
+    queryClient.setQueryData(['boards/all'], (oldData: IBoard[] | undefined) => {
+      return oldData ? [...oldData, boardById] : oldData;
+    });
+
+    router.push(`${AppRoutes.BOARD}/${boardById.id}`);
+  };
+
+  return mutation;
 };
 
 export default useCreateBoard;

@@ -11,13 +11,9 @@ const useUpdateBoard = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  return useMutation((params: IUpdateBoardParams) => updateBoard(params), {
+  const mutation = useMutation((params: IUpdateBoardParams) => updateBoard(params), {
     mutationKey: [`board/${boardId}/update`],
-    onSuccess: (data: IBoard) => {
-      queryClient.setQueryData([`board/${boardId}`], (oldData: IBoard | undefined) => {
-        return updateQueryData(oldData, data);
-      });
-    },
+    onSuccess: (data: IBoard) => onSuccess(data),
     onError: (err: AxiosError<any>) => {
       if (err.response?.data.code !== 'TokenExpiredError') {
         toast({
@@ -31,6 +27,14 @@ const useUpdateBoard = () => {
       }
     },
   });
+
+  const onSuccess = (board: IBoard) => {
+    queryClient.setQueryData([`board/${boardId}`], (oldData: IBoard | undefined) => {
+      return updateQueryData(oldData, board);
+    });
+  };
+
+  return mutation;
 };
 
 export default useUpdateBoard;

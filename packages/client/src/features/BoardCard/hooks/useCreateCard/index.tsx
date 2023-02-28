@@ -13,10 +13,9 @@ const useCreateCard = ({ boardId }: Props) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  return useMutation((params: ICreateCardParams) => createCard(params), {
+  const mutation = useMutation((params: ICreateCardParams) => createCard(params), {
     mutationKey: [`board/${boardId}/lists/create`],
-    onSuccess: async (data: IBoardCard) => await addCardToList(data),
-
+    onSuccess: async (data: IBoardCard) => await onSuccess(data),
     onError: (err: AxiosError<any>) => {
       if (err.response?.data.code !== 'TokenExpiredError') {
         toast({
@@ -31,8 +30,8 @@ const useCreateCard = ({ boardId }: Props) => {
     },
   });
 
-  async function addCardToList(card: IBoardCard) {
-    const lists = await queryClient.getQueryData<IBoardList[]>([`board/${boardId}/lists`]);
+  const onSuccess = (card: IBoardCard) => {
+    const lists = queryClient.getQueryData<IBoardList[]>([`board/${boardId}/lists`]);
     if (!lists) return;
 
     const listToUpdateIndex = lists.findIndex((l) => l.id === card.listId);
@@ -48,7 +47,9 @@ const useCreateCard = ({ boardId }: Props) => {
 
       queryClient.setQueryData([`board/${boardId}/lists`], updatedLists);
     }
-  }
+  };
+
+  return mutation;
 };
 
 export default useCreateCard;

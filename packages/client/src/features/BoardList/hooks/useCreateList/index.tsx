@@ -12,13 +12,9 @@ const useCreateList = ({ boardId }: Props) => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  return useMutation((params: ICreateListParams) => createList(params), {
+  const mutation = useMutation((params: ICreateListParams) => createList(params), {
     mutationKey: [`board/${boardId}/lists/create`],
-    onSuccess: async (data: IBoardList) => {
-      queryClient.setQueryData([`board/${boardId}/lists`], (oldData?: IBoardList[]) => {
-        return oldData ? [...oldData, data] : oldData;
-      });
-    },
+    onSuccess: async (data: IBoardList) => onSuccess(data),
     onError: (err: AxiosError<any>) => {
       if (err.response?.data.code !== 'TokenExpiredError') {
         toast({
@@ -32,6 +28,14 @@ const useCreateList = ({ boardId }: Props) => {
       }
     },
   });
+
+  const onSuccess = (list: IBoardList) => {
+    queryClient.setQueryData([`board/${boardId}/lists`], (oldData?: IBoardList[]) => {
+      return oldData ? [...oldData, list] : oldData;
+    });
+  };
+
+  return mutation;
 };
 
 export default useCreateList;
