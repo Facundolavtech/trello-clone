@@ -1,13 +1,12 @@
 import { FC } from 'react';
-import { Input, Text, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import React from 'react';
-import Button from '../../../../../components/Button';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
-import { FontFamily } from '../../../../../theme/constants';
 import useCreateBoardList from '../../../hooks/useCreateList';
 import { CreateListSchema } from '../../../validations';
 import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
+import SubmitButton from '../Buttons/Submit';
+import TitleInput from './TitleInput';
 
 interface ICreateListFormValues {
   name: string;
@@ -17,7 +16,7 @@ type Props = {
   onClose: () => void;
 };
 
-const CreateListForm: FC<Props> = ({ onClose }) => {
+const Form: FC<Props> = ({ onClose }) => {
   const boardId = useBoardIdFromRoute();
 
   const createBoardListMutation = useCreateBoardList({ boardId });
@@ -52,34 +51,12 @@ const CreateListForm: FC<Props> = ({ onClose }) => {
       alignItems="flex-start"
     >
       <VStack width="full" spacing={2} alignItems="flex-start">
-        <Input
-          disabled={createBoardListMutation.isLoading}
-          name="name"
-          value={formik.values.name}
-          type="text"
-          onChange={formik.handleChange}
-          variant="unstyled"
-          fontSize={14}
-          _placeholder={{ fontFamily: FontFamily.NotoSans, color: 'gray.4', fontSize: 14, fontWeight: 500 }}
-          placeholder="Enter a title for this list..."
-        />
+        <TitleInput disabled={createBoardListMutation.isLoading} onChange={formik.handleChange} value={formik.values.name} />
         {formik.errors.name && <FormErrorMessage>{formik.errors.name}</FormErrorMessage>}
       </VStack>
-      <Button
-        loading={createBoardListMutation.isLoading}
-        disabled={createBoardListMutation.isLoading}
-        width="49px"
-        height="23px"
-        variant="submit"
-        type="submit"
-        onClick={formik.handleSubmit}
-      >
-        <Text fontSize={10} fontFamily={FontFamily.NotoSans} fontWeight={500} color="white">
-          Save
-        </Text>
-      </Button>
+      <SubmitButton isLoading={createBoardListMutation.isLoading} onClick={formik.handleSubmit} />
     </VStack>
   );
 };
 
-export default CreateListForm;
+export default Form;

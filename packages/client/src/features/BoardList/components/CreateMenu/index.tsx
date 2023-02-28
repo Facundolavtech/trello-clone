@@ -1,6 +1,6 @@
 import { Menu as ChakraMenu, MenuList } from '@chakra-ui/react';
-import CreateListForm from './Form';
-import CreateListMenuButton from './OpenButton';
+import Form from './Form';
+import OpenButton from './Buttons/Open';
 
 const CreateListMenu = () => {
   return (
@@ -17,9 +17,9 @@ const CreateListMenu = () => {
             borderWidth={1}
             borderColor="gray.5"
           >
-            <CreateListForm onClose={onClose} />
+            <Form onClose={onClose} />
           </MenuList>
-          <CreateListMenuButton />
+          <OpenButton />
         </>
       )}
     </ChakraMenu>
