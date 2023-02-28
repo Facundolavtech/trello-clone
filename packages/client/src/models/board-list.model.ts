@@ -1,3 +1,5 @@
+import { IBoardMember } from './board.model';
+
 export interface IBoardListCard {
   id: string;
   createdAt: number;
@@ -13,7 +15,7 @@ export interface IBoardListCard {
   comments: IBoardListCardComment[];
 }
 
-interface IBoardListCardLabel {
+export interface IBoardListCardLabel {
   id: string;
   createdAt: number;
   updatedAt: number;
@@ -22,28 +24,11 @@ interface IBoardListCardLabel {
   cardId: string;
 }
 
-interface IBoardListCardComment {}
+export interface IBoardListCardComment {}
 
-interface IBoardListCardAttachment {}
+export interface IBoardListCardAttachment {}
 
-interface IBoardListCardMember {
-  id: string;
-  createdAt: number;
-  updatedAt: number;
-  user: IBoardListCardMemberUser;
-}
-
-interface IBoardListCardMemberUser {
-  id: string;
-  createdAt: number;
-  updatedAt: number;
-  provider: string;
-  providerId: any;
-  email: string;
-  name: string;
-  username: string;
-  picture: any;
-}
+export interface IBoardListCardMember extends IBoardMember {}
 
 export interface IBoardList {
   id: string;
