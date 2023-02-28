@@ -1,9 +1,9 @@
 import { Icon, MenuButton as ChakraMenuButton, Text } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button from '../../../../../components/Button';
-import { FontFamily } from '../../../../../theme/constants';
+import Button from '../../../../../../components/Button';
+import { FontFamily } from '../../../../../../theme/constants';
 
-const CreateListMenuButton = () => {
+const OpenButton = () => {
   return (
     <ChakraMenuButton>
       <Button as="div" minWidth="244px" height="32px" variant="primary" style={{ background: '#DAE4FD', justifyContent: 'space-between' }}>
@@ -16,4 +16,4 @@ const CreateListMenuButton = () => {
   );
 };
 
-export default CreateListMenuButton;
+export default OpenButton;
