@@ -47,14 +47,14 @@ export async function updateBoard(params: IUpdateBoardParams): Promise<IBoard> {
   return response.data;
 }
 
-export async function adBoardMember(params: IAddBoardMemberParams): Promise<IBoard> {
+export async function addMember(params: IAddBoardMemberParams): Promise<IBoard> {
   const { userId, id } = params;
 
   const response: AxiosResponse<IBoard> = await http.api.post(`${ApiRoutes.BOARD}/${id}/members/add`, { userId });
   return response.data;
 }
 
-export async function deleteBoardMember(params: IDeleteBoardMemberParams): Promise<IBoard> {
+export async function deleteMember(params: IDeleteBoardMemberParams): Promise<IBoard> {
   const { userId, id } = params;
 
   const payload = { userId };
