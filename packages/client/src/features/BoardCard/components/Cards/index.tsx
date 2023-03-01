@@ -1,5 +1,5 @@
-import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
+import { VStack } from '@chakra-ui/react';
 import { IBoardListCard } from '../../../../models/board-list.model';
 import sortArr from '../../../../utils/sortArr';
 import Card from '../Card';
