@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { deleteBoardMember, IDeleteBoardMemberParams } from '../../services/board.service';
+import { deleteMember, IDeleteBoardMemberParams } from '../../services/board.service';
 import useBoardIdFromRoute from '../useBoardIdFromRoute';
 
 const useDeleteBoardMember = () => {
@@ -9,11 +9,8 @@ const useDeleteBoardMember = () => {
   const toast = useToast();
   const boardId = useBoardIdFromRoute();
 
-  return useMutation((params: IDeleteBoardMemberParams) => deleteBoardMember(params), {
-    onSuccess: async () => {
-      await queryClient.invalidateQueries([`board/${boardId}`]);
-      await queryClient.invalidateQueries([`board/${boardId}/lists`]);
-    },
+  const mutation = useMutation((params: IDeleteBoardMemberParams) => deleteMember(params), {
+    onSuccess: async () => await onSuccess(),
     onError: (err: AxiosError<any>) => {
       if (err.response?.data.code !== 'TokenExpiredError') {
         toast({
@@ -27,6 +24,13 @@ const useDeleteBoardMember = () => {
       }
     },
   });
+
+  const onSuccess = async () => {
+    await queryClient.invalidateQueries([`board/${boardId}`]);
+    await queryClient.invalidateQueries([`board/${boardId}/lists`]);
+  };
+
+  return mutation;
 };
 
 export default useDeleteBoardMember;
