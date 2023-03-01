@@ -68,14 +68,14 @@ const useAuthMethods = () => {
     router.push(AppRoutes.LOGIN);
   };
 
-  const loginSocialIsMutatingValue = useIsMutating(['auth/social']);
+  const loginSocialIsMutating = useIsMutating(['auth/social']) > 0;
 
   return {
     loginSocialMutation,
     loginLocalMutation,
     registerLocalMutation,
     logout,
-    loginSocialIsMutating: loginSocialIsMutatingValue > 0,
+    loginSocialIsMutating,
   };
 };
 
