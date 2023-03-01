@@ -28,12 +28,12 @@ const Team: FC<Props> = ({ admin, members, canDeleteMembers }) => {
               Admin
             </Text>
           </Box>
-          {members
-            .filter((member) => member.user.id !== admin.id)
-            .map((member) => (
-              <TeamMember admin={admin} member={member} key={member.id} canDelete={canDeleteMembers} />
-            ))}
         </HStack>
+        {members
+          .filter((member) => member.user.id !== admin.id)
+          .map((member) => (
+            <TeamMember admin={admin} member={member} key={member.id} canDelete={canDeleteMembers} />
+          ))}
       </VStack>
     </VStack>
   );
