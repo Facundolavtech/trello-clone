@@ -1,17 +1,24 @@
+import { FC } from 'react';
 import { VStack, SimpleGrid, HStack } from '@chakra-ui/react';
 import EditButton from '../../../../../components/Buttons/Edit';
 import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 import useCard from '../../../hooks/useCard';
 import useCardList from '../../../hooks/useCardList';
 import Attachments from '../Attachments';
+import Comments from '../Comments';
 import Cover from '../Cover';
 import DescriptionContent from '../Description/Content';
 import DescriptionTitle from '../Description/Title';
 import Error from '../Error';
 import Loading from '../Loading';
+import Sidepanel from '../Sidepanel';
 import Title from '../Title';
 
-const Content = ({ cardId }) => {
+type Props = {
+  cardId: string;
+};
+
+const Content: FC<Props> = ({ cardId }) => {
   const boardId = useBoardIdFromRoute();
   const { data: card, error } = useCard({ id: cardId });
   const list = useCardList({ cardId, boardId });
@@ -24,7 +31,7 @@ const Content = ({ cardId }) => {
     return (
       <VStack spacing="25px" width="full">
         {card.cover && <Cover src={card.cover} />}
-        <SimpleGrid width="full" columns={{ base: 1, md: 2 }} templateColumns="2fr 1fr" spacing="23px">
+        <SimpleGrid width="full" columns={{ base: 1, md: 2 }} templateColumns="3fr 1fr" spacing="23px">
           <VStack spacing="25px" width="full" alignItems="flex-start">
             <VStack spacing="11px" width="full" alignItems="flex-start">
               <VStack spacing="23px" alignItems="flex-start" width="full">
@@ -36,8 +43,10 @@ const Content = ({ cardId }) => {
               </VStack>
               <DescriptionContent description={card.description} />
             </VStack>
-            {card.attachments.length > 0 && <Attachments attachments={card.attachments} />}
+            <Attachments attachments={card.attachments} />
+            <Comments comments={card.comments} />
           </VStack>
+          <Sidepanel />
         </SimpleGrid>
       </VStack>
     );
