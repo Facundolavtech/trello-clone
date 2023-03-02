@@ -6,6 +6,7 @@ type Props = {
   src?: string | null;
   getInitials?: ((name: string) => string) | undefined;
   color?: string;
+  bg?: string;
   name: string;
   width?: string | number;
   height?: string | number;
@@ -13,12 +14,12 @@ type Props = {
   ref?: any;
 };
 
-const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', getInitials, style }) => {
+const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', bg, getInitials, style }) => {
   return (
     <ChakraAvatar
       size={size}
       src={src || ''}
-      bg={src ? 'transparent' : 'gray.4'}
+      bg={bg ? bg : src ? 'transparent' : 'gray.4'}
       color={color}
       name={name}
       width={width}
@@ -30,13 +31,13 @@ const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '3
   );
 };
 
-export const AvatarWithRef: FC<Props> = forwardRef(({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', getInitials, style }, ref) => {
+export const AvatarWithRef: FC<Props> = forwardRef(({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', bg, getInitials, style }, ref) => {
   return (
     <ChakraAvatar
       ref={ref}
       size={size}
       src={src || ''}
-      bg={src ? 'transparent' : 'gray.4'}
+      bg={bg ? bg : src ? 'transparent' : 'gray.4'}
       color={color}
       name={name}
       width={width}
