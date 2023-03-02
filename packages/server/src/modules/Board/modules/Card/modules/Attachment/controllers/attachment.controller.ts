@@ -17,6 +17,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EmptyBodyInterceptor } from '../../../../../../../common/interceptors/empty-body.interceptor';
+import { FileUploadPipe } from '../../../../../../../common/pipes/file-upload.pipe';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardExistGuard } from '../../../../../guards/board-exist.guard';
@@ -34,16 +35,7 @@ export class CardAttachmentController {
   @UseInterceptors(EmptyBodyInterceptor, FileInterceptor('file'))
   async uploadFile(
     @Param('cardId', CustomUUIDPipe) cardId: string,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 1000000 }),
-          new FileTypeValidator({
-            fileType: /(\.|\/)(gif|jpg|jpeg|txt|png|pdf|json)$/g,
-          }),
-        ],
-      })
-    )
+    @UploadedFile(new FileUploadPipe())
     file: Express.Multer.File
   ) {
     const cardById = await this.boardCardService.findById(cardId);
