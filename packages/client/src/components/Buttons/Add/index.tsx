@@ -12,11 +12,12 @@ type Props = {
   iconStyles?: CSSProperties;
   label?: string;
   labelStyles?: CSSProperties;
+  [x: string]: any;
 };
 
-const AddButton: FC<Props> = ({ onClick, width = '32px', height = '32px', variant = 'primary', styles, iconStyles, label, labelStyles }) => {
+const AddButton: FC<Props> = ({ onClick, width = '32px', height = '32px', variant = 'primary', styles, iconStyles, label, labelStyles, ...rest }) => {
   return (
-    <Button variant={variant} width={width} height={height} onClick={onClick} style={styles}>
+    <Button variant={variant} width={width} height={height} onClick={onClick} style={styles} {...rest}>
       <Icon as={AiOutlinePlus} color="white" style={iconStyles} />
       {label && (
         <Text color="white" style={labelStyles}>
