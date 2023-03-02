@@ -1,5 +1,6 @@
 import { HStack, VStack } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import CustomCard from '../../../../components/Card';
 import { AppRoutes } from '../../../../config/routes';
@@ -17,10 +18,11 @@ type Props = {
 };
 
 const Card: FC<Props> = ({ card }) => {
+  const router = useRouter();
+
   const onCardClick = () => {
-    if (typeof window === 'undefined') return;
+    router.replace(`${AppRoutes.BOARD}/${card.boardId}/c/${card.id}`, undefined, { shallow: true });
     NiceModal.show(CardPage, { cardId: card.id });
-    window.history.pushState(null, card.id, `${AppRoutes.BOARD}/${card.boardId}/c/${card.id}`);
   };
 
   return (
