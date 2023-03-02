@@ -17,4 +17,7 @@ export default {
       path: '/',
     } as OptionsType,
   },
+  Files: {
+    maxSize: 4194304, // 4MB,
+  },
 };
