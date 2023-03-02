@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { download } from '../../../../../services/card-attachment.service';
+import { downloadAttachment } from '../../../../../services/card-attachment.service';
 import DownloadButton from '../../Buttons/Download';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Download: FC<Props> = ({ url, name }) => {
-  return <DownloadButton onClick={() => download(url, name)} />;
+  return <DownloadButton onClick={() => downloadAttachment(url, name)} />;
 };
 
 export default Download;
