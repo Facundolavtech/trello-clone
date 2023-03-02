@@ -11,11 +11,13 @@ const Cover: FC<Props> = ({ url, type, name }) => {
   return (
     <Avatar
       src={url}
-      style={{ background: type.startsWith('image') ? 'transparent' : 'gray.5', objectFit: 'cover', color: 'gray.2' }}
+      bg={type.startsWith('image') ? 'transparent' : 'gray.5'}
       name={name}
       getInitials={(name) => name.slice(0, 2)}
       width="80px"
       height="53px"
+      color="gray.2"
+      style={{ objectFit: 'cover' }}
     />
   );
 };
