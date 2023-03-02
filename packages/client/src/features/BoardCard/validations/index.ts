@@ -8,3 +8,10 @@ export const CreateCardSchema = Yup.object().shape({
 });
 
 export const UpdateCardSchema = CreateCardSchema;
+
+export const CreateCommentSchema = Yup.object().shape({
+  content: Yup.string()
+    .min(6, 'The content must have a minimum of 6 characters')
+    .max(260, 'The content must have a maximum of 260 characters')
+    .required('The content is required'),
+});
