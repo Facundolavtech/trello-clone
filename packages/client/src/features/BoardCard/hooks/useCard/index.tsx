@@ -7,7 +7,7 @@ import { getCard } from '../../services/card.service';
 const useCard = ({ id }: { id: string }) => {
   const boardId = useBoardIdFromRoute();
 
-  return useQuery<IBoardCard, AxiosError<any>>([`boards/${boardId}/cards/${id}`], () => getCard(boardId, id));
+  return useQuery<IBoardCard, AxiosError<any>>([`board/${boardId}/cards/${id}`], () => getCard(boardId, id));
 };
 
 export default useCard;
