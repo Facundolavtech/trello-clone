@@ -23,7 +23,7 @@ export class CommentAuthorGuard implements CanActivate {
       throw new NotFoundException('The comment does not exists');
     }
 
-    const isCommentAuthor = commentById.author.userId === userId;
+    const isCommentAuthor = commentById.author.user.id === userId;
 
     if (!isCommentAuthor) {
       throw new UnauthorizedException('You do not have permissions to perform this action');
