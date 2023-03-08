@@ -4,17 +4,18 @@ import Delete from './Delete';
 import Edit from './Edit';
 
 type Props = {
-  commentId: string;
+  id: string;
+  content: string;
 };
 
-const Actions: FC<Props> = ({ commentId }) => {
+const Actions: FC<Props> = ({ id, content }) => {
   return (
     <HStack spacing="4px">
-      <Edit commentId={commentId} />
+      <Edit content={content} id={id} />
       <Text fontWeight={500} fontSize={10} color="gray.3">
         -
       </Text>
-      <Delete commentId={commentId} />
+      <Delete id={id} />
     </HStack>
   );
 };
