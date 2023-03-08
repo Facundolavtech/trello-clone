@@ -27,15 +27,15 @@ const Content: FC<Props> = ({ cardId }) => {
     return <Error error={error} />;
   }
 
-  if (card && list) {
+  if (card) {
     return (
-      <VStack spacing="25px" width="full">
+      <VStack spacing="25px" width="full" maxWidth="full">
         {card.cover && <Cover src={card.cover} />}
         <SimpleGrid width="full" columns={{ base: 1, md: 2 }} templateColumns="3fr 1fr" spacing="23px">
-          <VStack spacing="25px" width="full" alignItems="flex-start">
+          <VStack spacing="25px" width="full" overflowX="hidden" alignItems="flex-start">
             <VStack spacing="11px" width="full" alignItems="flex-start">
               <VStack spacing="23px" alignItems="flex-start" width="full">
-                <Title title={card.title} listName={list.name} />
+                <Title title={card.title} listName={list?.name} />
                 <HStack width="full" spacing="13px">
                   <DescriptionTitle />
                   <EditButton styles={{ gap: 10 }} label="Edit" onClick={() => null} />
