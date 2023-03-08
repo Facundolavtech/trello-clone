@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { HStack, Avatar, VStack, Text } from '@chakra-ui/react';
+import { HStack, VStack, Text } from '@chakra-ui/react';
 import { FontFamily } from '../../../../../../theme/constants';
 import { IBoardMember } from '../../../../../../models/board.model';
+import Avatar from '../../../../../../components/Avatar';
 
 type Props = {
   author: IBoardMember;
@@ -11,7 +12,7 @@ type Props = {
 const Information: FC<Props> = ({ author, createdDate }) => {
   return (
     <HStack width="full" spacing="12px" alignItems="center">
-      <Avatar src={author.user.picture || ''} name={author.user.name} width="32px" height="32px" />
+      <Avatar src={author.user.picture} name={author.user.name} width="32px" height="32px" />
       <VStack spacing="1px" alignItems="flex-start">
         <Text fontSize={12} fontWeight={500}>
           {author.user.name}
