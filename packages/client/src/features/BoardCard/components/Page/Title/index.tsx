@@ -4,7 +4,7 @@ import { FontFamily } from '../../../../../theme/constants';
 
 type Props = {
   title: string;
-  listName: string;
+  listName?: string;
 };
 
 const Title: FC<Props> = ({ title, listName }) => {
