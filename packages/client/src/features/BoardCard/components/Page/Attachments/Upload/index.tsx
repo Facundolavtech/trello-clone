@@ -20,7 +20,7 @@ const Upload = () => {
     const file: File = e.target.files[0];
 
     if (file.size > config.Files.maxSize) {
-      hiddenFileInput.current!.value = '';
+      hiddenFileInput.current && (hiddenFileInput.current.value = '');
 
       return toast({
         status: 'error',
@@ -35,7 +35,7 @@ const Upload = () => {
       await uploadMutation.mutateAsync({ boardId, cardId, file });
     } catch {
     } finally {
-      hiddenFileInput.current!.value = '';
+      hiddenFileInput.current && (hiddenFileInput.current.value = '');
     }
   };
 
