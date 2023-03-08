@@ -15,7 +15,7 @@ const useCardList = ({ cardId, boardId }: Props) => {
     if (!lists || !card) return null;
 
     return lists.find((l) => l.id === card.listId);
-  }, [card]);
+  }, [lists, card]);
 };
 
 export default useCardList;
