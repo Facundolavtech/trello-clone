@@ -23,7 +23,7 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
   return (
     <Modal isOpen={true} onClose={handleCloseModal} preserveScrollBarGap>
       <ModalOverlay backgroundColor="rgba(0,0,0,0.1)" />
-      <ModalContent position="relative" padding="24px" maxWidth={{ base: '90%', md: '661px' }} boxShadow="0px 2px 4px rgba(0, 0, 0, 0.05)" borderRadius="8px">
+      <ModalContent padding="24px" maxWidth={{ base: '90%', md: '661px' }} boxShadow="0px 2px 4px rgba(0, 0, 0, 0.05)" borderRadius="8px">
         <CloseButton onClick={handleCloseModal} />
         <Content cardId={cardId} />
       </ModalContent>
