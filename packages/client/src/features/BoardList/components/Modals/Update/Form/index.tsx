@@ -16,11 +16,11 @@ type Props = {
 
 const Form: FC<Props> = ({ onClose, listId, title }) => {
   const boardId = useBoardIdFromRoute();
-  const updateListMutation = useUpdateList({ boardId, listId });
+  const updateMutation = useUpdateList({ id: listId });
 
   const handleSubmit = async (values) => {
     try {
-      await updateListMutation.mutateAsync({ boardId, listId, ...values });
+      await updateMutation.mutateAsync({ boardId, listId, ...values });
 
       onClose();
     } catch {
@@ -33,9 +33,9 @@ const Form: FC<Props> = ({ onClose, listId, title }) => {
       {({ handleSubmit, handleChange, values, errors }) => (
         <FormikForm onSubmit={handleSubmit}>
           <VStack width="full" spacing={4} alignItems="flex-start">
-            <TitleInput isLoading={updateListMutation.isLoading} onChange={handleChange} value={values.name} />
+            <TitleInput isLoading={updateMutation.isLoading} onChange={handleChange} value={values.name} />
             {errors.name && <FormErrorMessage>{errors.name}</FormErrorMessage>}
-            <SubmitButton disabled={updateListMutation.isLoading || values.name === title} isLoading={updateListMutation.isLoading} onSubmit={handleSubmit} />
+            <SubmitButton disabled={updateMutation.isLoading || values.name === title} isLoading={updateMutation.isLoading} onSubmit={handleSubmit} />
           </VStack>
         </FormikForm>
       )}

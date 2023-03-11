@@ -16,12 +16,12 @@ const BoardPrivacyMenuItems = () => {
 
   if (!board) return null;
 
-  const updateBoardMutation = useUpdateBoard();
+  const updateMutation = useUpdateBoard();
 
   const handleBoardPrivacy = (visibility: BoardVisibility): void => {
     if (board.visibility === visibility) return;
 
-    updateBoardMutation.mutate({ id: boardId, visibility });
+    updateMutation.mutate({ id: boardId, visibility });
   };
 
   const isPrivate = board.visibility === 'private';

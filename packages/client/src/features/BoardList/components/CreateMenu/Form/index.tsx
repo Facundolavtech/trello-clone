@@ -19,7 +19,7 @@ type Props = {
 const Form: FC<Props> = ({ onClose }) => {
   const boardId = useBoardIdFromRoute();
 
-  const createBoardListMutation = useCreateBoardList({ boardId });
+  const createMutation = useCreateBoardList();
 
   const formik = useFormik<ICreateListFormValues>({
     initialValues: {
@@ -31,7 +31,7 @@ const Form: FC<Props> = ({ onClose }) => {
 
   const handleSubmit = async (values: ICreateListFormValues) => {
     try {
-      await createBoardListMutation.mutateAsync({ boardId, ...values });
+      await createMutation.mutateAsync({ boardId, ...values });
       formik.resetForm();
 
       onClose();
@@ -51,10 +51,10 @@ const Form: FC<Props> = ({ onClose }) => {
       alignItems="flex-start"
     >
       <VStack width="full" spacing={2} alignItems="flex-start">
-        <TitleInput disabled={createBoardListMutation.isLoading} onChange={formik.handleChange} value={formik.values.name} />
+        <TitleInput disabled={createMutation.isLoading} onChange={formik.handleChange} value={formik.values.name} />
         {formik.errors.name && <FormErrorMessage>{formik.errors.name}</FormErrorMessage>}
       </VStack>
-      <SubmitButton isLoading={createBoardListMutation.isLoading} onClick={formik.handleSubmit} />
+      <SubmitButton isLoading={createMutation.isLoading} onClick={formik.handleSubmit} />
     </VStack>
   );
 };

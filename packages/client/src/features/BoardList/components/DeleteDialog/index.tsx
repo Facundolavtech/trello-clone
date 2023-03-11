@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
 import AlertDialog from '../../../../components/AlertDialog';
 import Button from '../../../../components/Button';
@@ -13,11 +13,11 @@ type Props = {
 const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
   const boardId = useBoardIdFromRoute();
 
-  const deleteListMutation = useDeleteList({ boardId, listId });
+  const deleteMutation = useDeleteList({ id: listId });
 
   const handleDeleteList = async () => {
     try {
-      await deleteListMutation.mutateAsync({ boardId, listId });
+      await deleteMutation.mutateAsync({ boardId, listId });
 
       disclosure.onClose();
     } catch {
@@ -30,14 +30,14 @@ const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
       isOpen={disclosure.isOpen}
       onClose={disclosure.onClose}
       actionButton={
-        <Button variant="delete" height="32px" onClick={handleDeleteList} loading={deleteListMutation.isLoading} disabled={deleteListMutation.isLoading}>
+        <Button variant="delete" height="32px" onClick={handleDeleteList} loading={deleteMutation.isLoading} disabled={deleteMutation.isLoading}>
           <Text fontSize={12} color="white" fontWeight={500}>
             Delete
           </Text>
         </Button>
       }
       title="Delete list"
-      loading={deleteListMutation.isLoading}
+      loading={deleteMutation.isLoading}
       subtitle="Are you sure to want to delete this list? This action is irreversible"
     />
   );
