@@ -6,6 +6,7 @@ import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardCardService } from '../../../services/card.service';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
 import { BoardExistGuard } from '../../../../../guards/board-exist.guard';
+import capitalizeFirstLetter from '../../../../../../../utils/capitalizeFirstLetter';
 
 @UseGuards(AuthenticatedGuard, BoardExistGuard, BoardMemberGuard)
 @Controller('boards/:boardId/cards/:cardId/labels')
@@ -22,7 +23,7 @@ export class CardLabelController {
     }
 
     const labelByQuery = await this.cardLabelService.findOneByQuery({
-      name: createDTO.name,
+      name: capitalizeFirstLetter(createDTO.name),
       cardId,
     });
 
