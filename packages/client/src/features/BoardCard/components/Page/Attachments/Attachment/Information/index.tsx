@@ -10,7 +10,7 @@ type Props = {
 
 const Information: FC<Props> = ({ attachment }) => {
   return (
-    <VStack alignItems="flex-start" width="full">
+    <VStack alignItems="flex-start" width="full" spacing="1px">
       <CreatedDate createdAt={attachment.createdAt} />
       <Name name={attachment.name} />
     </VStack>
