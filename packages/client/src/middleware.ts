@@ -8,24 +8,14 @@ export async function middleware(req: NextRequest) {
 
   const token = req.cookies.get(config.Auth.CookieName);
 
-  const urlIsPrivate = privateRoutes.find((r) => {
-    if (req.url.includes(r)) {
-      return true;
-    }
-  });
+  const urlIsPrivate = privateRoutes.some((r) => req.url.includes(r));
 
-  const urlIsPublic = publicRoutes.find((r) => {
-    if (req.url.includes(r)) {
-      return true;
-    }
-  });
+  const urlIsPublic = publicRoutes.some((r) => req.url.includes(r));
 
   if (token) {
     if (urlIsPublic) {
       return NextResponse.redirect(`${origin}${AppRoutes.DASHBOARD}`);
     }
-
-    return response;
   } else {
     if (urlIsPrivate) {
       return NextResponse.redirect(`${origin}${AppRoutes.LOGIN}`);
