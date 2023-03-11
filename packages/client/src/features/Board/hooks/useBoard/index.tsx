@@ -3,7 +3,11 @@ import { AxiosError } from 'axios';
 import { IBoard } from '../../../../models/board.model';
 import { getBoardById } from '../../services/board.service';
 
-const useBoard = ({ id }: { id: string }) => {
+type Props = {
+  id: string;
+};
+
+const useBoard = ({ id }: Props) => {
   return useQuery<IBoard, AxiosError<any>>([`board/${id}`], () => getBoardById(id));
 };
 
