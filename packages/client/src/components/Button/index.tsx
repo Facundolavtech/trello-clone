@@ -1,11 +1,11 @@
 import { CSSProperties, FC, ReactNode, forwardRef } from 'react';
-import { Button as ChakraButton, As } from '@chakra-ui/react';
+import { Button as ChakraButton, As, ResponsiveValue } from '@chakra-ui/react';
 import { FontFamily } from '../../theme/constants';
 
 type Props = {
   children: ReactNode;
-  width?: number | string;
-  height?: number | string;
+  width?: number | string | ResponsiveValue<number | 'px' | (string & {})>;
+  height?: number | string | ResponsiveValue<number | 'px' | (string & {})>;
   as?: As;
   type?: 'button' | 'submit';
   px?: number;
