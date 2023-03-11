@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
-import AlertDialog from '../../../../../../../../components/AlertDialog';
-import Button from '../../../../../../../../components/Button';
-import useDeleteComment from '../../../../../../hooks/useDeleteComment';
-import useBoardIdFromRoute from '../../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../../hooks/useCardIdFromRoute';
+import useBoardIdFromRoute from '../../../../../../../../Board/hooks/useBoardIdFromRoute';
+import useCardIdFromRoute from '../../../../../../../hooks/useCardIdFromRoute';
+import useDeleteComment from '../../../../../../../hooks/useDeleteComment';
+import AlertDialog from '../../../../../../../../../components/AlertDialog';
+import Button from '../../../../../../../../../components/Button';
 
 type Props = {
   id: string;
@@ -15,7 +15,7 @@ const DeleteDialog: FC<Props> = ({ id, disclosure }) => {
   const boardId = useBoardIdFromRoute();
   const cardId = useCardIdFromRoute();
 
-  const deleteMutation = useDeleteComment({ boardId, cardId, id });
+  const deleteMutation = useDeleteComment({ id });
 
   const handleDelete = async () => {
     try {

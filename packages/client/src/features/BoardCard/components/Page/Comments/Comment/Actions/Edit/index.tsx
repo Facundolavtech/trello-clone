@@ -1,10 +1,10 @@
 import { HStack, Icon } from '@chakra-ui/react';
 import { FC } from 'react';
 import { MdCheck, MdClose } from 'react-icons/md';
-import Button from '../../../../../../../components/Button';
-import useBoardIdFromRoute from '../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../hooks/useCardIdFromRoute';
-import useUpdateComment from '../../../../../hooks/useUpdateComment';
+import Button from '../../../../../../../../components/Button';
+import useBoardIdFromRoute from '../../../../../../../Board/hooks/useBoardIdFromRoute';
+import useCardIdFromRoute from '../../../../../../hooks/useCardIdFromRoute';
+import useUpdateComment from '../../../../../../hooks/useUpdateComment';
 import EditButton from '../../Buttons/Edit';
 import { useCommentContext } from '../../Context';
 
@@ -18,9 +18,9 @@ const Edit: FC<Props> = ({ id, content }) => {
   const boardId = useBoardIdFromRoute();
   const cardId = useCardIdFromRoute();
 
-  const updateMutation = useUpdateComment({ boardId, cardId, id });
+  const updateMutation = useUpdateComment({ id });
 
-  const canEdit = state && state.draft && state.draft !== content && state.draft.length >= 6;
+  const canEdit = state && state.draft && state.draft !== content && state.draft.length >= 6 && state.draft.length <= 260;
 
   const handleSubmit = async () => {
     if (!canEdit) return;

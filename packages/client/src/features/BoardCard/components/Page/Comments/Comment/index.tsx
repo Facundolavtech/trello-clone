@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { HStack, VStack } from '@chakra-ui/react';
-import { IBoardCardComment } from '../../../../../models/board-card.model';
 import Actions from './Actions';
 import Content from './Content';
 import Information from './Information';
-import useUserIsCommentAuthor from '../../../hooks/useUserIsCommentAuthor';
 import CommentContextProvider from './Context';
+import { IBoardCardComment } from '../../../../../../models/board-card.model';
+import useUserIsCommentAuthor from '../../../../hooks/useUserIsCommentAuthor';
 
 type Props = {
   comment: IBoardCardComment;

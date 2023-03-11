@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { HStack, VStack, Text } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../theme/constants';
-import { IBoardMember } from '../../../../../../models/board.model';
-import Avatar from '../../../../../../components/Avatar';
+import { IBoardMember } from '../../../../../../../models/board.model';
+import Avatar from '../../../../../../../components/Avatar';
+import { FontFamily } from '../../../../../../../theme/constants';
 
 type Props = {
   author: IBoardMember;

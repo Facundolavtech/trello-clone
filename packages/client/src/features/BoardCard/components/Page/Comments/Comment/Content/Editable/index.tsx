@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { EditableInput, EditablePreview, Editable as ChakraEditable } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../../theme/constants';
 import { useCommentContext } from '../../Context';
+import { FontFamily } from '../../../../../../../../theme/constants';
 
 type Props = {
   content: string;
