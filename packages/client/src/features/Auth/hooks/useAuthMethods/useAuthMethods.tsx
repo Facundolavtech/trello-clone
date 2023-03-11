@@ -1,5 +1,3 @@
-import { useToast } from '@chakra-ui/react';
-import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppRoutes } from '../../../../config/routes';
@@ -10,7 +8,6 @@ import { deleteSessionCookie } from '../../../../utils/sessionCookie';
 
 const useAuthMethods = () => {
   const router = useRouter();
-  const toast = useToast();
   const queryClient = useQueryClient();
 
   const loginSocialMutation = useMutation(({ provider, token }: ILoginWithSocialProviderParams) => loginWithSocialProvider({ provider, token }), {
@@ -18,47 +15,17 @@ const useAuthMethods = () => {
     onSuccess: () => {
       return router.push(AppRoutes.DASHBOARD);
     },
-    onError: (err: AxiosError<any, any>) => {
-      toast({
-        isClosable: false,
-        status: 'error',
-        title: err.response?.data.message,
-        position: 'top-right',
-        variant: 'solid',
-        duration: 1500,
-      });
-    },
   });
 
   const loginLocalMutation = useMutation((credentials: ILoginFormValues) => loginWithLocalProvider(credentials), {
     onSuccess: () => {
       return router.push(AppRoutes.DASHBOARD);
     },
-    onError: (err: AxiosError<any>) => {
-      toast({
-        isClosable: false,
-        status: 'error',
-        title: err.response?.data.message,
-        position: 'top-right',
-        variant: 'solid',
-        duration: 1500,
-      });
-    },
   });
 
   const registerLocalMutation = useMutation((credentials: IRegisterFormValues) => registerWithLocalProvider(credentials), {
     onSuccess: () => {
       return router.push(AppRoutes.DASHBOARD);
-    },
-    onError: (err: AxiosError<any, any>) => {
-      toast({
-        isClosable: false,
-        status: 'error',
-        title: err.response?.data.message,
-        position: 'top-right',
-        variant: 'solid',
-        duration: 1500,
-      });
     },
   });
 
