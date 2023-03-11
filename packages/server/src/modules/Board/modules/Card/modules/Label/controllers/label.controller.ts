@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, HttpCode, HttpStatus, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, HttpCode, HttpStatus, BadRequestException, NotFoundException } from '@nestjs/common';
 import { CardLabelService } from '../services/label.service';
 import { BoardMemberGuard } from '../../../../../guards/board-member.guard';
-import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
+import { CreateCardLabelDTO } from '../dto/label.dto';
 import { AuthenticatedGuard } from '../../../../../../Auth/guards/auth.guard';
 import { BoardCardService } from '../../../services/card.service';
 import { CustomUUIDPipe } from '../../../../../../../common/pipes/uuid.pipe';
@@ -43,22 +43,6 @@ export class CardLabelController {
     }
 
     return labelById;
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Put('update/:id')
-  async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateCardLabelDTO) {
-    const labelById = await this.cardLabelService.findById(id);
-
-    if (!labelById) {
-      throw new NotFoundException('The label does not exists');
-    }
-
-    if (labelById.name === updateDTO.name) {
-      throw new BadRequestException('A label with that name already exists');
-    }
-
-    return await this.cardLabelService.update(id, updateDTO);
   }
 
   @HttpCode(HttpStatus.OK)

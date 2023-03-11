@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { CreateCardLabelDTO, UpdateCardLabelDTO } from '../dto/label.dto';
+import { CreateCardLabelDTO } from '../dto/label.dto';
 import { BoardCardLabel } from '../entities/Label.entity';
 
 @Injectable()
@@ -18,12 +18,6 @@ export class CardLabelService {
         cardId,
       })
     );
-  }
-
-  async update(id: string, updateDTO: UpdateCardLabelDTO): Promise<BoardCardLabel> {
-    const updatedLabel = await this.cardLabelRepository.createQueryBuilder().update(updateDTO).where('id = :id', { id }).returning('*').updateEntity(true).execute();
-
-    return updatedLabel.raw[0];
   }
 
   async delete(id: string): Promise<BoardCardLabel> {
