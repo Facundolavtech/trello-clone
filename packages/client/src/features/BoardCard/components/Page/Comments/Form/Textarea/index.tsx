@@ -18,7 +18,7 @@ const CommentTextarea: FC<Props> = ({ value, onChange }) => {
       onChange={onChange}
       resize="none"
       placeholder="Write a comment..."
-      _placeholder={{ fontFamily: FontFamily.NotoSans, fontWeight: 500, fontSize: 14, color: 'gray.4' }}
+      _placeholder={{ fontFamily: FontFamily.NotoSans, fontWeight: 500, fontSize: { base: 10, md: 14 }, color: 'gray.4' }}
     />
   );
 };

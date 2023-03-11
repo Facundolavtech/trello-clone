@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { IBoardCardComment } from '../../../../../../models/board-card.model';
-import Comment from '../../Comment';
 import sortArr from '../../../../../../utils/sortArr';
+import Comment from '../Comment';
 
 type Props = {
   comments: IBoardCardComment[];
