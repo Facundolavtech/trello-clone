@@ -17,6 +17,6 @@ export const CreateCommentSchema = Yup.object().shape({
 });
 
 export const CreateLabelSchema = Yup.object().shape({
-  name: Yup.string().min(4, 'The name must have a minimum of 4 characters').max(8, 'The name must have a maximum of 8 characters').required('The name is required'),
+  name: Yup.string().min(4, 'The name must have a minimum of 4 characters').max(12, 'The name must have a maximum of 12 characters').required('The name is required'),
   color: Yup.string().required('The color is required'),
 });
