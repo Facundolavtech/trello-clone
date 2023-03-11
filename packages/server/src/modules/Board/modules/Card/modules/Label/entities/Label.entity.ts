@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../../../../../../common/entities/Base.entity';
+import capitalizeFirstLetter from '../../../../../../../utils/capitalizeFirstLetter';
 import { BoardCard } from '../../../entities/Card.entity';
 
 @Entity('BoardCardLabel')
 export class BoardCardLabel extends BaseEntity {
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: false })
   name: string;
 
   @Column({ nullable: false })
@@ -18,4 +19,9 @@ export class BoardCardLabel extends BaseEntity {
 
   @Column()
   cardId: string;
+
+  @BeforeInsert()
+  formatName() {
+    this.name = capitalizeFirstLetter(this.name);
+  }
 }
