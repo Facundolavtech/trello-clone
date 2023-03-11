@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Avatar from '../../../../../../components/Avatar';
+import Avatar from '../../../../../../../components/Avatar';
 
 type Props = {
   url: string;

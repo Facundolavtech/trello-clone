@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { downloadAttachment } from '../../../../../services/card-attachment.service';
+import { downloadAttachment } from '../../../../../../services/card-attachment.service';
 import DownloadButton from '../../Buttons/Download';
 
 type Props = {

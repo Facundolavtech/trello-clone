@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import useBoardIdFromRoute from '../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../hooks/useCardIdFromRoute';
-import useDeleteAttachment from '../../../../../hooks/useDeleteAttachment';
+import useBoardIdFromRoute from '../../../../../../../Board/hooks/useBoardIdFromRoute';
+import useCardIdFromRoute from '../../../../../../hooks/useCardIdFromRoute';
+import useDeleteAttachment from '../../../../../../hooks/useDeleteAttachment';
 import DeleteButton from '../../Buttons/Delete';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 const Delete: FC<Props> = ({ id }) => {
   const boardId = useBoardIdFromRoute();
   const cardId = useCardIdFromRoute();
-  const deleteMutation = useDeleteAttachment({ attachmentId: id, cardId, boardId });
+  const deleteMutation = useDeleteAttachment({ attachmentId: id });
 
   const handleDeleteAttachment = () => {
     deleteMutation.mutate({ attachmentId: id, cardId, boardId });
