@@ -1,7 +1,6 @@
 import { Drawer, DrawerContent, VStack } from '@chakra-ui/react';
 import { useBoardContext } from '../../context/board';
 import useBoard from '../../hooks/useBoard';
-import { HeaderStyles } from '../../../../theme/constants';
 import useUserProfile from '../../../../hooks/useUserProfile';
 import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
@@ -9,6 +8,7 @@ import Header from './Header';
 import Creator from './Creator';
 import Description from './Description';
 import Team from './Team';
+import { HeaderStyles } from '../../../../components/Dashboard/Header';
 
 const BoardMenu = () => {
   const { isOpen, onClose } = useBoardContext();

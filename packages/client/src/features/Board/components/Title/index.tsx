@@ -1,5 +1,5 @@
 import { Box, Divider, Heading } from '@chakra-ui/react';
-import { HeaderStyles } from '../../../../theme/constants';
+import { HeaderStyles } from '../../../../components/Dashboard/Header';
 import useBoard from '../../hooks/useBoard';
 import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
 import Loading from './Loading';

@@ -9,7 +9,10 @@ import Menu from '../Menu';
 import Link from 'next/link';
 import { AppRoutes } from '../../../config/routes';
 import { useRouter } from 'next/router';
-import { HeaderStyles } from '../../../theme/constants';
+
+export enum HeaderStyles {
+  height = 68,
+}
 
 const Header = () => {
   const router = useRouter();

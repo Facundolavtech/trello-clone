@@ -1,8 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Container } from '@chakra-ui/react';
-import Header from '../../components/Dashboard/Header';
+import Header, { HeaderStyles } from '../../components/Dashboard/Header';
 import useUserProfile from '../../hooks/useUserProfile';
-import { HeaderStyles } from '../../theme/constants';
 
 type Props = {
   children: ReactNode;
