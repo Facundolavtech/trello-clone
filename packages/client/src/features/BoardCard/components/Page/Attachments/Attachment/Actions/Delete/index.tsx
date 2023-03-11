@@ -11,7 +11,7 @@ type Props = {
 const Delete: FC<Props> = ({ id }) => {
   const boardId = useBoardIdFromRoute();
   const cardId = useCardIdFromRoute();
-  const deleteMutation = useDeleteAttachment({ attachmentId: id });
+  const deleteMutation = useDeleteAttachment({ id });
 
   const handleDeleteAttachment = () => {
     deleteMutation.mutate({ attachmentId: id, cardId, boardId });
