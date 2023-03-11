@@ -3,14 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { IBoardCard } from '../../../../models/board-card.model';
 import { IBoardList } from '../../../../models/board-list.model';
+import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 import { createCard, ICreateCardParams } from '../../services/card.service';
 
-type Props = {
-  boardId: string;
-};
-
-const useCreateCard = ({ boardId }: Props) => {
+const useCreateCard = () => {
   const queryClient = useQueryClient();
+  const boardId = useBoardIdFromRoute();
   const toast = useToast();
 
   const mutation = useMutation((params: ICreateCardParams) => createCard(params), {

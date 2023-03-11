@@ -1,33 +1,19 @@
-import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { IBoardList } from '../../../../models/board-list.model';
+import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 import { IUpdateListParams, updateList } from '../../services/list.service';
 
 type Props = {
-  boardId: string;
-  listId: string;
+  id: string;
 };
 
-const useUpdateList = ({ boardId, listId }: Props) => {
+const useUpdateList = ({ id }: Props) => {
   const queryClient = useQueryClient();
-  const toast = useToast();
+  const boardId = useBoardIdFromRoute();
 
   const mutation = useMutation((params: IUpdateListParams) => updateList(params), {
-    mutationKey: [`board/${boardId}/lists/update/${listId}`],
+    mutationKey: [`board/${boardId}/lists/update/${id}`],
     onSuccess: async (data: IBoardList) => onSuccess(data),
-    onError: (err: AxiosError<any>) => {
-      if (err.response?.data.code !== 'TokenExpiredError') {
-        toast({
-          position: 'top-right',
-          duration: 2000,
-          isClosable: false,
-          status: 'error',
-          title: 'Error',
-          description: err.response?.data.message || 'An error occurred while trying to update the list',
-        });
-      }
-    },
   });
 
   const onSuccess = (list: IBoardList) => {
