@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const response = NextResponse.next();
   const { origin } = req.nextUrl;
 
-  const token = req.cookies.get(config.Auth.CookieName);
+  const token = req.cookies.get(config.AUTH.COOKIE_NAME);
 
   const urlIsPrivate = privateRoutes.some((r) => req.url.includes(r));
 

@@ -9,7 +9,7 @@ const { toast } = createStandaloneToast();
 
 const http = {
   api: axios.create({
-    baseURL: config.Api.BaseURL,
+    baseURL: config.API.BaseURL,
   }),
 };
 
@@ -18,7 +18,7 @@ export default http;
 let isHandlingError = false;
 
 http.api.interceptors.request.use((cfg) => {
-  const token = getCookie(config.Auth.CookieName);
+  const token = getCookie(config.AUTH.COOKIE_NAME);
   if (token) {
     cfg.headers['Authorization'] = `Bearer ${token}`;
   } else {

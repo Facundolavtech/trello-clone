@@ -1,23 +1,23 @@
 import { OptionsType } from 'cookies-next/lib/types';
 
 export default {
-  Api: {
+  API: {
     BaseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   },
-  Auth: {
-    Providers: {
-      Google: {
+  AUTH: {
+    PROVIDERS: {
+      google: {
         clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
       },
     },
-    CookieName: 'token',
-    Cookie: {
+    COOKIE_NAME: 'token',
+    COOKIE_OPTIONS: {
       httpOnly: false,
       maxAge: 7 * 24 * 3600 * 1000,
       path: '/',
     } as OptionsType,
   },
-  Files: {
+  FILES: {
     maxSize: 4194304, // 4MB,
   },
 };

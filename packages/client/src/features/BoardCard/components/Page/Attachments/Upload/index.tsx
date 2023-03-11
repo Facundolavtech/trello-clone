@@ -19,13 +19,13 @@ const Upload = () => {
   const handleChange = async (e) => {
     const file: File = e.target.files[0];
 
-    if (file.size > config.Files.maxSize) {
+    if (file.size > config.FILES.maxSize) {
       hiddenFileInput.current && (hiddenFileInput.current.value = '');
 
       return toast({
         status: 'error',
         title: 'Error',
-        description: `The file is very large, the maximum allowed is ${bytesToMegabytes(config.Files.maxSize)} MB`,
+        description: `The file is very large, the maximum allowed is ${bytesToMegabytes(config.FILES.maxSize)} MB`,
         isClosable: false,
         position: 'top-right',
       });

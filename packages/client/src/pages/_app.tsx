@@ -26,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GoogleOAuthProvider clientId={config.Auth.Providers.Google.clientId} onScriptLoadError={() => null}>
+      <GoogleOAuthProvider clientId={config.AUTH.PROVIDERS.google.clientId} onScriptLoadError={() => null}>
         <ChakraProvider theme={theme}>
           <NextProgress />
           <Hydrate state={pageProps.dehydratedState}>

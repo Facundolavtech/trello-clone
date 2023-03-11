@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import config from '../../config';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  setCookies(config.Auth.CookieName, '', {
+  setCookies(config.AUTH.COOKIE_NAME, '', {
     req,
     res,
     maxAge: 0,
