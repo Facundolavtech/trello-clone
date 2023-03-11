@@ -1,12 +1,13 @@
 import { VStack, HStack, Icon, Text, Wrap } from '@chakra-ui/react';
 import { MdLabel } from 'react-icons/md';
+import { useCardContext } from '../../../../../../Context';
 import useCard from '../../../../../../hooks/useCard';
-import useCardIdFromRoute from '../../../../../../hooks/useCardIdFromRoute';
 import Label from '../Label';
 
 const Labels = () => {
-  const cardId = useCardIdFromRoute();
-  const { data: card } = useCard({ id: cardId });
+  const { id } = useCardContext();
+
+  const { data: card } = useCard({ id });
 
   return (
     <VStack spacing="8px" mb="19px">

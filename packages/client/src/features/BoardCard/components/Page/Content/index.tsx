@@ -12,13 +12,12 @@ import Error from '../Error';
 import Loading from '../Loading';
 import Sidepanel from '../Sidepanel';
 import Title from '../Title';
+import { useCardContext } from '../../../Context';
 
-type Props = {
-  cardId: string;
-};
+const Content = () => {
+  const { id } = useCardContext();
 
-const Content: FC<Props> = ({ cardId }) => {
-  const { data: card, error } = useCard({ id: cardId });
+  const { data: card, error } = useCard({ id });
   const list = useCardList();
 
   if (error) {

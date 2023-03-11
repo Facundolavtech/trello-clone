@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import useLists from '../../../BoardList/hooks/useLists';
+import { useCardContext } from '../../Context';
 import useCard from '../useCard';
-import useCardIdFromRoute from '../useCardIdFromRoute';
 
 const useCardList = () => {
-  const cardId = useCardIdFromRoute();
-  const { data: card } = useCard({ id: cardId });
+  const { id } = useCardContext();
+
+  const { data: card } = useCard({ id });
   const { data: lists } = useLists();
 
   return useMemo(() => {
