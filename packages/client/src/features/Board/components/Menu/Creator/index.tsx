@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { VStack, HStack, Icon, Text } from '@chakra-ui/react';
-import { format, fromUnixTime } from 'date-fns';
-import { enUS } from 'date-fns/locale';
 import { FaUserCircle } from 'react-icons/fa';
 import { FontFamily } from '../../../../../theme/constants';
 import { IBoardAdmin } from '../../../../../models/board.model';
 import Avatar from '../../../../../components/Avatar';
+import formatTimestampToDate from '../../../../../utils/formatTimestampToDate';
 
 type Props = {
   creator: IBoardAdmin;
@@ -28,7 +27,7 @@ const Creator: FC<Props> = ({ creator, createdAt }) => {
             {creator.name}
           </Text>
           <Text fontSize={10} fontWeight={600} fontFamily={FontFamily.NotoSans} color="gray.4">
-            on {format(fromUnixTime(createdAt), 'dd/MM/yyyy', { locale: enUS })}
+            on {formatTimestampToDate(createdAt, 'd MMMM, yyyy')}
           </Text>
         </VStack>
       </HStack>

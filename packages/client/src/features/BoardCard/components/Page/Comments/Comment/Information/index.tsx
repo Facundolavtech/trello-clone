@@ -3,6 +3,7 @@ import { HStack, VStack, Text } from '@chakra-ui/react';
 import { IBoardMember } from '../../../../../../../models/board.model';
 import Avatar from '../../../../../../../components/Avatar';
 import { FontFamily } from '../../../../../../../theme/constants';
+import formatTimestampToDate from '../../../../../../../utils/formatTimestampToDate';
 
 type Props = {
   author: IBoardMember;
@@ -18,7 +19,7 @@ const Information: FC<Props> = ({ author, createdDate }) => {
           {author.user.name}
         </Text>
         <Text fontSize={10} fontFamily={FontFamily.NotoSans} color="gray.4" fontWeight={500}>
-          24 August at 20:43
+          {formatTimestampToDate(createdDate, 'd MMM', true)}
         </Text>
       </VStack>
     </HStack>

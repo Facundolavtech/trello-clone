@@ -1,11 +1,10 @@
 import { Divider, Menu as ChakraMenu, MenuList, Text, VStack } from '@chakra-ui/react';
 import MenuItems from './Items';
 import MenuButton from './Button';
-import formatDate from 'date-fns/format';
-import { fromUnixTime } from 'date-fns';
 import useUserProfile from '../../../hooks/useUserProfile';
 import Loading from './Loading';
 import Error from './Error';
+import formatTimestampToDate from '../../../utils/formatTimestampToDate';
 
 const Menu = () => {
   const { data: user, error } = useUserProfile();
@@ -24,9 +23,9 @@ const Menu = () => {
               {user.email}
             </Text>
             <Text color="gray.4" fontSize={14} fontWeight={400}>
-              Register at:{' '}
+              Registered on{' '}
               <Text as="strong" color="gray.3" fontWeight={500}>
-                {formatDate(fromUnixTime(user.createdAt || 0), 'dd/MM/yyyy')}
+                {formatTimestampToDate(user.createdAt, 'MMMM d, yyyy')}
               </Text>
             </Text>
           </VStack>
