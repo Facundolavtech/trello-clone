@@ -1,13 +1,10 @@
 import useLists from '../../hooks/useLists';
 import List from '../List';
 import Loading from './Loading';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 import CreateListMenu from '../CreateMenu';
 
 const Lists = () => {
-  const boardId = useBoardIdFromRoute();
-
-  const { data: lists } = useLists({ boardId });
+  const { data: lists } = useLists();
 
   if (lists) {
     return (

@@ -20,7 +20,7 @@ type Props = {
 const Form: FC<Props> = ({ onClose, listId }) => {
   const boardId = useBoardIdFromRoute();
 
-  const createMutation = useCreateCard({ boardId });
+  const createMutation = useCreateCard();
 
   const formik = useFormik<ICreateCardFormValues>({
     initialValues: {

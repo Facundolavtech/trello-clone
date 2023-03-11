@@ -14,7 +14,7 @@ const Upload = () => {
   const cardId = useCardIdFromRoute();
   const toast = useToast();
 
-  const uploadMutation = useUploadAttachment({ boardId, cardId });
+  const uploadMutation = useUploadAttachment();
 
   const handleChange = async (e) => {
     const file: File = e.target.files[0];

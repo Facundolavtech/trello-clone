@@ -19,7 +19,7 @@ const CommentsForm = () => {
   const boardId = useBoardIdFromRoute();
   const cardId = useCardIdFromRoute();
 
-  const createMutation = useCreateComment({ boardId, cardId });
+  const createMutation = useCreateComment();
 
   const formik = useFormik<ICommentFormValues>({
     initialValues: {

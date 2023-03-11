@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { VStack, SimpleGrid, HStack } from '@chakra-ui/react';
 import EditButton from '../../../../../components/Buttons/Edit';
-import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 import useCard from '../../../hooks/useCard';
 import useCardList from '../../../hooks/useCardList';
 import Attachments from '../Attachments';
@@ -19,9 +18,8 @@ type Props = {
 };
 
 const Content: FC<Props> = ({ cardId }) => {
-  const boardId = useBoardIdFromRoute();
   const { data: card, error } = useCard({ id: cardId });
-  const list = useCardList({ cardId, boardId });
+  const list = useCardList();
 
   if (error) {
     return <Error error={error} />;
@@ -31,7 +29,7 @@ const Content: FC<Props> = ({ cardId }) => {
     return (
       <VStack spacing="25px" width="full" maxWidth="full">
         {card.cover && <Cover src={card.cover} />}
-        <SimpleGrid width="full" columns={{ base: 1, md: 2 }} templateColumns="3fr 1fr" spacing="23px">
+        <SimpleGrid width="full" columns={{ base: 1, md: 2 }} templateColumns="4fr 2fr" spacing="23px">
           <VStack spacing="25px" width="full" overflowX="hidden" alignItems="flex-start">
             <VStack spacing="11px" width="full" alignItems="flex-start">
               <VStack spacing="23px" alignItems="flex-start" width="full">
