@@ -12,7 +12,7 @@ type Props = {
 
 const Attachments: FC<Props> = ({ attachments }) => {
   return (
-    <VStack width="full" alignItems="flex-start" spacing="14px">
+    <VStack width="full" alignItems="flex-start" spacing="14px" as="section">
       <HStack>
         <Title />
         <Upload />

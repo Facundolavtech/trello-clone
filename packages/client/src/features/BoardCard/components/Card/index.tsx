@@ -26,7 +26,7 @@ const Card: FC<Props> = ({ card }) => {
   };
 
   return (
-    <CustomCard variant="board-card" width="full" onClick={onCardClick}>
+    <CustomCard as="article" variant="board-card" width="full" onClick={onCardClick}>
       <VStack spacing="12px" alignItems="flex-start">
         {card.cover && <Cover src={card.cover} alt={`${card.title} cover`} />}
         <Title title={card.title} />

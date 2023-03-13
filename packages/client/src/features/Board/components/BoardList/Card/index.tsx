@@ -15,7 +15,7 @@ const BoardCard: FC<Props> = ({ board }) => {
   const router = useRouter();
 
   return (
-    <Card variant="board-card" onClick={() => router.push(`${AppRoutes.BOARD}/${board.id}`)}>
+    <Card as="article" variant="board-card" onClick={() => router.push(`${AppRoutes.BOARD}/${board.id}`)}>
       <BoardCardContainer>
         <BoardCardHeader board={board} />
         <BoardCardMembers members={board.members} />

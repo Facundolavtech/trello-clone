@@ -13,7 +13,7 @@ const DashboardLayout: FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <Container maxWidth="unset" mt={`${HeaderStyles.height + 36}px`}>
+      <Container maxWidth="unset" as="main" mt={`${HeaderStyles.height + 36}px`}>
         {children}
       </Container>
     </>

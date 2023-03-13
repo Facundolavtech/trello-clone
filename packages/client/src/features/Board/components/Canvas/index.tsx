@@ -24,6 +24,7 @@ const BoardCanvas: FC<Props> = ({ children }) => {
       alignItems="flex-start"
       backdropFilter="blur(10px)"
       borderRadius="8px"
+      as="section"
       padding={8}
       backgroundColor={board ? 'rgba(248, 248, 248, 0.7)' : 'none'}
       className="custom__scrollbar"

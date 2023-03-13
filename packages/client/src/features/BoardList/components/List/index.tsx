@@ -19,6 +19,7 @@ const List: FC<Props> = ({ list }) => {
       key={list.id}
       overflowY="scroll"
       overflowX="hidden"
+      as="section"
       pb="17px"
       __css={{
         '::-webkit-scrollbar': {

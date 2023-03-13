@@ -16,7 +16,7 @@ const Comment: FC<Props> = ({ comment }) => {
 
   return (
     <CommentContextProvider id={comment.id}>
-      <VStack width="full" spacing="13px" maxWidth="full">
+      <VStack as="article" width="full" spacing="13px" maxWidth="full">
         <HStack width="full" justifyContent="space-between">
           <Information author={comment.author} createdDate={comment.createdAt} />
           {userIsCommentAuthor && <Actions id={comment.id} content={comment.content} />}

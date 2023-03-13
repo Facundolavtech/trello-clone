@@ -18,7 +18,7 @@ const Information: FC<Props> = ({ author, createdDate }) => {
         <Text fontSize={12} fontWeight={500}>
           {author.user.name}
         </Text>
-        <Text fontSize={10} fontFamily={FontFamily.NotoSans} color="gray.4" fontWeight={500}>
+        <Text as="time" fontSize={10} fontFamily={FontFamily.NotoSans} color="gray.4" fontWeight={500}>
           {formatTimestampToDate(createdDate, 'd MMM', true)}
         </Text>
       </VStack>

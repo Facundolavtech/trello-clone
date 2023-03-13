@@ -10,7 +10,7 @@ type Props = {
 
 const Cards: FC<Props> = ({ cards }) => {
   return (
-    <VStack width="full" spacing="24px">
+    <VStack width="full" spacing="24px" as="section">
       {sortArr(cards, 'createdAt').map((card) => (
         <Card key={card.id} card={card} />
       ))}

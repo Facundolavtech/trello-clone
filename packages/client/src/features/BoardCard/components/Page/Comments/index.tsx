@@ -10,7 +10,7 @@ type Props = {
 
 const Comments: FC<Props> = ({ comments }) => {
   return (
-    <VStack width="full" alignItems="flex-start" spacing="27px">
+    <VStack as="section" width="full" alignItems="flex-start" spacing="27px">
       <CommentsForm />
       <CommentsPanel comments={comments} />
     </VStack>

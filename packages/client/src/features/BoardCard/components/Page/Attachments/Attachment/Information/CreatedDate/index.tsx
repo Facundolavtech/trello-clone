@@ -8,7 +8,7 @@ type Props = {
 
 const CreatedDate: FC<Props> = ({ createdAt }) => {
   return (
-    <Heading fontSize={8} fontWeight={500} color="gray.4">
+    <Heading as="time" fontSize={8} fontWeight={500} color="gray.4">
       Added {formatTimestampToDate(createdAt, 'MMMM d, yyyy')}
     </Heading>
   );

@@ -6,8 +6,8 @@ import SwitchFormButton from '../Form/Buttons/SwitchForm';
 import { FontFamily } from '../../../../theme/constants';
 import SocialProviderButton from '../Form/Buttons/Social';
 import { FcGoogle } from 'react-icons/fc';
-import useGoogleToken from '../../hooks/useGoogleToken/useGoogleToken';
-import useAuthMethods from '../../hooks/useAuthMethods/useAuthMethods';
+import useGoogleToken from '../../hooks/useGoogleToken';
+import useAuthMethods from '../../hooks/useAuthMethods';
 
 type Props = {
   formType: 'login' | 'register';
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const AuthCard: FC<Props> = ({ formType = 'login', form }) => {
-  const { getTokenAndLogin } = useGoogleToken();
+  const googleSignIn = useGoogleToken();
   const { loginSocialIsMutating } = useAuthMethods();
 
   return (
@@ -40,7 +40,7 @@ const AuthCard: FC<Props> = ({ formType = 'login', form }) => {
               <SocialProviderButton
                 bg="brands.google"
                 icon={FcGoogle}
-                onClick={() => getTokenAndLogin()}
+                onClick={googleSignIn}
                 loading={loginSocialIsMutating}
                 disabled={loginSocialIsMutating}
                 content={formType === 'login' ? 'Continue with Google' : 'Register with Google'}

@@ -13,7 +13,7 @@ const BoardList = () => {
 
   if (boards) {
     return (
-      <SimpleGrid width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
+      <SimpleGrid as="section" width="full" gap={8} columns={{ base: 1, md: 3, lg: 4 }}>
         {boards.map((board) => (
           <BoardCard key={board.id} board={board} />
         ))}

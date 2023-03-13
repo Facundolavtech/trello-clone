@@ -46,7 +46,7 @@ const Header = () => {
             </HStack>
           )}
         </Box>
-        <Box gap={10} display="flex">
+        <Box gap={10} display="flex" as="nav">
           <Searchbar />
           <Menu />
         </Box>

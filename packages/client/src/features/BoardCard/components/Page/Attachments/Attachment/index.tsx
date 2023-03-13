@@ -11,7 +11,7 @@ type Props = {
 
 const Attachment: FC<Props> = ({ attachment }) => {
   return (
-    <HStack width="full" justifyContent="flex-start" spacing="13px" alignItems="flex-start">
+    <HStack as="article" width="full" justifyContent="flex-start" spacing="13px" alignItems="flex-start">
       <Hide breakpoint="(max-width: 580px)">
         <Cover name={attachment.name} type={attachment.type} url={attachment.url} />
       </Hide>

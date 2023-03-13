@@ -24,7 +24,7 @@ const Menu = () => {
             </Text>
             <Text color="gray.4" fontSize={14} fontWeight={400}>
               Registered on{' '}
-              <Text as="strong" color="gray.3" fontWeight={500}>
+              <Text as="time" color="gray.3" fontWeight={500}>
                 {formatTimestampToDate(user.createdAt, 'MMMM d, yyyy')}
               </Text>
             </Text>

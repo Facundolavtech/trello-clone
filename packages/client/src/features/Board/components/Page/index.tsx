@@ -17,7 +17,7 @@ const BoardPage: FC<Props> = () => {
       <Stack width="full" mt="35px">
         <Stack width="full" direction={{ base: 'column', md: 'row' }} mb={10}>
           <VStack width="full" alignItems="flex-start" spacing="52px">
-            <HStack width="full" justifyContent="space-between">
+            <HStack width="full" justifyContent="space-between" as="section">
               <Flex gap="19px" width="full">
                 <BoardPrivacy />
                 <BoardMembers />
