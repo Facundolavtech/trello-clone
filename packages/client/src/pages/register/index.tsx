@@ -6,12 +6,10 @@ import { NextPage } from 'next';
 
 const Register: NextPage = () => {
   return (
-    <>
+    <AuthLayout>
       <SEO title="Register" />
-      <AuthLayout>
-        <AuthCard formType="register" form={<RegisterForm />} />
-      </AuthLayout>
-    </>
+      <AuthCard formType="register" form={<RegisterForm />} />
+    </AuthLayout>
   );
 };
 

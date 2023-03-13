@@ -6,12 +6,10 @@ import AuthLayout from '../../layout/Auth';
 
 const Login: NextPage = () => {
   return (
-    <>
+    <AuthLayout>
       <SEO title="Login" />
-      <AuthLayout>
-        <AuthCard formType="login" form={<LoginForm />} />
-      </AuthLayout>
-    </>
+      <AuthCard formType="login" form={<LoginForm />} />
+    </AuthLayout>
   );
 };
 

@@ -16,12 +16,10 @@ const BoardLayout: FC<Props> = ({ children }) => {
   const { data: board, error } = useBoard({ id: boardId });
 
   return (
-    <>
+    <DashboardLayout>
       <SEO title={board?.title} />
-      <DashboardLayout>
-        <WrappedContainer>{error ? <BoardPageError error={error} /> : children}</WrappedContainer>
-      </DashboardLayout>
-    </>
+      <WrappedContainer>{error ? <BoardPageError error={error} /> : children}</WrappedContainer>
+    </DashboardLayout>
   );
 };
 
