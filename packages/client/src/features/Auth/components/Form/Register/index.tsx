@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { IoMdPerson } from 'react-icons/io';
-import useAuthMethods from '../../../hooks/useAuthMethods/useAuthMethods';
+import useAuthMethods from '../../../hooks/useAuthMethods';
 import { RegisterSchema } from '../../../validations';
 import ErrorMessage from '../ErrorMessage';
 import AuthInput from '../Input';

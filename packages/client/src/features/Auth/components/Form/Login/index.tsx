@@ -6,7 +6,7 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import SubmitButton from '../Buttons/Submit';
 import AuthInput from '../Input';
-import useAuthMethods from '../../../hooks/useAuthMethods/useAuthMethods';
+import useAuthMethods from '../../../hooks/useAuthMethods';
 
 export interface ILoginFormValues {
   email: string;
