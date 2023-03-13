@@ -1,11 +1,11 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import SocialProviders from '../../constants/providers';
-import useAuthMethods from '../useAuthMethods/useAuthMethods';
+import useAuthMethods from '../useAuthMethods';
 
 const useGoogleToken = () => {
   const { loginSocialMutation } = useAuthMethods();
 
-  const getTokenAndLogin = useGoogleLogin({
+  return useGoogleLogin({
     onSuccess: ({ access_token }) => {
       loginSocialMutation.mutate({ provider: SocialProviders.GOOGLE, token: access_token });
     },
@@ -13,8 +13,6 @@ const useGoogleToken = () => {
       return null;
     },
   });
-
-  return { getTokenAndLogin };
 };
 
 export default useGoogleToken;
