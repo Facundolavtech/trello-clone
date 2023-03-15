@@ -1,14 +1,12 @@
 import { Text } from '@chakra-ui/react';
-import { FC } from 'react';
 import Button from '../../../../../../../components/Button';
+import { useCreateBoardContext } from '../../Context';
 
-type Props = {
-  onClick: (e: any) => void;
-};
+const CancelButton = () => {
+  const { onClose } = useCreateBoardContext();
 
-const CancelButton: FC<Props> = ({ onClick }) => {
   return (
-    <Button variant="link" onClick={onClick}>
+    <Button variant="link" onClick={onClose}>
       <Text fontSize={10} fontWeight={500} color="gray.3">
         Cancel
       </Text>
