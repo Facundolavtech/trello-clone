@@ -2,7 +2,7 @@ import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { AppRoutes } from '../../../../config/routes';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import CardContextProvider from '../../Context';
+import CardContextProvider from '../../context';
 import CloseButton from './Buttons/Close';
 import Content from './Content';
 
