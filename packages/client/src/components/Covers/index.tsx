@@ -6,7 +6,7 @@ import Cover from './Cover';
 
 type Props = {
   button: ReactNode;
-  handleChange: (...args: any) => void;
+  handleChange: (c: { name: string; src: string }) => void;
 };
 
 const Covers: FC<Props> = ({ button, handleChange }) => {
