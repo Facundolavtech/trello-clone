@@ -1,4 +1,4 @@
-const boardCovers = [
+const coversData = [
   {
     name: 'mountain1',
     src: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=cover&w=1920&q=100',
@@ -49,4 +49,4 @@ const boardCovers = [
   },
 ];
 
-export default boardCovers;
+export default coversData;
