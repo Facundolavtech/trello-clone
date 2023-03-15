@@ -16,8 +16,8 @@ const CardPage = NiceModal.create(({ cardId }: Props) => {
 
   const handleCloseModal = () => {
     if (typeof window === 'undefined') return;
-
     modal.remove();
+
     window.history.pushState({}, '', `${AppRoutes.BOARD}/${boardId}`);
   };
 
