@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Flex, HStack, Stack, VStack } from '@chakra-ui/react';
 import BoardLayout from '../../layouts/BoardLayout';
 import BoardMembers from '../Members';
