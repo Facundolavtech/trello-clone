@@ -1,9 +1,5 @@
 import { randomBytes } from 'crypto';
 
-const generateRandomId = (): string => {
-  const randomBytesBuffer = randomBytes(8);
-  const randomId = randomBytesBuffer.toString('hex');
-  return randomId;
-};
+const generateRandomId = () => randomBytes(8).toString('hex');
 
 export default generateRandomId;
