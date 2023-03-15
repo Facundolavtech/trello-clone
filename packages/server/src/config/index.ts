@@ -12,9 +12,7 @@ export default registerAs('config', () => {
     port: process.env.PORT,
     environment: process.env.NODE_ENV,
     database: {
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      name: process.env.DATABASE_NAME,
+      connectionURL: process.env.DATABASE_URL,
     },
     auth: {
       jwt: {
