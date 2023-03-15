@@ -4,7 +4,7 @@ import { PipeTransform, Injectable, UnprocessableEntityException } from '@nestjs
 export class FileUploadPipe implements PipeTransform<Express.Multer.File> {
   private readonly maxFileSize = 4194304;
   private readonly maxFileSizeInMB = this.maxFileSize / 1024 / 1024;
-  private readonly acceptMimeTypes = [
+  private readonly acceptedMimeTypes = [
     'text/plain',
     'text/html',
     'text/css',
@@ -22,7 +22,7 @@ export class FileUploadPipe implements PipeTransform<Express.Multer.File> {
   ];
 
   async transform(file: Express.Multer.File) {
-    const fileTypeIsValid = this.acceptMimeTypes.find((type) => type === file.mimetype);
+    const fileTypeIsValid = this.acceptedMimeTypes.find((type) => type === file.mimetype);
 
     if (!fileTypeIsValid) {
       throw new UnprocessableEntityException('The file type is invalid');
