@@ -13,7 +13,5 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-
-export { app, storage };
+export const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app);

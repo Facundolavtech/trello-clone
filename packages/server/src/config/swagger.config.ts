@@ -7,9 +7,7 @@ interface ISwaggerConfigParams {
 
 const swaggerConfig = ({ app }: ISwaggerConfigParams): OpenAPIObject => {
   const config = new DocumentBuilder().setTitle('Thullo').setDescription('API Documentation for Thullo API').setVersion('1.0.0').build();
-  const document = SwaggerModule.createDocument(app, config);
-
-  return document;
+  return SwaggerModule.createDocument(app, config);
 };
 
 export default swaggerConfig;

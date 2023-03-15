@@ -24,14 +24,9 @@ export class RedisCacheService {
   async test(): Promise<boolean> {
     try {
       await this.cache.set('test', 'test', { ttl: 60 });
-      const res = await this.cache.get('test');
-      if (res === 'test') {
-        return true;
-      } else {
-        return false;
-      }
+
+      return (await this.cache.get('test')) === 'test';
     } catch (error) {
-      console.error(error);
       return false;
     }
   }
