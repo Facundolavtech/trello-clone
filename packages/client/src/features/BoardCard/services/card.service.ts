@@ -9,10 +9,26 @@ export interface ICreateCardParams {
   title: string;
 }
 
+export interface IUpdateCardParams {
+  boardId: string;
+  cardId: string;
+  title?: string;
+  description?: string;
+  cover?: string;
+}
+
 export async function createCard(params: ICreateCardParams): Promise<IBoardCard> {
   const { boardId, listId, title } = params;
 
   const response: AxiosResponse<IBoardCard> = await http.api.post(`${ApiRoutes.BOARD}/${boardId}/cards/create`, { listId, title });
+
+  return response.data;
+}
+
+export async function updateCard(params: IUpdateCardParams): Promise<IBoardCard> {
+  const { boardId, cardId, ...rest } = params;
+
+  const response: AxiosResponse<IBoardCard> = await http.api.put(`${ApiRoutes.BOARD}/${boardId}/cards/update/${cardId}`, { ...rest });
 
   return response.data;
 }

@@ -1,15 +1,21 @@
-import { Menu as ChakraMenu, MenuList as ChakraMenuList, Text } from '@chakra-ui/react';
+import Covers from '../../../../../../../components/Covers';
+import { useCardContext } from '../../../../../context';
+import useCard from '../../../../../hooks/useCard';
+import useUpdateCard from '../../../../../hooks/useUpdateCard';
 import OpenButton from './Buttons/Open';
 
 const CoverMenu = () => {
-  return (
-    <ChakraMenu>
-      <OpenButton />
-      <ChakraMenuList px="12px" py="9px" width="245px" boxShadow="0px 2px 4px rgba(0, 0, 0, 0.05)" borderRadius="12px" borderWidth={1} borderColor="gray.5">
-        <Text>Covers</Text>
-      </ChakraMenuList>
-    </ChakraMenu>
-  );
+  const updateMutation = useUpdateCard();
+  const { id } = useCardContext();
+  const { data: card } = useCard({ id });
+
+  const handleUpdateCover = async (cover: string) => {
+    if (!card || !cover || card.cover === cover) return;
+
+    updateMutation.mutate({ cover });
+  };
+
+  return <Covers button={<OpenButton />} handleChange={(c) => handleUpdateCover(c.src)} />;
 };
 
 export default CoverMenu;
