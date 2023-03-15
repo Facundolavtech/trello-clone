@@ -14,17 +14,17 @@ const BoardPrivacyMenuItems = () => {
 
   const { data: board } = useBoard({ id: boardId });
 
-  if (!board) return null;
-
   const updateMutation = useUpdateBoard();
 
   const handleBoardPrivacy = (visibility: BoardVisibility): void => {
-    if (board.visibility === visibility) return;
+    if (board?.visibility === visibility) return;
 
     updateMutation.mutate({ id: boardId, visibility });
   };
 
-  const isPrivate = board.visibility === 'private';
+  const isPrivate = board?.visibility === 'private';
+
+  if (!board) return null;
 
   return (
     <VStack spacing="15px" width="full">
