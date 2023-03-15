@@ -1,17 +1,13 @@
-import { Icon, Input, Text, useToast } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { Icon, Input, Text, useToast } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../../../../../../components/Button';
 import config from '../../../../../../config';
 import bytesToMegabytes from '../../../../../../utils/bytesToMegabytes';
-import useBoardIdFromRoute from '../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../hooks/useCardIdFromRoute';
 import useUploadAttachment from '../../../../hooks/useUploadAttachment';
 
 const Upload = () => {
   const hiddenFileInput = useRef<HTMLInputElement | null>(null);
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
   const toast = useToast();
 
   const uploadMutation = useUploadAttachment();
@@ -32,7 +28,7 @@ const Upload = () => {
     }
 
     try {
-      await uploadMutation.mutateAsync({ boardId, cardId, file });
+      await uploadMutation.mutateAsync({ file });
     } catch {
     } finally {
       hiddenFileInput.current && (hiddenFileInput.current.value = '');

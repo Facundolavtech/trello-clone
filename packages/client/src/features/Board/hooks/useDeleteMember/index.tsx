@@ -1,12 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteMember, IDeleteBoardMemberParams } from '../../services/board.service';
+import { deleteMember } from '../../services/board.service';
 import useBoardIdFromRoute from '../useBoardIdFromRoute';
+
+interface IMutationParams {
+  id: string;
+  userId: string;
+}
 
 const useDeleteBoardMember = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
 
-  const mutation = useMutation((params: IDeleteBoardMemberParams) => deleteMember(params), {
+  const mutation = useMutation((params: IMutationParams) => deleteMember(params), {
     onSuccess: async () => await onSuccess(),
   });
 

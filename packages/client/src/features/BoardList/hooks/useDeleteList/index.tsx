@@ -7,11 +7,15 @@ type Props = {
   id: string;
 };
 
+interface IMutationParams {
+  listId: string;
+}
+
 const useDeleteList = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
 
-  const mutation = useMutation((params: IDeleteListParams) => deleteList(params), {
+  const mutation = useMutation(({ listId }: IMutationParams) => deleteList({ boardId, listId }), {
     mutationKey: [`board/${boardId}/lists/update/${id}`],
     onSuccess: async (data: IBoardList) => onSuccess(data),
   });

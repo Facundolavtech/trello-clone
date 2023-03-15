@@ -1,6 +1,4 @@
 import { FC } from 'react';
-import useBoardIdFromRoute from '../../../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../../../hooks/useCardIdFromRoute';
 import useDeleteLabel from '../../../../../../../hooks/useDeleteLabel';
 import DeleteButton from '../../Buttons/Delete';
 
@@ -9,13 +7,11 @@ type Props = {
 };
 
 const Delete: FC<Props> = ({ id }) => {
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
   const deleteMutation = useDeleteLabel({ id });
 
   const handleDelete = async () => {
     try {
-      await deleteMutation.mutateAsync({ boardId, cardId, id });
+      await deleteMutation.mutateAsync({ id });
     } catch {}
   };
 

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
 import AlertDialog from '../../../../components/AlertDialog';
 import Button from '../../../../components/Button';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
 import useDeleteList from '../../hooks/useDeleteList';
 
 type Props = {
@@ -11,18 +10,14 @@ type Props = {
 };
 
 const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
-  const boardId = useBoardIdFromRoute();
-
   const deleteMutation = useDeleteList({ id: listId });
 
   const handleDeleteList = async () => {
     try {
-      await deleteMutation.mutateAsync({ boardId, listId });
+      await deleteMutation.mutateAsync({ listId });
 
       disclosure.onClose();
-    } catch {
-      return;
-    }
+    } catch {}
   };
 
   return (

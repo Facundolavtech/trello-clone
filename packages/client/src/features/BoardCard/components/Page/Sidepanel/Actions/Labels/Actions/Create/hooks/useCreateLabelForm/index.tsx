@@ -1,6 +1,4 @@
 import { useFormik } from 'formik';
-import useBoardIdFromRoute from '../../../../../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../../../../../hooks/useCardIdFromRoute';
 import useCreateLabel from '../../../../../../../../../hooks/useCreateLabel';
 import { CreateLabelSchema } from '../../../../../../../../../validations';
 
@@ -10,8 +8,6 @@ export interface ICreateLabelFormValues {
 }
 
 const useCreateLabelForm = () => {
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
   const createMutation = useCreateLabel();
 
   const formik = useFormik<ICreateLabelFormValues>({
@@ -26,7 +22,7 @@ const useCreateLabelForm = () => {
   const handleSubmit = async (values: ICreateLabelFormValues): Promise<void> => {
     const { name, color } = values;
     try {
-      await createMutation.mutateAsync({ boardId, cardId, name, color });
+      await createMutation.mutateAsync({ name, color });
       formik.resetForm();
     } catch {}
   };

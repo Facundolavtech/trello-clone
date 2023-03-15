@@ -2,13 +2,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IBoardCard } from '../../../../models/board-card.model';
 import { IBoardList } from '../../../../models/board-list.model';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { createCard, ICreateCardParams } from '../../services/card.service';
+import { createCard } from '../../services/card.service';
+
+interface IMutationParams {
+  listId: string;
+  title: string;
+}
 
 const useCreateCard = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
 
-  const mutation = useMutation((params: ICreateCardParams) => createCard(params), {
+  const mutation = useMutation(({ listId, title }: IMutationParams) => createCard({ boardId, listId, title }), {
     mutationKey: [`board/${boardId}/lists/create`],
     onSuccess: async (data: IBoardCard) => await onSuccess(data),
   });

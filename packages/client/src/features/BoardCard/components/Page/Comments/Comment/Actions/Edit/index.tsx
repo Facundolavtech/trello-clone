@@ -1,9 +1,7 @@
-import { HStack, Icon } from '@chakra-ui/react';
 import { FC } from 'react';
+import { HStack, Icon } from '@chakra-ui/react';
 import { MdCheck, MdClose } from 'react-icons/md';
 import Button from '../../../../../../../../components/Button';
-import useBoardIdFromRoute from '../../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../../hooks/useCardIdFromRoute';
 import useUpdateComment from '../../../../../../hooks/useUpdateComment';
 import EditButton from '../../Buttons/Edit';
 import { useCommentContext } from '../../Context';
@@ -15,8 +13,6 @@ type Props = {
 
 const Edit: FC<Props> = ({ id, content }) => {
   const { handleEdit, state, handleEditCancel, handleEditSuccess } = useCommentContext();
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
 
   const updateMutation = useUpdateComment({ id });
 
@@ -26,7 +22,7 @@ const Edit: FC<Props> = ({ id, content }) => {
     if (!canEdit) return;
 
     try {
-      await updateMutation.mutateAsync({ boardId, cardId, content: state.draft!, id: state.id });
+      await updateMutation.mutateAsync({ content: state.draft!, id: state.id });
       handleEditSuccess();
     } catch {
       return;

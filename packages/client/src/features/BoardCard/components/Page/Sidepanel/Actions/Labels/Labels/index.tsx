@@ -1,6 +1,6 @@
 import { VStack, HStack, Icon, Text, Wrap } from '@chakra-ui/react';
 import { MdLabel } from 'react-icons/md';
-import { useCardContext } from '../../../../../../Context';
+import { useCardContext } from '../../../../../../context';
 import useCard from '../../../../../../hooks/useCard';
 import Label from '../Label';
 

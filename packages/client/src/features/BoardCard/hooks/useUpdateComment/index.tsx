@@ -1,18 +1,23 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { IUpdateCommentParams, updateComment } from '../../services/card-comment.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { useCardContext } from '../../context';
+import { updateComment } from '../../services/card-comment.service';
 
 type Props = {
   id: string;
 };
 
+interface IMutationParams {
+  id: string;
+  content: string;
+}
+
 const useUpdateComment = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: IUpdateCommentParams) => updateComment(params), {
+  const mutation = useMutation(({ id, content }: IMutationParams) => updateComment({ id, boardId, cardId, content }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/comments/update/${id}`],
     onSuccess: () => onSuccess(),
   });

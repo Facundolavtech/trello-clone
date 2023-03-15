@@ -12,7 +12,7 @@ import Error from '../Error';
 import Loading from '../Loading';
 import Sidepanel from '../Sidepanel';
 import Title from '../Title';
-import { useCardContext } from '../../../Context';
+import { useCardContext } from '../../../context';
 
 const Content = () => {
   const { id } = useCardContext();

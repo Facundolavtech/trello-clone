@@ -1,14 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { AppRoutes } from '../../../../config/routes';
-import { IBoard } from '../../../../models/board.model';
-import { createBoard, getBoardById, ICreateBoardParams } from '../../services/board.service';
+import { BoardVisibility, IBoard } from '../../../../models/board.model';
+import { createBoard, getBoardById } from '../../services/board.service';
+
+interface IMutationParams {
+  title: string;
+  cover: string;
+  visibility: BoardVisibility;
+}
 
 const useCreateBoard = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation((params: ICreateBoardParams) => createBoard(params), {
+  const mutation = useMutation((params: IMutationParams) => createBoard(params), {
     mutationKey: ['board/create'],
     onSuccess: async (data: IBoard) => await onSuccess(data),
   });

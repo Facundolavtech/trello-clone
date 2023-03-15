@@ -1,18 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { IDeleteAttachmentParams, deleteAttachment } from '../../services/card-attachment.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { useCardContext } from '../../context';
+import { deleteAttachment } from '../../services/card-attachment.service';
 
 type Props = {
   id: string;
 };
 
+interface IMutationParams {
+  id: string;
+}
+
 const useDeleteAttachment = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: IDeleteAttachmentParams) => deleteAttachment(params), {
+  const mutation = useMutation(({ id }: IMutationParams) => deleteAttachment({ attachmentId: id, boardId, cardId }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/attachments/delete/${id}`],
     onSuccess: () => onSuccess(),
   });

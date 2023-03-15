@@ -1,14 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { createLabel, ICreateLabelParams } from '../../services/card-label.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { useCardContext } from '../../context';
+import { createLabel } from '../../services/card-label.service';
+
+interface IMutationParams {
+  name: string;
+  color: string;
+}
 
 const useCreateLabel = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: ICreateLabelParams) => createLabel(params), {
+  const mutation = useMutation(({ color, name }: IMutationParams) => createLabel({ boardId, cardId, color, name }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/labels/create`],
     onSuccess: () => onSuccess(),
   });

@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { createComment, ICreateCommentParams } from '../../services/card-comment.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { createComment } from '../../services/card-comment.service';
+import { useCardContext } from '../../context';
+
+interface IMutationParams {
+  content: string;
+}
 
 const useCreateComment = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: ICreateCommentParams) => createComment(params), {
+  const mutation = useMutation(({ content }: IMutationParams) => createComment({ boardId, cardId, content }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/comments/create`],
     onSuccess: () => onSuccess(),
   });

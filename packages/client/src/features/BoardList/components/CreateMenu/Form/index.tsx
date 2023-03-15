@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
 import useCreateBoardList from '../../../hooks/useCreateList';
 import { CreateListSchema } from '../../../validations';
-import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 import SubmitButton from '../Buttons/Submit';
 import TitleInput from './TitleInput';
 
@@ -17,8 +16,6 @@ type Props = {
 };
 
 const Form: FC<Props> = ({ onClose }) => {
-  const boardId = useBoardIdFromRoute();
-
   const createMutation = useCreateBoardList();
 
   const formik = useFormik<ICreateListFormValues>({
@@ -31,7 +28,7 @@ const Form: FC<Props> = ({ onClose }) => {
 
   const handleSubmit = async (values: ICreateListFormValues) => {
     try {
-      await createMutation.mutateAsync({ boardId, ...values });
+      await createMutation.mutateAsync({ ...values });
       formik.resetForm();
 
       onClose();

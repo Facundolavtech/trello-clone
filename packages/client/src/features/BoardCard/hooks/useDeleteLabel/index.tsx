@@ -1,18 +1,22 @@
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { deleteLabel, IDeleteLabelParams } from '../../services/card-label.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { useCardContext } from '../../context';
+import { deleteLabel } from '../../services/card-label.service';
 
 type Props = {
   id: string;
 };
 
+interface IMutationParams {
+  id: string;
+}
+
 const useDeleteLabel = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: IDeleteLabelParams) => deleteLabel(params), {
+  const mutation = useMutation(({ id }: IMutationParams) => deleteLabel({ boardId, cardId, id }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/labels/delete/${id}`],
     onSuccess: () => onSuccess(),
   });
@@ -29,7 +33,7 @@ export default useDeleteLabel;
 
 export const useDeleteLabelIsMutating = ({ id }: Props) => {
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
   return useIsMutating([`board/${boardId}/cards/${cardId}/labels/delete/${id}`]) > 0;
 };

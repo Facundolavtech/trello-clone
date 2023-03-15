@@ -1,17 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IBoardList } from '../../../../models/board-list.model';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { IUpdateListParams, updateList } from '../../services/list.service';
+import { updateList } from '../../services/list.service';
 
 type Props = {
   id: string;
 };
 
+interface IMutationParams {
+  name?: string;
+  listId: string;
+}
+
 const useUpdateList = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
 
-  const mutation = useMutation((params: IUpdateListParams) => updateList(params), {
+  const mutation = useMutation(({ listId, name }: IMutationParams) => updateList({ boardId, listId, name }), {
     mutationKey: [`board/${boardId}/lists/update/${id}`],
     onSuccess: async (data: IBoardList) => onSuccess(data),
   });

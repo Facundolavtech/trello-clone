@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { Formik, Form as FormikForm } from 'formik';
 import FormErrorMessage from '../../../../../../components/FormErrorMessage';
-import useBoardIdFromRoute from '../../../../../Board/hooks/useBoardIdFromRoute';
 import useUpdateList from '../../../../hooks/useUpdateList';
 import { UpdateListSchema } from '../../../../validations';
 import SubmitButton from '../Buttons/Submit';
@@ -15,12 +14,11 @@ type Props = {
 };
 
 const Form: FC<Props> = ({ onClose, listId, title }) => {
-  const boardId = useBoardIdFromRoute();
   const updateMutation = useUpdateList({ id: listId });
 
   const handleSubmit = async (values) => {
     try {
-      await updateMutation.mutateAsync({ boardId, listId, ...values });
+      await updateMutation.mutateAsync({ listId, ...values });
 
       onClose();
     } catch {

@@ -1,14 +1,20 @@
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
-import { IBoard } from '../../../../models/board.model';
+import { BoardVisibility, IBoard } from '../../../../models/board.model';
 import updateQueryData from '../../../../utils/updateQueryData';
-import { IUpdateBoardParams, updateBoard } from '../../services/board.service';
+import { updateBoard } from '../../services/board.service';
 import useBoardIdFromRoute from '../useBoardIdFromRoute';
+
+interface IMutationParams {
+  title?: string;
+  cover?: string;
+  visibility?: BoardVisibility;
+}
 
 const useUpdateBoard = () => {
   const boardId = useBoardIdFromRoute();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation((params: IUpdateBoardParams) => updateBoard(params), {
+  const mutation = useMutation(({ cover, title, visibility }: IMutationParams) => updateBoard({ id: boardId, cover, title, visibility }), {
     mutationKey: [`board/${boardId}/update`],
     onSuccess: (data: IBoard) => onSuccess(data),
   });

@@ -3,7 +3,6 @@ import { VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import FormErrorMessage from '../../../../../components/FormErrorMessage';
 import { CreateCardSchema } from '../../../validations';
-import useBoardIdFromRoute from '../../../../Board/hooks/useBoardIdFromRoute';
 import useCreateCard from '../../../hooks/useCreateCard';
 import SubmitButton from '../Buttons/Submit';
 import TitleInput from './TitleInput';
@@ -18,8 +17,6 @@ type Props = {
 };
 
 const Form: FC<Props> = ({ onClose, listId }) => {
-  const boardId = useBoardIdFromRoute();
-
   const createMutation = useCreateCard();
 
   const formik = useFormik<ICreateCardFormValues>({
@@ -32,7 +29,7 @@ const Form: FC<Props> = ({ onClose, listId }) => {
 
   const handleSubmit = async (values: ICreateCardFormValues) => {
     try {
-      await createMutation.mutateAsync({ boardId, listId, ...values });
+      await createMutation.mutateAsync({ listId, ...values });
       formik.resetForm();
 
       onClose();

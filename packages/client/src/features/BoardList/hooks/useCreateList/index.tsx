@@ -1,15 +1,17 @@
-import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { IBoardList } from '../../../../models/board-list.model';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { createList, ICreateListParams } from '../../services/list.service';
+import { createList } from '../../services/list.service';
+
+interface IMutationParams {
+  name: string;
+}
 
 const useCreateList = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
 
-  const mutation = useMutation((params: ICreateListParams) => createList(params), {
+  const mutation = useMutation(({ name }: IMutationParams) => createList({ boardId, name }), {
     mutationKey: [`board/${boardId}/lists/create`],
     onSuccess: async (data: IBoardList) => onSuccess(data),
   });

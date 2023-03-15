@@ -3,8 +3,6 @@ import { useFormik } from 'formik';
 import Avatar from '../../../../../../components/Avatar';
 import FormErrorMessage from '../../../../../../components/FormErrorMessage';
 import useUserProfile from '../../../../../../hooks/useUserProfile';
-import useBoardIdFromRoute from '../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../hooks/useCardIdFromRoute';
 import useCreateComment from '../../../../hooks/useCreateComment';
 import { CreateCommentSchema } from '../../../../validations';
 import SubmitButton from '../Buttons/Submit';
@@ -16,8 +14,6 @@ interface ICommentFormValues {
 
 const CommentsForm = () => {
   const { data: user } = useUserProfile();
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
 
   const createMutation = useCreateComment();
 
@@ -30,7 +26,7 @@ const CommentsForm = () => {
   });
 
   const handleSubmit = async (values: ICommentFormValues) => {
-    await createMutation.mutateAsync({ boardId, cardId, ...values });
+    await createMutation.mutateAsync({ ...values });
     formik.resetForm();
   };
 

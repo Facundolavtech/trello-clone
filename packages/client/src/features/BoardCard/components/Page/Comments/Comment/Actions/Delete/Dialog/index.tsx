@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
-import useBoardIdFromRoute from '../../../../../../../../Board/hooks/useBoardIdFromRoute';
-import useCardIdFromRoute from '../../../../../../../hooks/useCardIdFromRoute';
 import useDeleteComment from '../../../../../../../hooks/useDeleteComment';
 import AlertDialog from '../../../../../../../../../components/AlertDialog';
 import Button from '../../../../../../../../../components/Button';
@@ -12,14 +10,11 @@ type Props = {
 };
 
 const DeleteDialog: FC<Props> = ({ id, disclosure }) => {
-  const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
-
   const deleteMutation = useDeleteComment({ id });
 
   const handleDelete = async () => {
     try {
-      await deleteMutation.mutateAsync({ boardId, cardId, id });
+      await deleteMutation.mutateAsync({ id });
 
       disclosure.onClose();
     } catch {}

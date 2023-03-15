@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { IUploadAttachmentParams, uploadAttachment } from '../../services/card-attachment.service';
-import useCardIdFromRoute from '../useCardIdFromRoute';
+import { useCardContext } from '../../context';
+import { uploadAttachment } from '../../services/card-attachment.service';
+
+interface IMutationParams {
+  file: File;
+}
 
 const useUploadAttachment = () => {
   const queryClient = useQueryClient();
   const boardId = useBoardIdFromRoute();
-  const cardId = useCardIdFromRoute();
+  const { id: cardId } = useCardContext();
 
-  const mutation = useMutation((params: IUploadAttachmentParams) => uploadAttachment(params), {
+  const mutation = useMutation(({ file }: IMutationParams) => uploadAttachment({ file, boardId, cardId }), {
     mutationKey: [`board/${boardId}/cards/${cardId}/attachments/upload`],
     onSuccess: () => onSuccess(),
   });

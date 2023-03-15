@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import useLists from '../../../BoardList/hooks/useLists';
-import { useCardContext } from '../../Context';
+import { useCardContext } from '../../context';
 import useCard from '../useCard';
 
 const useCardList = () => {
