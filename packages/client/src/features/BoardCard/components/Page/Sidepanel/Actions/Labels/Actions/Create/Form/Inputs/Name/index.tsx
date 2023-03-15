@@ -1,6 +1,6 @@
 import { Input, VStack } from '@chakra-ui/react';
-import FormErrorMessage from '../../../../../../../../../../../../components/FormErrorMessage';
-import { useLabelContext } from '../../../../../Context';
+import FormErrorMessage from 'components/FormErrorMessage';
+import { useLabelContext } from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Context';
 
 const NameInput = () => {
   const { formik } = useLabelContext();

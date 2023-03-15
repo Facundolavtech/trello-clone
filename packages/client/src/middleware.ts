@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import config from './config';
-import { AppRoutes, privateRoutes, publicRoutes } from './config/routes';
+import { AppRoutes, privateRoutes, publicRoutes } from 'config/routes';
+import config from 'config/index';
 
 export async function middleware(req: NextRequest) {
   const response = NextResponse.next();

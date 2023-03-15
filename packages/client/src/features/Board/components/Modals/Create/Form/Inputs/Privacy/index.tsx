@@ -1,8 +1,8 @@
 import { Icon, Text } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
 import { IoMdLock, IoMdUnlock } from 'react-icons/io';
-import Button from '../../../../../../../../components/Button';
-import { ICreateBoardValues } from '../../../Context';
+import Button from 'components/Button';
+import { ICreateBoardValues } from 'features/Board/components/Modals/Create/Context';
 
 const Privacy = () => {
   const { values, setFieldValue } = useFormikContext<ICreateBoardValues>();

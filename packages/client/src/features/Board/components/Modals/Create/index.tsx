@@ -1,9 +1,9 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import Form from './Form';
-import CloseModalButton from './Buttons/Close';
-import CoverPreview from './CoverPreview';
-import CreateBoardContextProvider from './Context';
+import Form from 'features/Board/components/Modals/Create/Form';
+import CloseModalButton from 'features/Board/components/Modals/Create/Buttons/Close';
+import CoverPreview from 'features/Board/components/Modals/Create/CoverPreview';
+import CreateBoardContextProvider from 'features/Board/components/Modals/Create/Context';
 
 const CreateBoardModal = NiceModal.create(() => {
   const modal = useModal();

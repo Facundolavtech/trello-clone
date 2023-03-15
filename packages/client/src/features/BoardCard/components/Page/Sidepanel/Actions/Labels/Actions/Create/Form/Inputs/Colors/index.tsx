@@ -1,8 +1,8 @@
 import { Box, Icon, SimpleGrid, VStack } from '@chakra-ui/react';
 import { MdCheck } from 'react-icons/md';
-import FormErrorMessage from '../../../../../../../../../../../../components/FormErrorMessage';
-import colors from '../../../../../colors';
-import { useLabelContext } from '../../../../../Context';
+import FormErrorMessage from 'components/FormErrorMessage';
+import colors from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/colors';
+import { useLabelContext } from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Context';
 
 const ColorsInput = () => {
   const { formik } = useLabelContext();

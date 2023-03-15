@@ -1,14 +1,14 @@
 import { Flex, HStack, Stack, VStack } from '@chakra-ui/react';
-import BoardLayout from '../../layouts/BoardLayout';
-import BoardMembers from '../Members';
-import BoardPrivacy from '../BoardPrivacy';
-import ShowBoardMenuButton from '../Buttons/ShowMenu';
-import Lists from '../../../BoardList/components/Lists';
-import BoardMenu from '../Menu';
-import BoardCanvas from '../Canvas';
-import BoardContextWrapper from '../../context/board';
-import useBoard from '../../hooks/useBoard';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
+import BoardLayout from 'features/Board/layouts/BoardLayout';
+import BoardMembers from 'features/Board/components/Members';
+import BoardPrivacy from 'features/Board/components/BoardPrivacy';
+import ShowBoardMenuButton from 'features/Board/components/Buttons/ShowMenu';
+import Lists from 'features/BoardList/components/Lists';
+import BoardMenu from 'features/Board/components/Menu';
+import BoardCanvas from 'features/Board/components/Canvas';
+import BoardContextWrapper from 'features/Board/context/board';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 const BoardPage = () => {
   const boardId = useBoardIdFromRoute();

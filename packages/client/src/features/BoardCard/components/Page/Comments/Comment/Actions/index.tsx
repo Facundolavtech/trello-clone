@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { HStack, Text } from '@chakra-ui/react';
-import Delete from './Delete';
-import Edit from './Edit';
+import Delete from 'features/BoardCard/components/Page/Comments/Comment/Actions/Delete';
+import Edit from 'features/BoardCard/components/Page/Comments/Comment/Actions/Edit';
 
 type Props = {
   id: string;

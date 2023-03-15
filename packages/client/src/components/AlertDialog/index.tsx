@@ -8,7 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FC, ReactElement, useRef } from 'react';
-import Button from '../Button';
+import Button from 'components/Button';
 
 type Props = {
   isOpen: boolean;

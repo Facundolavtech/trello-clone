@@ -1,8 +1,8 @@
 import { CSSProperties, FC } from 'react';
 import { Box, Tooltip, Text } from '@chakra-ui/react';
-import { FontFamily } from '../../theme/constants';
-import Avatar, { AvatarWithRef } from '../Avatar';
-import { IBoardMember } from '../../models/board.model';
+import { FontFamily } from 'theme/constants';
+import Avatar, { AvatarWithRef } from 'components/Avatar';
+import { IBoardMember } from 'models/board.model';
 
 type Props = {
   members: IBoardMember[];

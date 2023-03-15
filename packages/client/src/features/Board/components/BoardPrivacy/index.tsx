@@ -1,11 +1,11 @@
 import { Flex, Menu as ChakraMenu, MenuButton as ChakraMenuButton, MenuList } from '@chakra-ui/react';
-import useUserProfile from '../../../../hooks/useUserProfile';
-import useBoard from '../../hooks/useBoard';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
-import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
-import BoardPrivacyMenuItems from './Items/Items';
-import PrivacyButton from './PrivacyButton';
-import BoardPrivacyMenuTitle from './Title/Title';
+import useUserProfile from 'hooks/useUserProfile';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import userIsBoardAdmin from 'features/Board/utils/userIsBoardAdmin';
+import BoardPrivacyMenuItems from 'features/Board/components/BoardPrivacy/Items/Items';
+import PrivacyButton from 'features/Board/components/BoardPrivacy/PrivacyButton';
+import BoardPrivacyMenuTitle from 'features/Board/components/BoardPrivacy/Title/Title';
 
 const BoardPrivacy = () => {
   const boardId = useBoardIdFromRoute();

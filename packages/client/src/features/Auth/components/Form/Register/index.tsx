@@ -3,11 +3,11 @@ import { Form, Formik } from 'formik';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { IoMdPerson } from 'react-icons/io';
-import useAuthMethods from '../../../hooks/useAuthMethods';
-import { RegisterSchema } from '../../../validations';
-import ErrorMessage from '../ErrorMessage';
-import AuthInput from '../Input';
-import SubmitButton from '../Buttons/Submit';
+import useAuthMethods from 'features/Auth/hooks/useAuthMethods';
+import { RegisterSchema } from 'features/Auth/validations';
+import ErrorMessage from 'features/Auth/components/Form/ErrorMessage';
+import AuthInput from 'features/Auth/components/Form/Input';
+import SubmitButton from 'features/Auth/components/Form/Buttons/Submit';
 
 export interface IRegisterFormValues {
   name: string;

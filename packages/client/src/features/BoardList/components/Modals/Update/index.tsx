@@ -1,7 +1,7 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import Form from './Form';
-import Header from './Header';
+import Form from 'features/BoardList/components/Modals/Update/Form';
+import Header from 'features/BoardList/components/Modals/Update/Header';
 
 type Props = {
   listId: string;

@@ -1,8 +1,8 @@
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
-import { BoardVisibility, IBoard } from '../../../../models/board.model';
-import updateQueryData from '../../../../utils/updateQueryData';
-import { updateBoard } from '../../services/board.service';
-import useBoardIdFromRoute from '../useBoardIdFromRoute';
+import { BoardVisibility, IBoard } from 'models/board.model';
+import updateQueryData from 'utils/updateQueryData';
+import { updateBoard } from 'features/Board/services/board.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 interface IMutationParams {
   title?: string;

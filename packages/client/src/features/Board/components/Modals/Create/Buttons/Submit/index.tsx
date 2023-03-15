@@ -1,7 +1,7 @@
 import { Icon, Text } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button from '../../../../../../../components/Button';
-import { useCreateBoardContext } from '../../Context';
+import Button from 'components/Button';
+import { useCreateBoardContext } from 'features/Board/components/Modals/Create/Context';
 
 const SubmitButton = () => {
   const { isLoading } = useCreateBoardContext();

@@ -1,4 +1,4 @@
-import { IBoardMember } from './board.model';
+import { IBoardMember } from 'models/board.model';
 
 export interface IBoardCard {
   id: string;

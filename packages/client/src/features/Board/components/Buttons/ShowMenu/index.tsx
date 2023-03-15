@@ -1,10 +1,10 @@
 import { Icon, Text } from '@chakra-ui/react';
 import { MdMoreHoriz } from 'react-icons/md';
-import Button from '../../../../../components/Button';
-import { useBoardContext } from '../../../context/board';
-import useBoard from '../../../hooks/useBoard';
-import useBoardIdFromRoute from '../../../hooks/useBoardIdFromRoute';
-import Loading from './Loading';
+import Button from 'components/Button';
+import { useBoardContext } from 'features/Board/context/board';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import Loading from 'features/Board/components/Buttons/ShowMenu/Loading';
+import useBoard from 'features/Board/hooks/useBoard';
 
 const ShowBoardMenuButton = () => {
   const { onOpen: onOpenBoardMenu } = useBoardContext();

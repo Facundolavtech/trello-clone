@@ -1,7 +1,7 @@
 import { FC, CSSProperties } from 'react';
 import { Icon, Text } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button, { ButtonVariant } from '../../Button';
+import Button, { ButtonVariant } from 'components/Button';
 
 type Props = {
   onClick: (e: any) => any;

@@ -1,6 +1,6 @@
 import { Menu as ChakraMenu, MenuList } from '@chakra-ui/react';
-import Form from './Form';
-import OpenButton from './Buttons/Open';
+import Form from 'features/BoardList/components/CreateMenu/Form';
+import OpenButton from 'features/BoardList/components/CreateMenu/Buttons/Open';
 
 const CreateListMenu = () => {
   return (

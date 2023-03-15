@@ -1,6 +1,6 @@
 import { CSSProperties, FC, ReactNode, forwardRef } from 'react';
 import { Button as ChakraButton, As, ResponsiveValue } from '@chakra-ui/react';
-import { FontFamily } from '../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   children: ReactNode;

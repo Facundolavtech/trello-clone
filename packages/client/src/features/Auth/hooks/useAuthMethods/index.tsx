@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AppRoutes } from '../../../../config/routes';
-import { ILoginFormValues } from '../../components/Form/Login';
-import { IRegisterFormValues } from '../../components/Form/Register';
-import { ILoginWithSocialProviderParams, loginWithLocalProvider, loginWithSocialProvider, registerWithLocalProvider } from '../../services/auth.service';
-import { deleteSessionCookie } from '../../../../utils/sessionCookie';
+import { AppRoutes } from 'config/routes';
+import { ILoginFormValues } from 'features/Auth/components/Form/Login';
+import { IRegisterFormValues } from 'features/Auth/components/Form/Register';
+import { ILoginWithSocialProviderParams, loginWithLocalProvider, loginWithSocialProvider, registerWithLocalProvider } from 'features/Auth/services/auth.service';
+import { deleteSessionCookie } from 'utils/sessionCookie';
 
 const useAuthMethods = () => {
   const router = useRouter();

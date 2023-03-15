@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import FormErrorMessage from '../../../../../components/FormErrorMessage';
-import { CreateCardSchema } from '../../../validations';
-import useCreateCard from '../../../hooks/useCreateCard';
-import SubmitButton from '../Buttons/Submit';
-import TitleInput from './TitleInput';
+import FormErrorMessage from 'components/FormErrorMessage';
+import { CreateCardSchema } from 'features/BoardCard/validations';
+import useCreateCard from 'features/BoardCard/hooks/useCreateCard';
+import SubmitButton from 'features/BoardCard/components/CreateMenu/Buttons/Submit';
+import TitleInput from 'features/BoardCard/components/CreateMenu/Form/TitleInput';
 
 interface ICreateCardFormValues {
   title: string;

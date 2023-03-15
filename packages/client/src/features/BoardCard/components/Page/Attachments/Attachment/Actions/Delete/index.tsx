@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import useDeleteAttachment from '../../../../../../hooks/useDeleteAttachment';
-import DeleteButton from '../../Buttons/Delete';
+import useDeleteAttachment from 'features/BoardCard/hooks/useDeleteAttachment';
+import DeleteButton from 'features/BoardCard/components/Page/Attachments/Attachment/Buttons/Delete';
 
 type Props = {
   id: string;

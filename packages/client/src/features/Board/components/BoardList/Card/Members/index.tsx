@@ -1,7 +1,7 @@
 import { FC } from 'react';
+import { IBoardMember } from 'models/board.model';
 import { HStack } from '@chakra-ui/react';
-import MemberList from '../../../../../../components/Members';
-import { IBoardMember } from '../../../../../../models/board.model';
+import MemberList from 'components/Members';
 
 type Props = {
   members: IBoardMember[];

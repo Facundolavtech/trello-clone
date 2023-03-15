@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { HStack, Text, useDisclosure } from '@chakra-ui/react';
-import Avatar from '../../../../../../components/Avatar';
-import DeleteBoardMemberDialog from '../../../DeleteMemberDialog';
-import { IBoardAdmin, IBoardMember } from '../../../../../../models/board.model';
-import RemoveMemberButton from './Remove';
+import Avatar from 'components/Avatar';
+import DeleteBoardMemberDialog from 'features/Board/components/DeleteMemberDialog';
+import { IBoardAdmin, IBoardMember } from 'models/board.model';
+import RemoveMemberButton from 'features/Board/components/Menu/Team/Member/Remove';
 
 type Props = {
   member: IBoardMember;

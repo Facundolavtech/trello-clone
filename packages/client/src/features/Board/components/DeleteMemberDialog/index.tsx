@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
-import AlertDialog from '../../../../components/AlertDialog';
-import Button from '../../../../components/Button';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
-import useDeleteBoardMember from '../../hooks/useDeleteMember';
+import AlertDialog from 'components/AlertDialog';
+import Button from 'components/Button';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import useDeleteBoardMember from 'features/Board/hooks/useDeleteMember';
 
 type Props = {
   userId: string | null;

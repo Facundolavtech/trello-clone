@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { Icon, Input, Text, useToast } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button from '../../../../../../components/Button';
-import config from '../../../../../../config';
-import bytesToMegabytes from '../../../../../../utils/bytesToMegabytes';
-import useUploadAttachment from '../../../../hooks/useUploadAttachment';
+import Button from 'components/Button';
+import config from 'config';
+import bytesToMegabytes from 'utils/bytesToMegabytes';
+import useUploadAttachment from 'features/BoardCard/hooks/useUploadAttachment';
 
 const Upload = () => {
   const hiddenFileInput = useRef<HTMLInputElement | null>(null);

@@ -1,12 +1,12 @@
 import { HStack, VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import Avatar from '../../../../../../components/Avatar';
-import FormErrorMessage from '../../../../../../components/FormErrorMessage';
-import useUserProfile from '../../../../../../hooks/useUserProfile';
-import useCreateComment from '../../../../hooks/useCreateComment';
-import { CreateCommentSchema } from '../../../../validations';
-import SubmitButton from '../Buttons/Submit';
-import CommentTextarea from './Textarea';
+import Avatar from 'components/Avatar';
+import FormErrorMessage from 'components/FormErrorMessage';
+import useUserProfile from 'hooks/useUserProfile';
+import useCreateComment from 'features/BoardCard/hooks/useCreateComment';
+import { CreateCommentSchema } from 'features/BoardCard/validations';
+import SubmitButton from 'features/BoardCard/components/Page/Comments/Buttons/Submit';
+import CommentTextarea from 'features/BoardCard/components/Page/Comments/Form/Textarea';
 
 interface ICommentFormValues {
   content: string;

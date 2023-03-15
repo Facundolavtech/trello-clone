@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Text } from '@chakra-ui/react';
-import Button from '../../../../../../../../components/Button';
+import Button from 'components/Button';
 
 type Props = {
   onClick: () => void;

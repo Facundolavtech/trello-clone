@@ -1,8 +1,8 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import BoardCard from './Card';
-import Loading from './Loading';
-import Error from './Error';
-import useBoards from '../../hooks/useBoards';
+import BoardCard from 'features/Board/components/BoardList/Card';
+import Loading from 'features/Board/components/BoardList/Loading';
+import Error from 'features/Board/components/BoardList/Error';
+import useBoards from 'features/Board/hooks/useBoards';
 
 const BoardList = () => {
   const { data: boards, error } = useBoards();

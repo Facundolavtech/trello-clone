@@ -1,4 +1,4 @@
-import { UserProvider } from './user.model';
+import { UserProvider } from 'models/user.model';
 
 export interface IBoard {
   id: string;

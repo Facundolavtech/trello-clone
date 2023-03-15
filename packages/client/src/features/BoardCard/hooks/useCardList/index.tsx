@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import useLists from '../../../BoardList/hooks/useLists';
-import { useCardContext } from '../../context';
-import useCard from '../useCard';
+import useLists from 'features/BoardList/hooks/useLists';
+import { useCardContext } from 'features/BoardCard/context';
+import useCard from 'features/BoardCard/hooks/useCard';
 
 const useCardList = () => {
   const { id } = useCardContext();

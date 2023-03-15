@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import http from '../../../config/http';
-import { ApiRoutes } from '../../../config/routes';
-import { IBoardCard } from '../../../models/board-card.model';
+import http from 'config/http';
+import { ApiRoutes } from 'config/routes';
+import { IBoardCard } from 'models/board-card.model';
 
 export interface ICreateCardParams {
   boardId: string;

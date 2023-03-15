@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { HStack } from '@chakra-ui/react';
-import Download from './Download';
-import Delete from './Delete';
-import { IBoardCardAttachment } from '../../../../../../../models/board-card.model';
+import Download from 'features/BoardCard/components/Page/Attachments/Attachment/Actions/Download';
+import Delete from 'features/BoardCard/components/Page/Attachments/Attachment/Actions/Delete';
+import { IBoardCardAttachment } from 'models/board-card.model';
 
 type Props = {
   attachment: IBoardCardAttachment;

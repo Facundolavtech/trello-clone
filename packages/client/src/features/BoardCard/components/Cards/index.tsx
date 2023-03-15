@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
-import { IBoardListCard } from '../../../../models/board-list.model';
-import sortArr from '../../../../utils/sortArr';
-import Card from '../Card';
+import { IBoardListCard } from 'models/board-list.model';
+import sortArr from 'utils/sortArr';
+import Card from 'features/BoardCard/components/Card';
 
 type Props = {
   cards: IBoardListCard[];

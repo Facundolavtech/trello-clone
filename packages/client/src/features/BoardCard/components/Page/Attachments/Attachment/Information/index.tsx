@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
-import CreatedDate from './CreatedDate';
-import Name from './Name';
-import { IBoardCardAttachment } from '../../../../../../../models/board-card.model';
+import CreatedDate from 'features/BoardCard/components/Page/Attachments/Attachment/Information/CreatedDate';
+import Name from 'features/BoardCard/components/Page/Attachments/Attachment/Information/Name';
+import { IBoardCardAttachment } from 'models/board-card.model';
 
 type Props = {
   attachment: IBoardCardAttachment;

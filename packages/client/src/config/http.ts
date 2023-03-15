@@ -1,8 +1,8 @@
 import config from '.';
 import axios from 'axios';
-import { AppRoutes } from './routes';
+import { AppRoutes } from 'config/routes';
 import { getCookie } from 'cookies-next';
-import { deleteSessionCookie } from '../utils/sessionCookie';
+import { deleteSessionCookie } from 'utils/sessionCookie';
 
 const http = {
   api: axios.create({

@@ -1,7 +1,7 @@
 import { HStack, VStack } from '@chakra-ui/react';
-import DescriptionBox from './Box';
-import EditDescription from './Edit';
-import DescriptionTitle from './Title';
+import DescriptionBox from 'features/Board/components/Menu/Description/Box';
+import EditDescription from 'features/Board/components/Menu/Description/Edit';
+import DescriptionTitle from 'features/Board/components/Menu/Description/Title';
 
 const Description = ({ canEdit }) => {
   return (

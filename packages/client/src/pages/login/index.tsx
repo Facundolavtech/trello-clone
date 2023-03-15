@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import SEO from '../../components/SEO';
-import AuthCard from '../../features/Auth/components/Card';
-import LoginForm from '../../features/Auth/components/Form/Login';
-import AuthLayout from '../../layout/Auth';
+import SEO from 'components/SEO';
+import LoginForm from 'features/Auth/components/Form/Login';
+import AuthLayout from 'layout/Auth';
+import AuthCard from 'features/Auth/components/Card';
 
 const Login: NextPage = () => {
   return (

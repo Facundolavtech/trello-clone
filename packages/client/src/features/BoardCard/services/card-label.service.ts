@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import http from '../../../config/http';
-import { IBoardCardLabel } from '../../../models/board-card.model';
+import http from 'config/http';
+import { IBoardCardLabel } from 'models/board-card.model';
 
 export interface ICreateLabelParams {
   boardId: string;

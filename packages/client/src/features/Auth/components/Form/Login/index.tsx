@@ -1,12 +1,12 @@
 import { Stack } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import { LoginSchema } from '../../../validations';
-import ErrorMessage from '../ErrorMessage';
+import { LoginSchema } from 'features/Auth/validations';
+import ErrorMessage from 'features/Auth/components/Form/ErrorMessage';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import SubmitButton from '../Buttons/Submit';
-import AuthInput from '../Input';
-import useAuthMethods from '../../../hooks/useAuthMethods';
+import SubmitButton from 'features/Auth/components/Form/Buttons/Submit';
+import AuthInput from 'features/Auth/components/Form/Input';
+import useAuthMethods from 'features/Auth/hooks/useAuthMethods';
 
 export interface ILoginFormValues {
   email: string;

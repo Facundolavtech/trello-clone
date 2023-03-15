@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import useUserProfile from '../../../../hooks/useUserProfile';
-import { IBoardCardComment } from '../../../../models/board-card.model';
+import useUserProfile from 'hooks/useUserProfile';
+import { IBoardCardComment } from 'models/board-card.model';
 
 type Props = {
   comment: IBoardCardComment;

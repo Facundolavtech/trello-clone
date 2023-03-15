@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { HStack, Icon } from '@chakra-ui/react';
 import { MdCheck, MdClose } from 'react-icons/md';
-import Button from '../../../../../../../../components/Button';
-import useUpdateComment from '../../../../../../hooks/useUpdateComment';
-import EditButton from '../../Buttons/Edit';
-import { useCommentContext } from '../../Context';
+import Button from 'components/Button';
+import useUpdateComment from 'features/BoardCard/hooks/useUpdateComment';
+import EditButton from 'features/BoardCard/components/Page/Comments/Comment/Buttons/Edit';
+import { useCommentContext } from 'features/BoardCard/components/Page/Comments/Comment/Context';
 
 type Props = {
   id: string;

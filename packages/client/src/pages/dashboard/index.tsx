@@ -1,12 +1,12 @@
 import { Heading, HStack, VStack } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
 import { NextPage } from 'next';
-import AddButton from '../../components/Buttons/Add';
-import WrappedContainer from '../../components/Containers/Wrapped';
-import SEO from '../../components/SEO';
-import BoardList from '../../features/Board/components/BoardList';
-import CreateBoardModal from '../../features/Board/components/Modals/Create';
-import DashboardLayout from '../../layout/Dashboard';
+import AddButton from 'components/Buttons/Add';
+import WrappedContainer from 'components/Containers/Wrapped';
+import SEO from 'components/SEO';
+import BoardList from 'features/Board/components/BoardList';
+import CreateBoardModal from 'features/Board/components/Modals/Create';
+import DashboardLayout from 'layout/Dashboard';
 
 const Dashboard: NextPage = () => {
   return (

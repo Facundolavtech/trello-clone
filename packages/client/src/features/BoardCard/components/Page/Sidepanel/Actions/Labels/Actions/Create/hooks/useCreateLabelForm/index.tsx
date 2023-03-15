@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
-import useCreateLabel from '../../../../../../../../../hooks/useCreateLabel';
-import { CreateLabelSchema } from '../../../../../../../../../validations';
+import useCreateLabel from 'features/BoardCard/hooks/useCreateLabel';
+import { CreateLabelSchema } from 'features/BoardCard/validations';
 
 export interface ICreateLabelFormValues {
   name: string;

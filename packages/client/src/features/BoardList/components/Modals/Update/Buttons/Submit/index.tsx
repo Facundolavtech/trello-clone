@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Text } from '@chakra-ui/react';
-import Button from '../../../../../../../components/Button';
-import { FontFamily } from '../../../../../../../theme/constants';
+import Button from 'components/Button';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   isLoading: boolean;

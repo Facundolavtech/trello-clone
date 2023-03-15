@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import Link from 'next/link';
 import { FiLogOut } from 'react-icons/fi';
-import MenuItem from '../Item';
-import useAuthMethods from '../../../../features/Auth/hooks/useAuthMethods';
+import MenuItem from 'components/Dashboard/Menu/Item';
+import useAuthMethods from 'features/Auth/hooks/useAuthMethods';
 
 const MenuItems = () => {
   const { logout } = useAuthMethods();

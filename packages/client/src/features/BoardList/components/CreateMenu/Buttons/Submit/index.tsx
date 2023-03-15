@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import Button from '../../../../../../components/Button';
+import Button from 'components/Button';
 import { Text } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   onClick: () => void;

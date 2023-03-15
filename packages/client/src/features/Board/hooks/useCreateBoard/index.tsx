@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { AppRoutes } from '../../../../config/routes';
-import { BoardVisibility, IBoard } from '../../../../models/board.model';
-import { createBoard, getBoardById } from '../../services/board.service';
+import { AppRoutes } from 'config/routes';
+import { BoardVisibility, IBoard } from 'models/board.model';
+import { createBoard, getBoardById } from 'features/Board/services/board.service';
 
 interface IMutationParams {
   title: string;

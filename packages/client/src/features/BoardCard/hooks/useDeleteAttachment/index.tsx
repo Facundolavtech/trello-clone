@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { useCardContext } from '../../context';
-import { deleteAttachment } from '../../services/card-attachment.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { useCardContext } from 'features/BoardCard/context';
+import { deleteAttachment } from 'features/BoardCard/services/card-attachment.service';
 
 type Props = {
   id: string;

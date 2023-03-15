@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { VStack, HStack, Icon, Text } from '@chakra-ui/react';
 import { FaUserCircle } from 'react-icons/fa';
-import { FontFamily } from '../../../../../theme/constants';
-import { IBoardAdmin } from '../../../../../models/board.model';
-import Avatar from '../../../../../components/Avatar';
-import formatTimestampToDate from '../../../../../utils/formatTimestampToDate';
+import { FontFamily } from 'theme/constants';
+import { IBoardAdmin } from 'models/board.model';
+import Avatar from 'components/Avatar';
+import formatTimestampToDate from 'utils/formatTimestampToDate';
 
 type Props = {
   creator: IBoardAdmin;

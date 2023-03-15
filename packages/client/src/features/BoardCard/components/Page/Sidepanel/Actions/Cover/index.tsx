@@ -1,8 +1,8 @@
-import Covers from '../../../../../../../components/Covers';
-import { useCardContext } from '../../../../../context';
-import useCard from '../../../../../hooks/useCard';
-import useUpdateCard from '../../../../../hooks/useUpdateCard';
-import OpenButton from './Buttons/Open';
+import Covers from 'components/Covers';
+import { useCardContext } from 'features/BoardCard/context';
+import useCard from 'features/BoardCard/hooks/useCard';
+import useUpdateCard from 'features/BoardCard/hooks/useUpdateCard';
+import OpenButton from 'features/BoardCard/components/Page/Sidepanel/Actions/Cover/Buttons/Open';
 
 const CoverMenu = () => {
   const updateMutation = useUpdateCard();

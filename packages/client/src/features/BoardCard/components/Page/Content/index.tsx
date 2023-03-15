@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import { VStack, SimpleGrid, HStack } from '@chakra-ui/react';
-import EditButton from '../../../../../components/Buttons/Edit';
-import useCard from '../../../hooks/useCard';
-import useCardList from '../../../hooks/useCardList';
-import Attachments from '../Attachments';
-import Comments from '../Comments';
-import Cover from '../Cover';
-import DescriptionContent from '../Description/Content';
-import DescriptionTitle from '../Description/Title';
-import Error from '../Error';
-import Loading from '../Loading';
-import Sidepanel from '../Sidepanel';
-import Title from '../Title';
-import { useCardContext } from '../../../context';
+import EditButton from 'components/Buttons/Edit';
+import useCard from 'features/BoardCard/hooks/useCard';
+import useCardList from 'features/BoardCard/hooks/useCardList';
+import Attachments from 'features/BoardCard/components/Page/Attachments';
+import Comments from 'features/BoardCard/components/Page/Comments';
+import Cover from 'features/BoardCard/components/Page/Cover';
+import DescriptionContent from 'features/BoardCard/components/Page/Description/Content';
+import DescriptionTitle from 'features/BoardCard/components/Page/Description/Title';
+import Error from 'features/BoardCard/components/Page/Error';
+import Loading from 'features/BoardCard/components/Page/Loading';
+import Sidepanel from 'features/BoardCard/components/Page/Sidepanel';
+import Title from 'features/BoardCard/components/Page/Title';
+import { useCardContext } from 'features/BoardCard/context';
 
 const Content = () => {
   const { id } = useCardContext();

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { downloadAttachment } from '../../../../../../services/card-attachment.service';
-import DownloadButton from '../../Buttons/Download';
+import { downloadAttachment } from 'features/BoardCard/services/card-attachment.service';
+import DownloadButton from 'features/BoardCard/components/Page/Attachments/Attachment/Buttons/Download';
 
 type Props = {
   url: string;

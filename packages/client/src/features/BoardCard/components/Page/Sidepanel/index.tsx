@@ -1,5 +1,5 @@
 import { VStack } from '@chakra-ui/react';
-import Actions from './Actions';
+import Actions from 'features/BoardCard/components/Page/Sidepanel/Actions';
 
 const Sidepanel = () => {
   return (

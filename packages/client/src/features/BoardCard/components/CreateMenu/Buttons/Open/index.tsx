@@ -1,7 +1,7 @@
 import { Icon, Text, MenuButton as ChakraMenuButton } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button from '../../../../../../components/Button';
-import { FontFamily } from '../../../../../../theme/constants';
+import Button from 'components/Button';
+import { FontFamily } from 'theme/constants';
 
 const OpenButton = () => {
   return (

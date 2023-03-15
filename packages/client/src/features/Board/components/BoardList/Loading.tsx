@@ -1,5 +1,5 @@
 import { HStack, SimpleGrid, Skeleton, VStack } from '@chakra-ui/react';
-import SkeletonText from '../../../../components/SkeletonText';
+import SkeletonText from 'components/SkeletonText';
 
 const Loading = () => {
   return (

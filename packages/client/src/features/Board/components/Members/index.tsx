@@ -1,12 +1,12 @@
 import { HStack } from '@chakra-ui/react';
-import AddButton from '../../../../components/Buttons/Add';
-import MemberList from '../../../../components/Members';
-import useUserProfile from '../../../../hooks/useUserProfile';
-import sortArr from '../../../../utils/sortArr';
-import useBoard from '../../hooks/useBoard';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
-import userIsBoardAdmin from '../../utils/userIsBoardAdmin';
-import Loading from './Loading';
+import AddButton from 'components/Buttons/Add';
+import MemberList from 'components/Members';
+import useUserProfile from 'hooks/useUserProfile';
+import sortArr from 'utils/sortArr';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import userIsBoardAdmin from 'features/Board/utils/userIsBoardAdmin';
+import Loading from 'features/Board/components/Members/Loading';
 
 const BoardMembers = () => {
   const boardId = useBoardIdFromRoute();

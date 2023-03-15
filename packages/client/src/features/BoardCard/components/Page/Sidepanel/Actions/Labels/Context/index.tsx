@@ -1,7 +1,7 @@
 import { UseMutationResult } from '@tanstack/react-query';
 import { createContext, FC, ReactNode, useContext } from 'react';
-import { IBoardCardLabel } from '../../../../../../../../models/board-card.model';
-import useCreateLabelForm from '../Actions/Create/hooks/useCreateLabelForm';
+import { IBoardCardLabel } from 'models/board-card.model';
+import useCreateLabelForm from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Actions/Create/hooks/useCreateLabelForm';
 
 interface ILabelContext {
   formik: any;

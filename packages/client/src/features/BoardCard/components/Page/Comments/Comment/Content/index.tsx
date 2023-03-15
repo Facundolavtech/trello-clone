@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Box, Text } from '@chakra-ui/react';
-import { useCommentContext } from '../Context';
-import Editable from './Editable';
-import { FontFamily } from '../../../../../../../theme/constants';
+import { useCommentContext } from 'features/BoardCard/components/Page/Comments/Comment/Context';
+import Editable from 'features/BoardCard/components/Page/Comments/Comment/Content/Editable';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   content: string;

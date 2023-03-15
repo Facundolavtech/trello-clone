@@ -1,7 +1,7 @@
 import { useIsMutating, useMutation, useQueryClient } from '@tanstack/react-query';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { useCardContext } from '../../context';
-import { deleteLabel } from '../../services/card-label.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { useCardContext } from 'features/BoardCard/context';
+import { deleteLabel } from 'features/BoardCard/services/card-label.service';
 
 type Props = {
   id: string;

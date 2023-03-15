@@ -1,6 +1,6 @@
 import { Icon, MenuButton as ChakraMenuButton, Text } from '@chakra-ui/react';
 import { AiFillPicture } from 'react-icons/ai';
-import Button from '../../../../../../../../../components/Button';
+import Button from 'components/Button';
 
 const OpenButton = () => {
   return (

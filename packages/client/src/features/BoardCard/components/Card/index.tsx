@@ -1,16 +1,16 @@
 import { HStack, VStack } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
 import { FC } from 'react';
-import CustomCard from '../../../../components/Card';
-import { AppRoutes } from '../../../../config/routes';
-import { IBoardListCard } from '../../../../models/board-list.model';
-import CardPage from '../Page';
-import Attachments from './Attachments';
-import Comments from './Comments';
-import Cover from './Cover';
-import Labels from './Labels';
-import Members from './Members';
-import Title from './Title';
+import CustomCard from 'components/Card';
+import { AppRoutes } from 'config/routes';
+import { IBoardListCard } from 'models/board-list.model';
+import CardPage from 'features/BoardCard/components/Page';
+import Attachments from 'features/BoardCard/components/Card/Attachments';
+import Comments from 'features/BoardCard/components/Card/Comments';
+import Cover from 'features/BoardCard/components/Card/Cover';
+import Labels from 'features/BoardCard/components/Card/Labels';
+import Members from 'features/BoardCard/components/Card/Members';
+import Title from 'features/BoardCard/components/Card/Title';
 
 type Props = {
   card: IBoardListCard;

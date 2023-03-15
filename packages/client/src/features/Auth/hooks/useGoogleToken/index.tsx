@@ -1,6 +1,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
-import SocialProviders from '../../constants/providers';
-import useAuthMethods from '../useAuthMethods';
+import SocialProviders from 'features/Auth/constants/providers';
+import useAuthMethods from 'features/Auth/hooks/useAuthMethods';
 
 const useGoogleToken = () => {
   const { loginSocialMutation } = useAuthMethods();

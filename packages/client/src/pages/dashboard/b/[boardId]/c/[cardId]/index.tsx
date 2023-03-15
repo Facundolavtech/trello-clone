@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useModal } from '@ebay/nice-modal-react';
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import SEO from '../../../../../../components/SEO';
-import CardPage from '../../../../../../features/BoardCard/components/Page';
-import useCard from '../../../../../../features/BoardCard/hooks/useCard';
-import BoardPage from '../../../../../../features/Board/components/Page';
+import SEO from 'components/SEO';
+import CardPage from 'features/BoardCard/components/Page';
+import useCard from 'features/BoardCard/hooks/useCard';
+import BoardPage from 'features/Board/components/Page';
 
 type Props = {
   cardId: string;

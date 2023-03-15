@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react';
-import Button from '../../../../../../../../../components/Button';
-import { useLabelContext } from '../../Context';
+import Button from 'components/Button';
+import { useLabelContext } from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Context';
 
 const SubmitButton = () => {
   const { formik, createMutation } = useLabelContext();

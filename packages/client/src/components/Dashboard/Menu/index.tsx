@@ -1,10 +1,10 @@
 import { Divider, Menu as ChakraMenu, MenuList, Text, VStack } from '@chakra-ui/react';
-import MenuItems from './Items';
-import MenuButton from './Button';
-import useUserProfile from '../../../hooks/useUserProfile';
-import Loading from './Loading';
-import Error from './Error';
-import formatTimestampToDate from '../../../utils/formatTimestampToDate';
+import MenuItems from 'components/Dashboard/Menu/Items';
+import MenuButton from 'components/Dashboard/Menu/Button';
+import useUserProfile from 'hooks/useUserProfile';
+import Loading from 'components/Dashboard/Menu/Loading';
+import Error from 'components/Dashboard/Menu/Error';
+import formatTimestampToDate from 'utils/formatTimestampToDate';
 
 const Menu = () => {
   const { data: user, error } = useUserProfile();

@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react';
 import { Box, Center, Stack, Text, VStack } from '@chakra-ui/react';
-import Logo from '../../../../components/Logo';
-import AuthTitle from '../Title';
-import SwitchFormButton from '../Form/Buttons/SwitchForm';
-import { FontFamily } from '../../../../theme/constants';
-import SocialProviderButton from '../Form/Buttons/Social';
+import Logo from 'components/Logo';
+import AuthTitle from 'features/Auth/components/Title';
+import SwitchFormButton from 'features/Auth/components/Form/Buttons/SwitchForm';
+import { FontFamily } from 'theme/constants';
+import SocialProviderButton from 'features/Auth/components/Form/Buttons/Social';
 import { FcGoogle } from 'react-icons/fc';
-import useGoogleToken from '../../hooks/useGoogleToken';
-import useAuthMethods from '../../hooks/useAuthMethods';
+import useGoogleToken from 'features/Auth/hooks/useGoogleToken';
+import useAuthMethods from 'features/Auth/hooks/useAuthMethods';
 
 type Props = {
   formType: 'login' | 'register';

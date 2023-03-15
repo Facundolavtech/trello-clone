@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Box, Icon, Text } from '@chakra-ui/react';
 import { IconType } from 'react-icons/lib';
-import Button from '../../../../../../components/Button';
-import { FontFamily } from '../../../../../../theme/constants';
+import Button from 'components/Button';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   icon: IconType;

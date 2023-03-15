@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { useCardContext } from '../../context';
-import { uploadAttachment } from '../../services/card-attachment.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { useCardContext } from 'features/BoardCard/context';
+import { uploadAttachment } from 'features/BoardCard/services/card-attachment.service';
 
 interface IMutationParams {
   file: File;

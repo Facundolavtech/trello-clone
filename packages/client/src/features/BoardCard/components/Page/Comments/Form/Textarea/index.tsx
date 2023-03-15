@@ -1,6 +1,6 @@
 import { FC, ChangeEvent } from 'react';
 import { Textarea } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   value: string;

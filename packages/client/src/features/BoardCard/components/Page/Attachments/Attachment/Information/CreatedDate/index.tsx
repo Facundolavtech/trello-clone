@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Heading } from '@chakra-ui/react';
-import formatTimestampToDate from '../../../../../../../../utils/formatTimestampToDate';
+import formatTimestampToDate from 'utils/formatTimestampToDate';
 
 type Props = {
   createdAt: number;

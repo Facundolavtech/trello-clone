@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import http from '../../../config/http';
-import { ApiRoutes } from '../../../config/routes';
-import { BoardVisibility, IBoard } from '../../../models/board.model';
+import http from 'config/http';
+import { ApiRoutes } from 'config/routes';
+import { BoardVisibility, IBoard } from 'models/board.model';
 
 export type BoardPrivacyType = 'private' | 'public';
 

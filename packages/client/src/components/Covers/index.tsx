@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { Menu as ChakraMenu, MenuList } from '@chakra-ui/react';
-import Grid from './Grid';
-import data from './data';
-import Cover from './Cover';
+import Grid from 'components/Covers/Grid';
+import data from 'components/Covers/data';
+import Cover from 'components/Covers/Cover';
 
 type Props = {
   button: ReactNode;

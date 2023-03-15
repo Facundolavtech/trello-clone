@@ -1,8 +1,8 @@
 import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { IBoard } from '../../../../../../models/board.model';
-import BoardCardCover from '../Cover';
-import BoardCardTitle from '../Title';
+import { IBoard } from 'models/board.model';
+import BoardCardCover from 'features/Board/components/BoardList/Card/Cover';
+import BoardCardTitle from 'features/Board/components/BoardList/Card/Title';
 
 type Props = {
   board: IBoard;

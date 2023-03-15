@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   title: string;

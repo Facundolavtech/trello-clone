@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteMember } from '../../services/board.service';
-import useBoardIdFromRoute from '../useBoardIdFromRoute';
+import { deleteMember } from 'features/Board/services/board.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 interface IMutationParams {
   id: string;

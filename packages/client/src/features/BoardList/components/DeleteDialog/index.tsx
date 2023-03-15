@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Text, UseDisclosureReturn } from '@chakra-ui/react';
-import AlertDialog from '../../../../components/AlertDialog';
-import Button from '../../../../components/Button';
-import useDeleteList from '../../hooks/useDeleteList';
+import AlertDialog from 'components/AlertDialog';
+import Button from 'components/Button';
+import useDeleteList from 'features/BoardList/hooks/useDeleteList';
 
 type Props = {
   listId: string;

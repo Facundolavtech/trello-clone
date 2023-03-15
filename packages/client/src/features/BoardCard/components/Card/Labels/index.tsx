@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Text, Wrap, WrapItem } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../theme/constants';
-import capitalizeFirstLetter from '../../../../../utils/capitalizeFirstLetter';
-import { IBoardCardLabel } from '../../../../../models/board-card.model';
+import { FontFamily } from 'theme/constants';
+import capitalizeFirstLetter from 'utils/capitalizeFirstLetter';
+import { IBoardCardLabel } from 'models/board-card.model';
 
 type Props = {
   items: IBoardCardLabel[];

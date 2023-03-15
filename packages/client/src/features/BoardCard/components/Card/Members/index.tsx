@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { HStack, Icon } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import Button from '../../../../../components/Button';
-import MemberList from '../../../../../components/Members';
-import { IBoardListCardMember } from '../../../../../models/board-list.model';
+import Button from 'components/Button';
+import MemberList from 'components/Members';
+import { IBoardListCardMember } from 'models/board-list.model';
 
 type Props = {
   members: IBoardListCardMember[];

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { createComment } from '../../services/card-comment.service';
-import { useCardContext } from '../../context';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { createComment } from 'features/BoardCard/services/card-comment.service';
+import { useCardContext } from 'features/BoardCard/context';
 
 interface IMutationParams {
   content: string;

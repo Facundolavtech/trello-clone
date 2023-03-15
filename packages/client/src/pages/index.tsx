@@ -1,6 +1,6 @@
 import type { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import config from '../config';
-import { AppRoutes } from '../config/routes';
+import config from 'config';
+import { AppRoutes } from 'config/routes';
 
 const Home: NextPage = () => {
   return null;

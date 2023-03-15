@@ -2,12 +2,12 @@ import { Box, HStack, Icon, Menu as ChakraMenu, MenuButton as ChakraMenuButton, 
 import NiceModal from '@ebay/nice-modal-react';
 import { FC } from 'react';
 import { MdMoreHoriz } from 'react-icons/md';
-import { IBoardList } from '../../../../models/board-list.model';
-import DeleteListDialog from '../DeleteDialog';
-import UpdateListModal from '../Modals/Update';
-import DeleteButton from './Buttons/Delete';
-import EditButton from './Buttons/Edit';
-import OpenButton from './Buttons/Open';
+import { IBoardList } from 'models/board-list.model';
+import DeleteListDialog from 'features/BoardList/components/DeleteDialog';
+import UpdateListModal from 'features/BoardList/components/Modals/Update';
+import DeleteButton from 'features/BoardList/components/OptionsMenu/Buttons/Delete';
+import EditButton from 'features/BoardList/components/OptionsMenu/Buttons/Edit';
+import OpenButton from 'features/BoardList/components/OptionsMenu/Buttons/Open';
 
 type Props = {
   list: IBoardList;

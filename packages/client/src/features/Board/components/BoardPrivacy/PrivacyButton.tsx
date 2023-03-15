@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Icon, Text } from '@chakra-ui/react';
 import { IoMdLock, IoMdUnlock } from 'react-icons/io';
-import Button from '../../../../components/Button';
-import useBoard from '../../hooks/useBoard';
-import Loading from './Loading';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
-import { useUpdateBoardIsMutating } from '../../hooks/useUpdateBoard';
+import Button from 'components/Button';
+import useBoard from 'features/Board/hooks/useBoard';
+import Loading from 'features/Board/components/BoardPrivacy/Loading';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { useUpdateBoardIsMutating } from 'features/Board/hooks/useUpdateBoard';
 
 type Props = {
   disabled: boolean;

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Box, Spinner, Text } from '@chakra-ui/react';
-import { IBoardCardLabel } from '../../../../../../../../models/board-card.model';
-import { FontFamily } from '../../../../../../../../theme/constants';
-import capitalizeFirstLetter from '../../../../../../../../utils/capitalizeFirstLetter';
-import { useDeleteLabelIsMutating } from '../../../../../../hooks/useDeleteLabel';
-import Delete from '../Actions/Delete';
+import { IBoardCardLabel } from 'models/board-card.model';
+import { FontFamily } from 'theme/constants';
+import capitalizeFirstLetter from 'utils/capitalizeFirstLetter';
+import { useDeleteLabelIsMutating } from 'features/BoardCard/hooks/useDeleteLabel';
+import Delete from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Actions/Delete';
 
 type Props = {
   label: IBoardCardLabel;

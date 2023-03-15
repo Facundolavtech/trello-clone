@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { VStack, Flex, Box } from '@chakra-ui/react';
-import { IBoardList } from '../../../../models/board-list.model';
-import Cards from '../../../BoardCard/components/Cards';
-import OptionsMenu from '../OptionsMenu';
-import CreateCardMenu from '../../../BoardCard/components/CreateMenu';
-import Title from './Title';
+import { IBoardList } from 'models/board-list.model';
+import Cards from 'features/BoardCard/components/Cards';
+import OptionsMenu from 'features/BoardList/components/OptionsMenu';
+import CreateCardMenu from 'features/BoardCard/components/CreateMenu';
+import Title from 'features/BoardList/components/List/Title';
 
 type Props = {
   list: IBoardList;

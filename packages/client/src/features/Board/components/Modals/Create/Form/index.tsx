@@ -1,12 +1,12 @@
 import { Flex, HStack, VStack } from '@chakra-ui/react';
-import CancelButton from '../Buttons/Cancel';
-import Privacy from './Inputs/Privacy';
-import SubmitButton from '../Buttons/Submit';
-import Title from './Inputs/Title';
-import Cover from './Inputs/Cover';
+import CancelButton from 'features/Board/components/Modals/Create/Buttons/Cancel';
+import Privacy from 'features/Board/components/Modals/Create/Form/Inputs/Privacy';
+import SubmitButton from 'features/Board/components/Modals/Create/Buttons/Submit';
+import Title from 'features/Board/components/Modals/Create/Form/Inputs/Title';
+import Cover from 'features/Board/components/Modals/Create/Form/Inputs/Cover';
 import { useFormikContext } from 'formik';
-import { ICreateBoardValues } from '../Context';
-import FormErrorMessage from '../../../../../../components/FormErrorMessage';
+import { ICreateBoardValues } from 'features/Board/components/Modals/Create/Context';
+import FormErrorMessage from 'components/FormErrorMessage';
 
 const Form = () => {
   const { errors } = useFormikContext<ICreateBoardValues>();

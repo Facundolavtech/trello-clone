@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import useDeleteLabel from '../../../../../../../hooks/useDeleteLabel';
-import DeleteButton from '../../Buttons/Delete';
+import useDeleteLabel from 'features/BoardCard/hooks/useDeleteLabel';
+import DeleteButton from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Buttons/Delete';
 
 type Props = {
   id: string;

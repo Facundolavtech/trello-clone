@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { HStack, Icon, Text } from '@chakra-ui/react';
 import { BsPaperclip } from 'react-icons/bs';
-import { FontFamily } from '../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   length: number;

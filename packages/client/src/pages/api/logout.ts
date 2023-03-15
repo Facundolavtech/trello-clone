@@ -1,6 +1,6 @@
 import { setCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-import config from '../../config';
+import config from 'config';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   setCookies(config.AUTH.COOKIE_NAME, '', {

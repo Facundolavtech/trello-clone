@@ -1,7 +1,7 @@
 import { Icon, Text, MenuButton } from '@chakra-ui/react';
 import { FC } from 'react';
 import { AiFillPicture } from 'react-icons/ai';
-import Button from '../../../../../../../components/Button';
+import Button from 'components/Button';
 
 type Props = {};
 

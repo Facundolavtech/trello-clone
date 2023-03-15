@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import http from '../../../config/http';
-import { ApiRoutes } from '../../../config/routes';
-import { IBoardList } from '../../../models/board-list.model';
+import http from 'config/http';
+import { ApiRoutes } from 'config/routes';
+import { IBoardList } from 'models/board-list.model';
 
 export interface ICreateListParams {
   boardId: string;

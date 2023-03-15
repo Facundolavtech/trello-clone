@@ -1,12 +1,12 @@
 import { HStack, Menu as ChakraMenu, MenuList as ChakraMenuList } from '@chakra-ui/react';
-import Form from './Actions/Create/Form';
-import Body from './Body';
-import OpenButton from './Buttons/Open';
-import SubmitButton from './Buttons/Submit';
-import Container from './Container';
-import LabelContextProvider from './Context';
-import Header from './Header';
-import Labels from './Labels';
+import Form from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Actions/Create/Form';
+import Body from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Body';
+import OpenButton from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Buttons/Open';
+import SubmitButton from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Buttons/Submit';
+import Container from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Container';
+import LabelContextProvider from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Context';
+import Header from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Header';
+import Labels from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Labels';
 
 const LabelMenu = () => {
   return (

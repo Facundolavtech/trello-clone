@@ -1,7 +1,7 @@
 import { FC, CSSProperties } from 'react';
 import { Icon, Text } from '@chakra-ui/react';
 import { MdEdit } from 'react-icons/md';
-import Button, { ButtonVariant } from '../../Button';
+import Button, { ButtonVariant } from 'components/Button';
 
 type Props = {
   onClick: (e: any) => any;

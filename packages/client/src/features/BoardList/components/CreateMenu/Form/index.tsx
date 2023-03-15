@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import FormErrorMessage from '../../../../../components/FormErrorMessage';
-import useCreateBoardList from '../../../hooks/useCreateList';
-import { CreateListSchema } from '../../../validations';
-import SubmitButton from '../Buttons/Submit';
-import TitleInput from './TitleInput';
+import FormErrorMessage from 'components/FormErrorMessage';
+import useCreateBoardList from 'features/BoardList/hooks/useCreateList';
+import { CreateListSchema } from 'features/BoardList/validations';
+import SubmitButton from 'features/BoardList/components/CreateMenu/Buttons/Submit';
+import TitleInput from 'features/BoardList/components/CreateMenu/Form/TitleInput';
 
 interface ICreateListFormValues {
   name: string;

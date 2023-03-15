@@ -1,6 +1,6 @@
 import { Input } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import { ICreateBoardValues } from '../../../Context';
+import { ICreateBoardValues } from 'features/Board/components/Modals/Create/Context';
 
 const Title = () => {
   const { values, handleChange } = useFormikContext<ICreateBoardValues>();

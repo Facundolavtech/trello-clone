@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IBoardCard } from '../../../../models/board-card.model';
-import updateQueryData from '../../../../utils/updateQueryData';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { useCardContext } from '../../context';
-import { updateCard } from '../../services/card.service';
+import { IBoardCard } from 'models/board-card.model';
+import updateQueryData from 'utils/updateQueryData';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { useCardContext } from 'features/BoardCard/context';
+import { updateCard } from 'features/BoardCard/services/card.service';
 
 interface IMutationParams {
   title?: string;

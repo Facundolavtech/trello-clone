@@ -1,10 +1,10 @@
 import { useModal } from '@ebay/nice-modal-react';
 import { Form, Formik } from 'formik';
 import { FC, ReactNode, createContext, useContext, useEffect } from 'react';
-import coversData from '../../../../../../components/Covers/data';
-import { BoardVisibility } from '../../../../../../models/board.model';
-import useCreateBoard from '../../../../hooks/useCreateBoard';
-import CreateBoardSchema from '../validations';
+import coversData from 'components/Covers/data';
+import { BoardVisibility } from 'models/board.model';
+import useCreateBoard from 'features/Board/hooks/useCreateBoard';
+import CreateBoardSchema from 'features/Board/components/Modals/Create/validations';
 
 export interface ICreateBoardValues {
   title: string;

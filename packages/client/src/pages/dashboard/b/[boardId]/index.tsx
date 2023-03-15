@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import SEO from '../../../../components/SEO';
-import BoardPage from '../../../../features/Board/components/Page';
-import useBoard from '../../../../features/Board/hooks/useBoard';
+import SEO from 'components/SEO';
+import BoardPage from 'features/Board/components/Page';
+import useBoard from 'features/Board/hooks/useBoard';
 
 type Props = {
   boardId: string;

@@ -2,12 +2,12 @@ import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { BiWorld } from 'react-icons/bi';
 import { MdCheck } from 'react-icons/md';
 import { TiLockClosed } from 'react-icons/ti';
-import { BoardVisibility } from '../../../../../models/board.model';
-import { FontFamily } from '../../../../../theme/constants';
-import useBoard from '../../../hooks/useBoard';
-import useBoardIdFromRoute from '../../../hooks/useBoardIdFromRoute';
-import useUpdateBoard from '../../../hooks/useUpdateBoard';
-import BoardPrivacyMenuItem from '../Item/Item';
+import { BoardVisibility } from 'models/board.model';
+import { FontFamily } from 'theme/constants';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import useUpdateBoard from 'features/Board/hooks/useUpdateBoard';
+import BoardPrivacyMenuItem from 'features/Board/components/BoardPrivacy/Item/Item';
 
 const BoardPrivacyMenuItems = () => {
   const boardId = useBoardIdFromRoute();

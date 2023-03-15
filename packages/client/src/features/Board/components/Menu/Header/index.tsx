@@ -1,6 +1,6 @@
 import { Box, Divider, Heading, HStack, Icon, VStack } from '@chakra-ui/react';
 import { MdClose } from 'react-icons/md';
-import { useBoardContext } from '../../../context/board';
+import { useBoardContext } from 'features/Board/context/board';
 
 const Header = () => {
   const { onClose } = useBoardContext();

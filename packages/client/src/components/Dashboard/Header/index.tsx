@@ -1,13 +1,13 @@
 import { HStack, Text, Icon, Box } from '@chakra-ui/react';
-import Searchbar from '../../../features/Board/components/Searchbar';
-import BoardTitle from '../../../features/Board/components/Title';
-import Button from '../../Button';
-import WrappedContainer from '../../Containers/Wrapped';
+import Searchbar from 'features/Board/components/Searchbar';
+import BoardTitle from 'features/Board/components/Title';
+import Button from 'components/Button';
+import WrappedContainer from 'components/Containers/Wrapped';
 import { CgMenuGridR } from 'react-icons/cg';
-import Logo from '../../Logo';
-import Menu from '../Menu';
+import Logo from 'components/Logo';
+import Menu from 'components/Dashboard/Menu';
 import Link from 'next/link';
-import { AppRoutes } from '../../../config/routes';
+import { AppRoutes } from 'config/routes';
 import { useRouter } from 'next/router';
 
 export enum HeaderStyles {

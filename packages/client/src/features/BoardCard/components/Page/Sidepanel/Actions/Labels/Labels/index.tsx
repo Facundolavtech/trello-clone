@@ -1,8 +1,8 @@
 import { VStack, HStack, Icon, Text, Wrap } from '@chakra-ui/react';
 import { MdLabel } from 'react-icons/md';
-import { useCardContext } from '../../../../../../context';
-import useCard from '../../../../../../hooks/useCard';
-import Label from '../Label';
+import { useCardContext } from 'features/BoardCard/context';
+import useCard from 'features/BoardCard/hooks/useCard';
+import Label from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels/Label';
 
 const Labels = () => {
   const { id } = useCardContext();

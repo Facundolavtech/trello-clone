@@ -1,8 +1,8 @@
 import { HStack, MenuButton as ChakraMenuButton, Text } from '@chakra-ui/react';
 import { RiArrowDownSFill } from 'react-icons/ri';
-import { FontFamily } from '../../../../theme/constants';
-import useUserProfile from '../../../../hooks/useUserProfile';
-import Avatar from '../../../Avatar';
+import { FontFamily } from 'theme/constants';
+import useUserProfile from 'hooks/useUserProfile';
+import Avatar from 'components/Avatar';
 
 const MenuButton = () => {
   const { data: user } = useUserProfile();

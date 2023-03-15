@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
-import useDeleteComment from '../../../../../../hooks/useDeleteComment';
-import DeleteButton from '../../Buttons/Delete';
-import DeleteDialog from './Dialog';
+import useDeleteComment from 'features/BoardCard/hooks/useDeleteComment';
+import DeleteButton from 'features/BoardCard/components/Page/Comments/Comment/Buttons/Delete';
+import DeleteDialog from 'features/BoardCard/components/Page/Comments/Comment/Actions/Delete/Dialog';
 
 type Props = {
   id: string;

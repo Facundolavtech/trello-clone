@@ -1,14 +1,14 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import theme from '../theme';
+import theme from 'theme';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import config from '../config';
-import NextProgress from '../libs/NextProgress';
+import config from 'config';
+import NextProgress from 'libs/NextProgress';
 import { QueryClientProvider } from '@tanstack/react-query';
-import SEO from '../components/SEO';
+import SEO from 'components/SEO';
 import NiceModal from '@ebay/nice-modal-react';
-import useQueryClient from '../hooks/useQueryClient';
+import useQueryClient from 'hooks/useQueryClient';
 
 function App({ Component, pageProps }: AppProps) {
   const queryClient = useQueryClient();

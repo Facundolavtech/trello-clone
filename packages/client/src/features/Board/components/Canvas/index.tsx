@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
-import useBoard from '../../hooks/useBoard';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 type Props = {
   children: ReactNode;

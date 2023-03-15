@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 const DescriptionBox = () => {
   return (

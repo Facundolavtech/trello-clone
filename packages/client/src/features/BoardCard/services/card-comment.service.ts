@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import http from '../../../config/http';
-import { IBoardCardComment } from '../../../models/board-card.model';
+import http from 'config/http';
+import { IBoardCardComment } from 'models/board-card.model';
 
 export interface ICreateCommentParams {
   boardId: string;

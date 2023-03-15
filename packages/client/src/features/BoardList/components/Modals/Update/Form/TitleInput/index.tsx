@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC } from 'react';
 import { Input } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 type Props = {
   isLoading: boolean;

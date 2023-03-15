@@ -1,5 +1,5 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
-import { FontFamily } from '../../../../../../../../theme/constants';
+import { FontFamily } from 'theme/constants';
 
 const Header = () => {
   return (

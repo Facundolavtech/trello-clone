@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
-import Avatar from '../../../../../components/Avatar';
-import { IBoardAdmin, IBoardMember } from '../../../../../models/board.model';
-import TeamMember from './Member';
-import TeamTitle from './Title';
+import Avatar from 'components/Avatar';
+import { IBoardAdmin, IBoardMember } from 'models/board.model';
+import TeamMember from 'features/Board/components/Menu/Team/Member';
+import TeamTitle from 'features/Board/components/Menu/Team/Title';
 
 type Props = {
   admin: IBoardAdmin;

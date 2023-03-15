@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { ILoginFormValues } from '../components/Form/Login';
-import { IRegisterFormValues } from '../components/Form/Register';
-import SocialProviders from '../constants/providers';
+import { ILoginFormValues } from 'features/Auth/components/Form/Login';
+import { IRegisterFormValues } from 'features/Auth/components/Form/Register';
+import SocialProviders from 'features/Auth/constants/providers';
 
 export interface ILoginWithSocialProviderParams {
   provider: SocialProviders;

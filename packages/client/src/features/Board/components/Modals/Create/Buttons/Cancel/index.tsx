@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react';
-import Button from '../../../../../../../components/Button';
-import { useCreateBoardContext } from '../../Context';
+import Button from 'components/Button';
+import { useCreateBoardContext } from 'features/Board/components/Modals/Create/Context';
 
 const CancelButton = () => {
   const { onClose } = useCreateBoardContext();

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { IBoard } from '../../../../models/board.model';
-import { getBoardById } from '../../services/board.service';
+import { IBoard } from 'models/board.model';
+import { getBoardById } from 'features/Board/services/board.service';
 
 type Props = {
   id: string;

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { VStack } from '@chakra-ui/react';
 import { Formik, Form as FormikForm } from 'formik';
-import FormErrorMessage from '../../../../../../components/FormErrorMessage';
-import useUpdateList from '../../../../hooks/useUpdateList';
-import { UpdateListSchema } from '../../../../validations';
-import SubmitButton from '../Buttons/Submit';
-import TitleInput from './TitleInput';
+import FormErrorMessage from 'components/FormErrorMessage';
+import useUpdateList from 'features/BoardList/hooks/useUpdateList';
+import { UpdateListSchema } from 'features/BoardList/validations';
+import SubmitButton from 'features/BoardList/components/Modals/Update/Buttons/Submit';
+import TitleInput from 'features/BoardList/components/Modals/Update/Form/TitleInput';
 
 type Props = {
   onClose: () => void;

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import fileDownload from 'js-file-download';
-import http from '../../../config/http';
-import { IBoardCardAttachment } from '../../../models/board-card.model';
+import http from 'config/http';
+import { IBoardCardAttachment } from 'models/board-card.model';
 
 export interface IUploadAttachmentParams {
   boardId: string;

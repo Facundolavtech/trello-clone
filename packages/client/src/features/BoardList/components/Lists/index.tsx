@@ -1,7 +1,7 @@
-import useLists from '../../hooks/useLists';
-import List from '../List';
-import Loading from './Loading';
-import CreateListMenu from '../CreateMenu';
+import useLists from 'features/BoardList/hooks/useLists';
+import List from 'features/BoardList/components/List';
+import Loading from 'features/BoardList/components/Lists/Loading';
+import CreateListMenu from 'features/BoardList/components/CreateMenu';
 
 const Lists = () => {
   const { data: lists } = useLists();

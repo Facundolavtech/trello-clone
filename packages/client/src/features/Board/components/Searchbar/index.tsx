@@ -1,6 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
-import Button from '../../../../components/Button';
+import Button from 'components/Button';
 
 const Searchbar = () => {
   const initialValues = {

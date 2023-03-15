@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import useBoardIdFromRoute from '../../../Board/hooks/useBoardIdFromRoute';
-import { getLists } from '../../services/list.service';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import { getLists } from 'features/BoardList/services/list.service';
 
 const useLists = () => {
   const boardId = useBoardIdFromRoute();

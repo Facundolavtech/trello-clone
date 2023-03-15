@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { HStack, VStack } from '@chakra-ui/react';
-import { IBoardCardAttachment } from '../../../../../models/board-card.model';
-import Title from './Title';
-import Empty from './Empty';
-import Upload from './Upload';
-import Attachment from './Attachment';
+import { IBoardCardAttachment } from 'models/board-card.model';
+import Title from 'features/BoardCard/components/Page/Attachments/Title';
+import Empty from 'features/BoardCard/components/Page/Attachments/Empty';
+import Upload from 'features/BoardCard/components/Page/Attachments/Upload';
+import Attachment from 'features/BoardCard/components/Page/Attachments/Attachment';
 
 type Props = {
   attachments: IBoardCardAttachment[];

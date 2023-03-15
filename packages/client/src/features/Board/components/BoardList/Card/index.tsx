@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
-import Card from '../../../../../components/Card';
-import { AppRoutes } from '../../../../../config/routes';
-import { IBoard } from '../../../../../models/board.model';
-import BoardCardContainer from './Container';
-import BoardCardHeader from './Header';
-import BoardCardMembers from './Members';
+import Card from 'components/Card';
+import { AppRoutes } from 'config/routes';
+import { IBoard } from 'models/board.model';
+import BoardCardContainer from 'features/Board/components/BoardList/Card/Container';
+import BoardCardHeader from 'features/Board/components/BoardList/Card/Header';
+import BoardCardMembers from 'features/Board/components/BoardList/Card/Members';
 
 type Props = {
   board: IBoard;

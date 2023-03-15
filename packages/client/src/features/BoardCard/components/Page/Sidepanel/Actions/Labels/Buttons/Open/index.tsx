@@ -1,6 +1,6 @@
 import { Icon, MenuButton as ChakraMenuButton, Text } from '@chakra-ui/react';
 import { MdLabel } from 'react-icons/md';
-import Button from '../../../../../../../../../components/Button';
+import Button from 'components/Button';
 
 const OpenButton = () => {
   return (

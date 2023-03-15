@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
-import CoverMenu from './Cover';
-import LabelMenu from './Labels';
-import Title from './Title';
+import CoverMenu from 'features/BoardCard/components/Page/Sidepanel/Actions/Cover';
+import LabelMenu from 'features/BoardCard/components/Page/Sidepanel/Actions/Labels';
+import Title from 'features/BoardCard/components/Page/Sidepanel/Actions/Title';
 
 const Actions = () => {
   return (

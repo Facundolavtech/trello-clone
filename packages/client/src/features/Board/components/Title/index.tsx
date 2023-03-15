@@ -1,8 +1,8 @@
 import { Box, Divider, Heading } from '@chakra-ui/react';
-import { HeaderStyles } from '../../../../components/Dashboard/Header';
-import useBoard from '../../hooks/useBoard';
-import useBoardIdFromRoute from '../../hooks/useBoardIdFromRoute';
-import Loading from './Loading';
+import { HeaderStyles } from 'components/Dashboard/Header';
+import useBoard from 'features/Board/hooks/useBoard';
+import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
+import Loading from 'features/Board/components/Title/Loading';
 
 const BoardTitle = () => {
   const boardId = useBoardIdFromRoute();
