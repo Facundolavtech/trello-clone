@@ -1,17 +1,16 @@
+import { useEffect } from 'react';
 import { useModal } from '@ebay/nice-modal-react';
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import { useEffect } from 'react';
-import Board from '../..';
 import SEO from '../../../../../../components/SEO';
 import CardPage from '../../../../../../features/BoardCard/components/Page';
 import useCard from '../../../../../../features/BoardCard/hooks/useCard';
+import BoardPage from '../../../../../../features/Board/components/Page';
 
 type Props = {
-  boardId: string;
   cardId: string;
 };
 
-const Card: NextPage<Props> = ({ boardId, cardId }) => {
+const Card: NextPage<Props> = ({ cardId }) => {
   const { data: card } = useCard({ id: cardId });
 
   const modal = useModal(CardPage);
@@ -25,20 +24,18 @@ const Card: NextPage<Props> = ({ boardId, cardId }) => {
   return (
     <>
       <SEO title={card?.title} />
-      <Board boardId={boardId} />
+      <BoardPage />
     </>
   );
 };
 
 export default Card;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{}>> => {
-  const boardId = ctx.params?.boardId as string;
+export const getServerSideProps = (ctx: GetServerSidePropsContext): GetServerSidePropsResult<{}> => {
   const cardId = ctx.params?.cardId as string;
 
   return {
     props: {
-      boardId,
       cardId,
     },
   };

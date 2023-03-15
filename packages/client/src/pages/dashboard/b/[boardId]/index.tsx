@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
+import SEO from '../../../../components/SEO';
 import BoardPage from '../../../../features/Board/components/Page';
-import BoardContextWrapper from '../../../../features/Board/context/board';
 import useBoard from '../../../../features/Board/hooks/useBoard';
 
 type Props = {
@@ -18,23 +18,16 @@ const Board: NextPage<Props> = ({ boardId }) => {
   const { data: board } = useBoard({ id: boardId });
 
   return (
-    <BoardContextWrapper>
-      <style jsx global>{`
-        body {
-          background-image: url(${board?.cover});
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-attachment: fixed;
-        }
-      `}</style>
+    <>
+      <SEO title={board?.title} />
       <BoardPage />
-    </BoardContextWrapper>
+    </>
   );
 };
 
 export default Board;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{}>> => {
+export const getServerSideProps = (ctx: GetServerSidePropsContext): GetServerSidePropsResult<{}> => {
   const boardId = ctx.params?.boardId as string;
 
   return {
