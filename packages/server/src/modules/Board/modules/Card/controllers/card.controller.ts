@@ -58,12 +58,14 @@ export class BoardCardController {
   async update(@Param('id', CustomUUIDPipe) id: string, @Body() updateDTO: UpdateCardDTO) {
     await this.findCardOrThrow(id);
 
-    const cardByQuery = await this.boardCardService.findByQuery({
-      title: updateDTO.title,
-    });
+    if (updateDTO.title) {
+      const cardByQuery = await this.boardCardService.findByQuery({
+        title: updateDTO.title,
+      });
 
-    if (cardByQuery) {
-      throw new BadRequestException('A card with that title already exists');
+      if (cardByQuery) {
+        throw new BadRequestException('A card with that title already exists');
+      }
     }
 
     return await this.boardCardService.update(id, updateDTO);
