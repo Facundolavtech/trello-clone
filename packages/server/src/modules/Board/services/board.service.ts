@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsSelect, Repository } from 'typeorm';
 import { User } from '../../User/entities/User.entity';
 import { CreateBoardDTO } from '../dto/create.dto';
 import { UpdateBoardDTO } from '../dto/update.dto';
@@ -33,8 +33,8 @@ export class BoardService {
     return deletedBoard.raw[0];
   }
 
-  async findById(id: string, relations?: string[]): Promise<Board> {
-    return await this.boardRepository.findOne({ where: { id }, relations });
+  async findById(id: string, relations?: string[], select?: FindOptionsSelect<Board>): Promise<Board> {
+    return await this.boardRepository.findOne({ where: { id }, select, relations });
   }
 
   async findAll(userId: string): Promise<Board[]> {
