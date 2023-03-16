@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import WrappedContainer from 'components/Containers/Wrapped';
 import DashboardLayout from 'layout/Dashboard';
-import BoardPageError from 'features/Board/components/Page/Error';
+import Error from 'features/Board/components/Page/Error';
 import useBoard from 'features/Board/hooks/useBoard';
 import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
@@ -16,7 +16,7 @@ const BoardLayout: FC<Props> = ({ children }) => {
 
   return (
     <DashboardLayout>
-      <WrappedContainer>{error ? <BoardPageError error={error} /> : children}</WrappedContainer>
+      <WrappedContainer>{error ? <Error /> : children}</WrappedContainer>
     </DashboardLayout>
   );
 };
