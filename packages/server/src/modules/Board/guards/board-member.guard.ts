@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { UnauthorizedException } from '@nestjs/common/exceptions';
+import { UnauthorizedBoardMemberException } from 'src/common/exceptions/unauthorized.exceptions';
+import { BoardService } from 'src/modules/Board/services/board.service';
 import { CustomUUIDPipe } from '../../../common/pipes/uuid.pipe';
 import { AuthenticatedRequest } from '../../../common/types';
 import { BoardMember } from '../entities/BoardMember.entity';
@@ -14,7 +15,7 @@ interface IBoardMemberGuardRequest extends AuthenticatedRequest {
 
 @Injectable()
 export class BoardMemberGuard implements CanActivate {
-  constructor(private boardMemberService: BoardMemberService) {}
+  constructor(private boardMemberService: BoardMemberService, private boardService: BoardService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: IBoardMemberGuardRequest = context.switchToHttp().getRequest();
@@ -25,7 +26,9 @@ export class BoardMemberGuard implements CanActivate {
     const member = await this.boardMemberService.findOne(boardId, userId, ['board', 'user']);
 
     if (!member) {
-      throw new UnauthorizedException('You need to be a board member to perform this action');
+      const shortBoardInfo = await this.boardService.findById(boardId, [], { id: true, title: true });
+
+      throw new UnauthorizedBoardMemberException(shortBoardInfo);
     }
 
     request.member = member;
