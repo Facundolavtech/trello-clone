@@ -16,6 +16,7 @@
     "incremental": true,
     "noImplicitAny": false,
     "baseUrl": "src",
+    "useUnknownInCatchVariables": false,
     "paths": {
       "components/*": ["components/*", "components/"],
       "utils/*": ["utils/*", "utils/"],
