@@ -33,7 +33,7 @@ http.api.interceptors.response.use(
 
     return response;
   },
-  async (error: any) => {
+  async (error) => {
     if (isHandlingError) return Promise.reject(error);
     isHandlingError = true;
 
