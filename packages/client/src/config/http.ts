@@ -33,11 +33,11 @@ http.api.interceptors.response.use(
 
     return response;
   },
-  async (error) => {
+  async (error: any) => {
     if (isHandlingError) return Promise.reject(error);
     isHandlingError = true;
 
-    if (error.response?.status === 401 && error.response?.data.code === 'TokenExpiredError') {
+    if (error.response?.data.code === 'TOKEN_EXPIRED_ERROR') {
       deleteSessionCookie();
 
       if (typeof window !== 'undefined') {
