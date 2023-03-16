@@ -10,7 +10,18 @@ const BoardTitle = () => {
   const { error, data: board } = useBoard({ id: boardId });
 
   if (error) {
-    return <Box width="60px" />;
+    if (error.response?.data.additionalInfo) {
+      return (
+        <>
+          <Heading maxWidth="120px" className="preventTextOverflow" color="gray.1" fontSize={18} fontWeight={500}>
+            {error.response?.data.additionalInfo.title}
+          </Heading>
+          <Divider orientation="vertical" height={(HeaderStyles.height * 50) / 100} color="#df4d4d" />
+        </>
+      );
+    }
+
+    return <Box />;
   }
 
   if (board) {
