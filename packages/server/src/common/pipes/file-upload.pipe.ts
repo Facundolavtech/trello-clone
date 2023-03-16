@@ -19,6 +19,10 @@ export class FileUploadPipe implements PipeTransform<Express.Multer.File> {
     'application/x-rar-compressed',
     'application/x-zip-compressed',
     'image/svg+xml',
+    'image/webp',
+    'audio/mp3',
+    'video/mp4',
+    'audio/mpeg',
   ];
 
   async transform(file: Express.Multer.File) {
