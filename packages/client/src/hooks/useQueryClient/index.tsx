@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { useToast } from '@chakra-ui/react';
 import { MutationCache, QueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useState } from 'react';
 
 const useQueryClient = () => {
   const toast = useToast();
@@ -11,9 +11,12 @@ const useQueryClient = () => {
       new QueryClient({
         defaultOptions: {
           queries: {
+            refetchOnReconnect: true,
             refetchOnWindowFocus: false,
-            staleTime: 130000,
+            staleTime: 60000,
+            cacheTime: 60000,
             retry: false,
+            useErrorBoundary: (error: any) => error.response?.status >= 500,
           },
         },
         mutationCache: new MutationCache({
