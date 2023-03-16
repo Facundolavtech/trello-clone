@@ -12,7 +12,7 @@ const Default: FC<Props> = ({ error }) => {
     <Center>
       <VStack backgroundColor="gray.100" borderRadius="8px" padding={8} spacing={4}>
         <Icon as={BiError} color="error" fontSize={42} />
-        <Heading fontSize={20} fontWeight={500} color="error">
+        <Heading textAlign="center" fontSize={20} fontWeight={500} color="error">
           {error ? error.response?.data.message : 'Unknown error'}
         </Heading>
       </VStack>
