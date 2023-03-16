@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Center, Heading, Icon } from '@chakra-ui/react';
+import { Center, Heading, Icon, VStack } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
-import { MdError } from 'react-icons/md';
+import { BiError } from 'react-icons/bi';
 
 type Props = {
   error: AxiosError<any>;
@@ -9,11 +9,13 @@ type Props = {
 
 const Error: FC<Props> = ({ error }) => {
   return (
-    <Center width="full" mt="35px" gap={2}>
-      <Icon as={MdError} fontSize={18} color="error" />
-      <Heading color="error" fontWeight={500} fontSize={18}>
-        {error.response?.data?.message}
-      </Heading>
+    <Center width="full" mt="35px">
+      <VStack spacing={4}>
+        <Icon as={BiError} fontSize={42} color="error" />
+        <Heading textAlign="center" color="error" fontWeight={500} fontSize={18}>
+          {error.response?.data.message || 'Unknown error'}
+        </Heading>
+      </VStack>
     </Center>
   );
 };
