@@ -1,14 +1,11 @@
-import { FC, CSSProperties } from 'react';
-import { ResponsiveValue, Skeleton, VStack } from '@chakra-ui/react';
+import { FC } from 'react';
+import { Skeleton, StackProps, VStack } from '@chakra-ui/react';
 
-type Props = {
-  containerWidth: number | string | ResponsiveValue<number | 'px' | (string & {})>;
-  containerStyles?: CSSProperties;
-};
+type Props = StackProps;
 
-const SkeletonText: FC<Props> = ({ containerStyles, containerWidth }) => {
+const SkeletonText: FC<Props> = (props) => {
   return (
-    <VStack spacing={2} alignItems="flex-start" width={containerWidth} style={containerStyles}>
+    <VStack spacing={2} alignItems="flex-start" {...props}>
       <Skeleton height={2} width="100%" />
       <Skeleton height={2} width="60%" />
     </VStack>

@@ -1,21 +1,12 @@
-import { CSSProperties, FC, ReactNode } from 'react';
-import { As, Card as ChakraCard } from '@chakra-ui/react';
+import { FC } from 'react';
+import { CardProps, Card as ChakraCard } from '@chakra-ui/react';
 
-type Props = {
-  children: ReactNode;
-  className?: string;
-  variant: 'bordered' | 'bordered-shadow' | 'board-card';
-  width?: number | string;
-  height?: number | string;
-  styles?: CSSProperties;
-  as?: As;
-  onClick?: (event: any) => void;
-};
+type Props = CardProps;
 
-const Card: FC<Props> = ({ children, variant, width, height, styles, as, onClick, ...rest }) => {
+const Card: FC<Props> = (props) => {
   return (
-    <ChakraCard onClick={onClick} as={as} variant={variant} style={styles} width={width} height={height} display="flex" {...rest}>
-      {children}
+    <ChakraCard display="flex" {...props}>
+      {props.children}
     </ChakraCard>
   );
 };

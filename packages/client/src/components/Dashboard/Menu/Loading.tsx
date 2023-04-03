@@ -5,7 +5,7 @@ const Loading = () => {
   return (
     <HStack spacing={4}>
       <SkeletonCircle size="8" />
-      <SkeletonText containerWidth={32} />
+      <SkeletonText width="82px" />
     </HStack>
   );
 };

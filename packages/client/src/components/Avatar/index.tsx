@@ -1,52 +1,25 @@
-import { FC, CSSProperties } from 'react';
-import { Avatar as ChakraAvatar, forwardRef, ResponsiveValue } from '@chakra-ui/react';
+import { FC, ForwardedRef, forwardRef } from 'react';
+import Image from 'next/image';
+import { AvatarProps, Box, Avatar as ChakraAvatar } from '@chakra-ui/react';
 
-type Props = {
-  size?: ResponsiveValue<(string & {}) | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full' | '2xs' | 'xs'>;
-  src?: string | null;
-  getInitials?: ((name: string) => string) | undefined;
-  color?: string;
-  bg?: string;
-  name: string;
-  width?: string | number;
-  height?: string | number;
-  style?: CSSProperties;
-  ref?: any;
-};
+type Props = AvatarProps;
 
-const Avatar: FC<Props> = ({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', bg, getInitials, style }) => {
+const Avatar: FC<Props> = (props) => {
   return (
-    <ChakraAvatar
-      size={size}
-      src={src || ''}
-      bg={bg ? bg : src ? 'transparent' : 'gray.4'}
-      color={color}
-      name={name}
-      width={width}
-      getInitials={getInitials}
-      height={height}
-      borderRadius="8px"
-      style={style}
-    />
+    <>
+      {props.src ? (
+        <Box width={props.width} height={props.height} position="relative">
+          <Image src={props.src} objectFit="cover" layout="fill" alt={props.name || 'Avatar'} style={{ borderRadius: '8px' }} />
+        </Box>
+      ) : (
+        <AvatarWithRef {...props} />
+      )}
+    </>
   );
 };
-
-export const AvatarWithRef: FC<Props> = forwardRef(({ size = 'sm', src, name, width = '32px', height = '32px', color = 'white', bg, getInitials, style }, ref) => {
-  return (
-    <ChakraAvatar
-      ref={ref}
-      size={size}
-      src={src || ''}
-      bg={bg ? bg : src ? 'transparent' : 'gray.4'}
-      color={color}
-      name={name}
-      width={width}
-      getInitials={getInitials}
-      height={height}
-      borderRadius="8px"
-      style={style}
-    />
-  );
-});
 
 export default Avatar;
+
+const AvatarWithRef = forwardRef((props: AvatarProps, ref: ForwardedRef<any>) => {
+  return <ChakraAvatar ref={ref} bg={props.bg ? props.bg : props.src ? 'transparent' : 'gray.4'} borderRadius="8px" {...props} />;
+});
