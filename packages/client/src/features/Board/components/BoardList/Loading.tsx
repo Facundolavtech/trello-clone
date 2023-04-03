@@ -9,7 +9,7 @@ const Loading = () => {
           <VStack spacing="21px" key={i}>
             <VStack width="full" spacing="12px" alignItems="flex-start">
               <Skeleton width="full" height="130px" borderRadius="8px" />
-              <SkeletonText containerWidth="50%" />
+              <SkeletonText width="50%" />
             </VStack>
             <HStack spacing="12px" width="full">
               {new Array(3).fill(3).map((_, i) => {

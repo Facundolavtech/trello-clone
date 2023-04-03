@@ -13,12 +13,12 @@ const Loading = () => {
             <VStack>
               <HStack alignItems="flex-start">
                 <Skeleton width="62px" height="62px" borderRadius="8px" />
-                <SkeletonText containerWidth={120} />
+                <SkeletonText width={120} />
               </HStack>
             </VStack>
             <HStack alignItems="flex-start">
               <SkeletonCircle width="32px" height="32px" />
-              <SkeletonText containerWidth={120} />
+              <SkeletonText width={120} />
             </HStack>
           </VStack>
         </VStack>

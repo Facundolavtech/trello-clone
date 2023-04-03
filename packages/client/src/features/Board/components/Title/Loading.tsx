@@ -1,7 +1,7 @@
 import SkeletonText from 'components/SkeletonText';
 
 const Loading = () => {
-  return <SkeletonText containerWidth="60px" />;
+  return <SkeletonText width="60px" />;
 };
 
 export default Loading;
