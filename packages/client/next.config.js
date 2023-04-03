@@ -2,8 +2,13 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  swcMinify: true,
   images: {
     minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    domains: ['images.unsplash.com', 'lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
