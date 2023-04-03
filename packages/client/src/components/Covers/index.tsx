@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
-import { Menu as ChakraMenu, MenuList } from '@chakra-ui/react';
+import { Menu, MenuItem, MenuList } from '@chakra-ui/react';
 import Grid from 'components/Covers/Grid';
 import data from 'components/Covers/data';
-import Cover from 'components/Covers/Cover';
+import Image from 'next/image';
 
 type Props = {
   button: ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 
 const Covers: FC<Props> = ({ button, handleChange }) => {
   return (
-    <ChakraMenu>
+    <Menu>
       {button}
       <MenuList
         padding="12px"
@@ -25,11 +25,13 @@ const Covers: FC<Props> = ({ button, handleChange }) => {
       >
         <Grid>
           {data.map((c) => (
-            <Cover onClick={() => handleChange(c)} id="cover" src={c.src} key={c.name} />
+            <MenuItem _hover={{ cursor: 'pointer' }} position="relative" height="48px" onClick={() => handleChange(c)} id="cover">
+              <Image layout="fill" style={{ borderRadius: '8px' }} objectFit="cover" quality={70} src={c.src} alt={c.name} />
+            </MenuItem>
           ))}
         </Grid>
       </MenuList>
-    </ChakraMenu>
+    </Menu>
   );
 };
 
