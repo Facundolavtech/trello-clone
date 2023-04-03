@@ -11,6 +11,11 @@ import { AiOutlinePlus } from 'react-icons/ai';
 const DashboardPage = () => {
   return (
     <DashboardLayout>
+      <style jsx global>{`
+        body {
+          background-color: 'var(--chakra-colors-body)';
+        }
+      `}</style>
       <WrappedContainer>
         <SEO title="Dashboard" />
         <VStack spacing="40px" my="60px" width="full">
