@@ -1,22 +1,19 @@
-import { FC } from 'react';
-import { Heading, HStack, Image } from '@chakra-ui/react';
-import { FontFamily } from 'theme/constants';
+import { FC, ReactNode } from 'react';
+import Image from 'next/image';
+import { HStack } from '@chakra-ui/react';
 
-type Props = {
-  withTitle: boolean;
+interface Props {
   width: number | string;
   height: number | string;
-};
+  src: string;
+  children: ReactNode;
+}
 
-const Logo: FC<Props> = ({ withTitle = false, width, height }) => {
+const Logo: FC<Props> = ({ width, height, src, children }) => {
   return (
     <HStack alignItems="center" spacing={4}>
-      <Image objectFit="contain" src="/assets/svg/logo.svg" alt="Logo" width={width} height={height} />
-      {withTitle && (
-        <Heading as="h1" color="gray.1" fontSize={18} fontWeight={600} fontFamily={FontFamily.Poppins}>
-          Thullo
-        </Heading>
-      )}
+      <Image priority objectFit="contain" width={width} height={height} alt="Logo" src={src} />
+      {children}
     </HStack>
   );
 };
