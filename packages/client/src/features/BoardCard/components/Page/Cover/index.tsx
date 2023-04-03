@@ -9,7 +9,7 @@ type Props = {
 const Cover: FC<Props> = ({ src }) => {
   return (
     <Box width="full" height="130px" position="relative">
-      <Image layout="fill" objectFit="cover" style={{ borderRadius: '12px' }} src={src} />
+      <Image layout="fill" objectFit="cover" style={{ borderRadius: '12px' }} src={src} alt="Card cover" />
     </Box>
   );
 };
