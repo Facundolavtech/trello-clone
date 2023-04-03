@@ -1,5 +1,7 @@
 import { FC } from 'react';
+import { Box } from '@chakra-ui/react';
 import Avatar from 'components/Avatar';
+import Image from 'next/image';
 
 type Props = {
   url: string;
@@ -8,18 +10,15 @@ type Props = {
 };
 
 const Cover: FC<Props> = ({ url, type, name }) => {
-  return (
-    <Avatar
-      src={url}
-      bg={type.startsWith('image') ? 'transparent' : 'gray.5'}
-      name={name}
-      getInitials={(name) => name.slice(0, 2)}
-      width="80px"
-      height="53px"
-      color="gray.2"
-      style={{ objectFit: 'cover' }}
-    />
-  );
+  if (type.startsWith('image')) {
+    return (
+      <Box minWidth="80px" height="53px" position="relative">
+        <Image src={url} alt={`${name} attachment preview`} style={{ borderRadius: '8px' }} quality={80} layout="fill" objectFit="cover" />
+      </Box>
+    );
+  }
+
+  return <Avatar bg="gray.5" name={name} getInitials={(name) => name.slice(0, 2)} size="sm" width="80px" height="53px" color="gray.2" />;
 };
 
 export default Cover;
