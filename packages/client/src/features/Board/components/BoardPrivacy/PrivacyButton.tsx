@@ -22,13 +22,13 @@ const PrivacyButton: FC<Props> = ({ disabled }) => {
     return (
       <Button
         as="div"
-        loading={isMutating}
+        isLoading={isMutating}
         disabled={isMutating}
         variant="lightgray"
         height="32px"
         width="98px"
         style={{ gap: '11px' }}
-        _hover={disabled && { cursor: 'initial', opacity: 1 }}
+        _hover={disabled ? { cursor: 'initial', opacity: 1 } : {}}
       >
         <Icon as={board.visibility === 'private' ? IoMdLock : IoMdUnlock} fontSize={12} color="gray.3" />
         <Text fontSize={12} fontWeight={500} color="gray.3">

@@ -31,7 +31,7 @@ const DeleteBoardMemberDialog: FC<Props> = ({ userId, disclosure }) => {
       isOpen={disclosure.isOpen}
       onClose={disclosure.onClose}
       actionButton={
-        <Button variant="delete" height="32px" onClick={handleDeleteMember} loading={deleteMemberMutation.isLoading} disabled={deleteMemberMutation.isLoading}>
+        <Button variant="delete" height="32px" onClick={handleDeleteMember} isLoading={deleteMemberMutation.isLoading} disabled={deleteMemberMutation.isLoading}>
           <Text fontSize={12} color="white" fontWeight={500}>
             Delete
           </Text>

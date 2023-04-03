@@ -33,7 +33,7 @@ const Edit: FC<Props> = ({ id, content }) => {
 
   return state.isEditing ? (
     <HStack spacing={2} mr={2}>
-      <Button onClick={handleSubmit} loading={updateMutation.isLoading} disabled={updateMutation.isLoading || !canEdit} variant="submit" width="20px" height="20px">
+      <Button onClick={handleSubmit} isLoading={updateMutation.isLoading} disabled={updateMutation.isLoading || !canEdit} variant="submit" width="20px" height="20px">
         <Icon as={MdCheck} fontSize={14} color="white" />
       </Button>
       <Button variant="delete" width="20px" height="20px" onClick={handleEditCancel}>

@@ -38,7 +38,7 @@ const Upload = () => {
   return (
     <>
       <Button
-        loading={uploadMutation.isLoading}
+        isLoading={uploadMutation.isLoading}
         disabled={uploadMutation.isLoading}
         onClick={() => hiddenFileInput.current!.click()}
         style={{ gap: '10px' }}

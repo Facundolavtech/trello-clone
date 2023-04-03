@@ -10,7 +10,7 @@ type Props = {
 
 const SubmitButton: FC<Props> = ({ onClick, isLoading }) => {
   return (
-    <Button loading={isLoading} disabled={isLoading} width="49px" height="23px" variant="submit" type="submit" onClick={onClick}>
+    <Button isLoading={isLoading} disabled={isLoading} width="49px" height="23px" variant="submit" type="submit" onClick={onClick}>
       <Text fontSize={10} fontFamily={FontFamily.NotoSans} fontWeight={500} color="white">
         Save
       </Text>

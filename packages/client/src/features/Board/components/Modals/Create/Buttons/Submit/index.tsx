@@ -7,7 +7,7 @@ const SubmitButton = () => {
   const { isLoading } = useCreateBoardContext();
 
   return (
-    <Button height="30px" width="76px" loading={isLoading} disabled={isLoading} type="submit" variant="primary" style={{ gap: 11 }}>
+    <Button height="30px" width="76px" isLoading={isLoading} disabled={isLoading} type="submit" variant="primary" style={{ gap: 11 }}>
       <Icon as={AiOutlinePlus} fontSize={14} color="white" />
       <Text color="white" fontWeight={500} fontSize={10}>
         Create

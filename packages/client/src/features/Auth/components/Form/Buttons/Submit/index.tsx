@@ -11,7 +11,7 @@ type Props = {
 
 const SubmitButton: FC<Props> = ({ content, loading = false, disabled = false }) => {
   return (
-    <Button fontFamily={FontFamily.Poppins} type="submit" py={4} width="full" variant="primary" loading={loading} disabled={disabled}>
+    <Button fontFamily={FontFamily.Poppins} type="submit" py={4} width="full" variant="primary" isLoading={loading} disabled={disabled}>
       <Text fontWeight={500} fontSize={16}>
         {content}
       </Text>

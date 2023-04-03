@@ -11,7 +11,7 @@ type Props = {
 
 const SubmitButton: FC<Props> = ({ isLoading, disabled, onSubmit }) => {
   return (
-    <Button loading={isLoading} disabled={disabled} width="full" height="32px" variant="submit" type="submit" onClick={onSubmit}>
+    <Button isLoading={isLoading} disabled={disabled} width="full" height="32px" variant="submit" type="submit" onClick={onSubmit}>
       <Text fontSize={12} fontFamily={FontFamily.NotoSans} fontWeight={500} color="white">
         Save
       </Text>

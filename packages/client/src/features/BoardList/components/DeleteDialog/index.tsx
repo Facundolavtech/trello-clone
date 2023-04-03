@@ -25,7 +25,7 @@ const DeleteListDialog: FC<Props> = ({ listId, disclosure }) => {
       isOpen={disclosure.isOpen}
       onClose={disclosure.onClose}
       actionButton={
-        <Button variant="delete" height="32px" onClick={handleDeleteList} loading={deleteMutation.isLoading} disabled={deleteMutation.isLoading}>
+        <Button variant="delete" height="32px" onClick={handleDeleteList} isLoading={deleteMutation.isLoading} disabled={deleteMutation.isLoading}>
           <Text fontSize={12} color="white" fontWeight={500}>
             Delete
           </Text>

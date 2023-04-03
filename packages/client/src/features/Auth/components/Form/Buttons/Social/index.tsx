@@ -24,7 +24,7 @@ const SocialProviderButton: FC<Props> = ({ icon, bg, content, onClick, loading =
       px={0.5}
       style={{ backgroundColor: bg, borderRadius: 8 }}
       onClick={onClick}
-      loading={loading}
+      isLoading={loading}
       disabled={disabled}
     >
       <Box width="45px" height="full" borderRadius={6} bg="#fff" display="flex" alignItems="center" justifyContent="center">
