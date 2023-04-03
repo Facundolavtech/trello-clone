@@ -30,9 +30,7 @@ const Menu = () => {
             </Text>
           </VStack>
           <Divider orientation="horizontal" width="full" borderColor="rgba(0,0,0,0.1)" my={4} />
-          <VStack>
-            <MenuItems />
-          </VStack>
+          <MenuItems />
         </MenuList>
       </ChakraMenu>
     );
