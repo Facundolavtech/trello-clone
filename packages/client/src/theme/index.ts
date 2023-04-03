@@ -11,7 +11,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: '#F8F9FD',
+        bg: 'white',
       },
       a: {
         _hover: {
@@ -22,6 +22,7 @@ const theme = extendTheme({
     },
   },
   colors: {
+    body: '#F8F9FD',
     blue: {
       1: '#2F80ED',
       2: '#DAE4FD',
