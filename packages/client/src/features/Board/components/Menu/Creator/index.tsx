@@ -21,7 +21,7 @@ const Creator: FC<Props> = ({ creator, createdAt }) => {
         </Text>
       </HStack>
       <HStack spacing="13px">
-        <Avatar name={creator.name} src={creator.picture} style={{ background: creator.picture ? 'transparent' : '#C4C4C4' }} />
+        <Avatar width="32px" height="32px" name={creator.name} src={creator.picture || ''} bg={creator.picture ? 'transparent' : '#C4C4C4'} />
         <VStack spacing="2px" alignItems="flex-start">
           <Text color="gray.1" fontWeight={600} fontSize={12}>
             {creator.name}

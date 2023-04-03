@@ -48,7 +48,7 @@ const CommentsForm = () => {
       }}
     >
       <HStack alignItems="flex-start" spacing="15px" width="full" justifyContent="flex-start">
-        <Avatar src={user.picture} width="28px" height="28px" name={user.name} />
+        <Avatar src={user.picture || ''} width="28px" height="28px" name={user.name} />
         <VStack width="full" alignItems="flex-start">
           <CommentTextarea value={formik.values.content} onChange={formik.handleChange} />
           {formik.errors.content && <FormErrorMessage>{formik.errors.content}</FormErrorMessage>}

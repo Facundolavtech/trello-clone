@@ -13,7 +13,7 @@ type Props = {
 const Information: FC<Props> = ({ author, createdDate }) => {
   return (
     <HStack width="full" spacing="12px" alignItems="center">
-      <Avatar src={author.user.picture} name={author.user.name} width="32px" height="32px" />
+      <Avatar src={author.user.picture || ''} name={author.user.name} width="32px" height="32px" />
       <VStack spacing="1px" alignItems="flex-start">
         <Text fontSize={12} fontWeight={500}>
           {author.user.name}

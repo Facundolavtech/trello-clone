@@ -18,7 +18,7 @@ const Team: FC<Props> = ({ admin, members, canDeleteMembers }) => {
       <VStack width="full" spacing="20px">
         <HStack width="full" justifyContent="space-between">
           <HStack spacing="17px">
-            <Avatar src={admin.picture} style={{ background: admin.picture ? 'transparent' : '#C4C4C4' }} name={admin.name} />
+            <Avatar width="32px" height="32px" src={admin.picture || ''} bg={admin.picture ? 'transparent' : '#C4C4C4'} name={admin.name} />
             <Text color="gray.1" fontWeight={600} fontSize={12}>
               {admin.name}
             </Text>

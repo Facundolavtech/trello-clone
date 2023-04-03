@@ -34,7 +34,7 @@ const NeedMember: FC<Props> = ({ error }) => {
             Admin
           </Heading>
           <HStack spacing={4}>
-            <Avatar width="42px" height="42px" src={admin.picture} name={admin.name} />
+            <Avatar width="42px" height="42px" src={admin.picture || ''} name={admin.name} />
             <Text color="gray.3" fontSize={14}>
               {admin.name}
             </Text>

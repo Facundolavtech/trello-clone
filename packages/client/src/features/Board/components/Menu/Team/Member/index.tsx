@@ -24,7 +24,7 @@ const Member = ({ member, admin, canDelete }: Props) => {
     <HStack width="full" justifyContent="space-between" key={member.id}>
       <DeleteBoardMemberDialog userId={selectedMemberId} disclosure={deleteMemberDisclosure} />
       <HStack spacing="17px">
-        <Avatar src={member.user.picture} style={{ background: admin.picture ? 'transparent' : '#C4C4C4' }} name={member.user.name} />
+        <Avatar width="32px" height="32px" src={member.user.picture || ''} bg={admin.picture ? 'transparent' : '#C4C4C4'} name={member.user.name} />
         <Text color="gray.1" fontWeight={600} fontSize={12}>
           {member.user.name}
         </Text>

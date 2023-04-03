@@ -13,7 +13,7 @@ const MenuButton = () => {
     <ChakraMenuButton transition="all 0.2s">
       <HStack spacing="20px" alignItems="center">
         <HStack spacing="11px">
-          <Avatar name={user.name} src={user.picture} />
+          <Avatar name={user.name} src={user.picture || ''} width="32px" height="32px" />
           <Text color="gray.1" fontSize={12} fontWeight={700} fontFamily={FontFamily.NotoSans}>
             {user.name}
           </Text>

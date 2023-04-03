@@ -1,29 +1,29 @@
 import { CSSProperties, FC } from 'react';
-import { Box, Tooltip, Text } from '@chakra-ui/react';
+import { Box, Tooltip, Text, AvatarProps } from '@chakra-ui/react';
 import { FontFamily } from 'theme/constants';
-import Avatar, { AvatarWithRef } from 'components/Avatar';
+import Avatar from 'components/Avatar';
 import { IBoardMember } from 'models/board.model';
 
 type Props = {
   members: IBoardMember[];
   maxMembers?: number;
-  avatarStyles?: CSSProperties;
+  avatarProps: AvatarProps;
   lastBoxStyles?: CSSProperties;
   useTooltip?: boolean;
 };
 
-const MemberList: FC<Props> = ({ members, maxMembers = 4, avatarStyles = {}, lastBoxStyles = {}, useTooltip = true }) => {
+const MemberList: FC<Props> = ({ members, maxMembers = 4, avatarProps = {}, lastBoxStyles = {}, useTooltip = true }) => {
   return (
     <>
       {members.slice(0, maxMembers).map((member) =>
         useTooltip ? (
-          <Tooltip key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
+          <Tooltip closeOnClick key={member.id} label={member.user.name} aria-label="A tooltip" hasArrow bg="gray.4" color="white" fontWeight={400} placement="top">
             <Box>
-              <AvatarWithRef src={member.user.picture} name={member.user.name} style={avatarStyles} />
+              <Avatar {...avatarProps} src={member.user.picture || ''} name={member.user.name} />
             </Box>
           </Tooltip>
         ) : (
-          <Avatar key={member.id} src={member.user.picture} name={member.user.name} style={avatarStyles} />
+          <Avatar width={avatarProps.width} height={avatarProps.height} key={member.id} src={member.user.picture || ''} name={member.user.name} />
         )
       )}
       {members.length > maxMembers && (
