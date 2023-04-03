@@ -32,7 +32,7 @@ const Header = () => {
     >
       <WrappedContainer styles={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box gap="40px" display="flex" height="full">
-          <Logo src="/assets/svg/logo.svg" width="32px" height="29px">
+          <Logo width="32px" height="29px">
             <Heading as="h1" color="gray.1" fontSize={18} fontWeight={600} fontFamily={FontFamily.Poppins}>
               Thullo
             </Heading>
