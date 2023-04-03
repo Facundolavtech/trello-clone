@@ -1,17 +1,11 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
-import useBoard from 'features/Board/hooks/useBoard';
-import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 type Props = {
   children: ReactNode;
 };
 
 const BoardCanvas: FC<Props> = ({ children }) => {
-  const boardId = useBoardIdFromRoute();
-
-  const { data: board } = useBoard({ id: boardId });
-
   return (
     <Box
       display="flex"
@@ -20,13 +14,12 @@ const BoardCanvas: FC<Props> = ({ children }) => {
       position="relative"
       overflowX="scroll"
       overflowY="hidden"
-      height={board ? 480 : 'auto'}
+      height={480}
       alignItems="flex-start"
-      backdropFilter="blur(10px)"
-      borderRadius="8px"
+      borderRadius="35px"
       as="section"
       padding={8}
-      backgroundColor={board ? 'rgba(248, 248, 248, 0.7)' : 'none'}
+      backgroundColor="#F8F9FD"
       className="custom__scrollbar"
     >
       {children}
