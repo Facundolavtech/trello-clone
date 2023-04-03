@@ -33,7 +33,7 @@ const AlertDialog: FC<Props> = ({ isOpen, onClose, title, subtitle, actionButton
           {subtitle}
         </AlertDialogBody>
         <AlertDialogFooter display="flex" justifyContent="flex-end" alignItems="center" gap={4}>
-          <Button variant="link" ref={cancelRef} onClick={onClose}>
+          <Button variant="link" onClick={onClose}>
             <Text fontSize={12} color="gray.3" fontWeight={500}>
               Cancel
             </Text>
