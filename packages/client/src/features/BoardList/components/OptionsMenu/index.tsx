@@ -1,7 +1,6 @@
-import { Box, HStack, Icon, Menu as ChakraMenu, MenuButton as ChakraMenuButton, MenuList as ChakraMenuList, useDisclosure } from '@chakra-ui/react';
+import { HStack, Menu as ChakraMenu, MenuList as ChakraMenuList, useDisclosure } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
 import { FC } from 'react';
-import { MdMoreHoriz } from 'react-icons/md';
 import { IBoardList } from 'models/board-list.model';
 import DeleteListDialog from 'features/BoardList/components/DeleteDialog';
 import UpdateListModal from 'features/BoardList/components/Modals/Update';
