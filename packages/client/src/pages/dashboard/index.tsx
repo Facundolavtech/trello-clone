@@ -1,32 +1,29 @@
-import { Heading, HStack, VStack } from '@chakra-ui/react';
+import { Heading, HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import NiceModal from '@ebay/nice-modal-react';
-import { NextPage } from 'next';
-import AddButton from 'components/Buttons/Add';
 import WrappedContainer from 'components/Containers/Wrapped';
 import SEO from 'components/SEO';
 import BoardList from 'features/Board/components/BoardList';
 import CreateBoardModal from 'features/Board/components/Modals/Create';
 import DashboardLayout from 'layout/Dashboard';
+import Button from 'components/Button';
+import { AiOutlinePlus } from 'react-icons/ai';
 
-const Dashboard: NextPage = () => {
+const DashboardPage = () => {
   return (
     <DashboardLayout>
-      <SEO title="Dashboard" />
       <WrappedContainer>
+        <SEO title="Dashboard" />
         <VStack spacing="40px" my="60px" width="full">
           <HStack width="full" justifyContent="space-between" as="section">
             <Heading fontWeight={500} fontSize={18} color="gray.1">
               All boards
             </Heading>
-            <AddButton
-              label="Add"
-              width="64px"
-              height="30px"
-              styles={{ gap: 4 }}
-              iconStyles={{ fontSize: 10 }}
-              onClick={() => NiceModal.show(CreateBoardModal)}
-              labelStyles={{ fontSize: 10, fontWeight: 500 }}
-            />
+            <Button variant="primary" width="64px" height="30px" gap="4px" onClick={() => NiceModal.show(CreateBoardModal)}>
+              <Icon as={AiOutlinePlus} color="white" fontSize={10} />
+              <Text fontSize={10} fontWeight={500}>
+                Add
+              </Text>
+            </Button>
           </HStack>
           <BoardList />
         </VStack>
@@ -35,4 +32,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
