@@ -22,7 +22,7 @@ const AuthCard: FC<Props> = ({ formType = 'login', form }) => {
     <Box padding={8} width="full" maxWidth={400} bg="white" borderRadius={8}>
       <VStack spacing={8} width="full" alignItems="flex-start">
         <Center width="full">
-          <Logo width="64px" height="64px" withTitle={false} />
+          <Logo width="64px" height="64px" />
         </Center>
         <AuthTitle title={formType === 'login' ? 'Login' : 'Register'} />
         <VStack justifyContent="flex-start" width="full" spacing={4}>
