@@ -34,8 +34,8 @@ const Members = () => {
           title="Members"
           subtitle="Assign members to this card"
           openButton={
-            <MenuButton width="full">
-              <Button bg="blue.2" gap="16.81px" variant="primary" width="full" height="32px">
+            <MenuButton width="full" aria-label="Open assign members menu button">
+              <Button as="div" bg="blue.2" gap="16.81px" variant="primary" width="full" height="32px">
                 <Text color="blue.1" fontSize={12} fontWeight={500} fontFamily={FontFamily.NotoSans}>
                   Assign a member
                 </Text>

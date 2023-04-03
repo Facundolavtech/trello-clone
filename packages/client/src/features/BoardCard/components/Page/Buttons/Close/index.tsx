@@ -15,6 +15,7 @@ const CloseButton: FC<Props> = ({ onClick }) => {
       style={{ position: 'absolute', top: '9px', right: '16px', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)', zIndex: 99 }}
       width="32px"
       height="32px"
+      aria-label="Close modal button"
     >
       <Icon as={MdOutlineClose} color="white" fontSize={22} />
     </Button>

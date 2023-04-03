@@ -9,7 +9,7 @@ type Props = {
 
 const CloseModalButton: FC<Props> = ({ onClick }) => {
   return (
-    <Button variant="primary" zIndex={999} width="32px" height="32px" position="absolute" right="11px" top="11px" onClick={onClick}>
+    <Button variant="primary" zIndex={999} width="32px" height="32px" position="absolute" right="11px" top="11px" onClick={onClick} aria-label="Close modal button">
       <Icon as={MdOutlineClose} color="white" fontSize={22} />
     </Button>
   );
