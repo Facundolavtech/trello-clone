@@ -7,24 +7,10 @@ import Lists from 'features/BoardList/components/Lists';
 import BoardMenu from 'features/Board/components/Menu';
 import BoardCanvas from 'features/Board/components/Canvas';
 import BoardContextWrapper from 'features/Board/context/board';
-import useBoard from 'features/Board/hooks/useBoard';
-import useBoardIdFromRoute from 'features/Board/hooks/useBoardIdFromRoute';
 
 const BoardPage = () => {
-  const boardId = useBoardIdFromRoute();
-
-  const { data: board } = useBoard({ id: boardId });
-
   return (
     <BoardContextWrapper>
-      <style jsx global>{`
-        body {
-          background-image: url(${board?.cover});
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-attachment: fixed;
-        }
-      `}</style>
       <BoardLayout>
         <BoardMenu />
         <Stack width="full" mt="35px">
