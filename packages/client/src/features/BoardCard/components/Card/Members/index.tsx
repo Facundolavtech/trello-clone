@@ -16,7 +16,7 @@ const Members: FC<Props> = ({ members }) => {
         <MemberList
           members={members}
           maxMembers={2}
-          avatarStyles={{ width: '28px', height: '28px' }}
+          avatarProps={{ width: '28px', height: '28px' }}
           useTooltip={false}
           lastBoxStyles={{ width: '28px', height: '28px' }}
         />

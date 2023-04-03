@@ -12,7 +12,7 @@ const BoardCardMembers: FC<Props> = ({ members }) => {
     <HStack spacing="12px" width="full" alignItems="center">
       <MemberList
         members={members}
-        avatarStyles={{ width: '28px', height: '28px' }}
+        avatarProps={{ width: '28px', height: '28px' }}
         lastBoxStyles={{ width: '28px', height: '28px' }}
         useTooltip={false}
         maxMembers={3}
